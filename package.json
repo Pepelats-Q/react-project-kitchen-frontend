@@ -1,0 +1,48 @@
+{
+  "name": "react-redux-realworld-example-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {  
+    "@babel/eslint-parser": "^7.18.2",  
+    "cross-env": "^7.0.3",    
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "react-scripts": "^5.0.1"  
+  },
+  "dependencies": {    
+    "@redux-devtools/extension": "^3.2.2",
+    "connected-react-router": "^6.9.2",    
+    "history": "^4.7.2",
+    "marked": "^4.0.17",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.8",
+    "react-router": "^5.3.3",
+    "react-router-dom": "^5.3.3",
+    "redux": "^4.2.0",
+    "redux-logger": "^3.0.6",
+    "superagent": "^8.0.0",
+    "superagent-promise": "^1.1.0"
+  },
+  "scripts": {
+    "start": "cross-env PORT=4100 react-scripts start",    
+    "build": "react-scripts build",
+    "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "npx eslint ."
+  
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
