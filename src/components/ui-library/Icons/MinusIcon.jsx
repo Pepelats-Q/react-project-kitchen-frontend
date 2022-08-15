@@ -12,27 +12,27 @@ const MinusIcon = ({ onClick, size = 'default', color = 'primary', className = '
 
   return (
     <IconWrapper
-      size={icon.size}
-      color={icon.color}
       className={icon.className}
-      onClick={icon.onClick}
+      color={icon.color}
+      handleClick={icon.onClick}
+      size={icon.size}
     >
       <path
         d='M5 12H19'
         stroke={icon.color}
-        strokeWidth='2'
         strokeLinecap='round'
         strokeLinejoin='round'
+        strokeWidth='2'
       />
     </IconWrapper>
   );
 };
 
 MinusIcon.propTypes = {
-  size: PropTypes.string,
-  color: PropTypes.string,
   className: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 export default MinusIcon;

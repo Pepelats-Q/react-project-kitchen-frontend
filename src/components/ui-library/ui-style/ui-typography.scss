@@ -1,0 +1,65 @@
+@import './ui-style.scss';
+
+.text-default,
+.text-link,
+.text-caption {
+  font-family: 'JetBrains Mono', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+}
+.text-default {
+  font-size: 16px;
+  line-height: 24px;
+}
+.text-link {
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration-line: underline;
+}
+.text-caption {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header-h1,
+.header-h2,
+.header-headline {
+  font-family: 'Exo 2', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.header-h1 {
+  font-size: 64px;
+  line-height: 64px;
+}
+
+.header-h2 {
+  font-size: 36px;
+  line-height: 40px;
+}
+
+.header-headline {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.color-primary {
+  color: $color-primary;
+}
+
+.color-secondary {
+  color: $color-secondary;
+}
+
+.color-alert {
+  color: $color-alert;
+}
+
+.color-accent {
+  color: $color-accent;
+}

@@ -1,0 +1,44 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+.wrapper {
+  background-color: $color-bg;
+  padding: 56px 0;
+}
+
+.content {
+  margin: 0 auto;
+  width: 540px;
+}
+
+.title{
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.submit_button {
+  align-self: flex-end;
+  margin-top: 28px;
+}
+
+.tag_list{
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 8px 12px;
+  gap: 4px;
+}
+
+.tag{
+  @include text-default;
+  background-color: $color-input;
+  border-radius: 12px;
+  color: $color-primary;
+  display: flex;
+  padding-left: 8px;
+  padding-right: 4px;
+  column-gap: 2px;
+}

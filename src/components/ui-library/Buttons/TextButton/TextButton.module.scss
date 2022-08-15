@@ -1,0 +1,60 @@
+@import '../../ui-style/ui-style.scss';
+
+$animation_time: 0.5s;
+
+.text_button {
+  @include text-default;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-left: 0;
+  border-right: 0;
+  display: block;
+  line-height: 20px;
+  padding: 0;
+  transition: border $animation_time, color $animation_time;
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    transition: border $animation_time;
+  }
+  &:active {
+    transition: border $animation_time, color $animation_time;
+  }
+}
+
+.accent{
+  color: $color-accent;
+  &:focus-visible{
+    border-bottom-color: $color-accent;
+  }
+  &:hover {
+    color: $color-accent;
+    border-bottom-color: $color-accent;
+  }
+  &:active {
+    color: $color-accent-light;
+    border-bottom-color: $color-accent-light;
+  }
+  &:disabled {
+    color: $color-secondary;
+  }
+}
+
+.alert{
+  color: $color-alert;
+  &:focus-visible{
+    border-bottom-color: $color-alert;
+  }
+  &:hover {
+    color: $color-alert;
+    border-bottom-color: $color-alert;
+  }
+  &:active {
+    color: lighten($color-alert,20%);
+    border-bottom-color: lighten($color-alert,20%);
+  }
+  &:disabled {
+    color: $color-secondary;
+  }
+}

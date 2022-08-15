@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import ListErrors from '../ListErrors/ListErrors';
 import styles from './authForm.module.scss';
-import Button from '../ui-library/Buttons/Button';
+import Button from '../ui-library/Buttons/Button/Button';
 
 const AuthForm = ({
   btnText,

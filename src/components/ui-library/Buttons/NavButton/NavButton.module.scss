@@ -1,0 +1,72 @@
+@import '../../ui-style/ui-style.scss';
+
+$animation_time: 0.5s;
+
+.button {
+  @include text-default;
+  border: 0;
+  outline: 0;
+  border-radius: 20px;
+  height: 40px;
+  padding: 0px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  & > span {
+    flex: 1;
+    white-space: nowrap;
+  }
+  &:focus {
+    outline: 0px;
+  }
+}
+
+.navigation {
+  color: $color-secondary;
+  background-color: transparent;
+  transition: background-color $animation_time, color $animation_time;
+  & svg > path {
+    stroke: $color-secondary;
+    transition: stroke $animation_time;
+  }
+  &:hover {
+    color: $color-primary;
+    text-decoration: none;
+    background-color: $color-white10;
+    transition: background-color $animation_time, color $animation_time;
+    & svg > path {
+      stroke: $color-primary;
+      transition: stroke $animation_time;
+    }
+  }
+  &:focus {
+    text-decoration: none;
+    color: $color-secondary;
+  }
+  &:focus-visible{
+    outline: 2px solid $color-secondary;
+  }
+  &:active {
+    color: $color-primary;
+    background-color: $color-white10;
+  }
+  &:disabled {
+    color: $color-secondary;
+    background-color: transparent;
+  }
+  &_active {
+    color: $color-primary;
+    text-decoration: none;
+    cursor: default;
+    & svg > path {
+      stroke: $color-primary;
+    }
+    &:hover {
+      background-color: transparent;
+    }
+    &:visited {
+      color: $color-primary;
+    }
+  }
+}

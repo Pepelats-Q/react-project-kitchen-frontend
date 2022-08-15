@@ -1,11 +1,8 @@
-
 import PropTypes from 'prop-types';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const EditIcon = ({
-  onClick, size = 'default', color = 'primary', className = '',
-}) => {
+const EditIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -17,7 +14,7 @@ const EditIcon = ({
     <IconWrapper
       className={icon.className}
       color={icon.color}
-      onClick={icon.onClick}
+      handleClick={icon.onClick}
       size={icon.size}
     >
       <path
@@ -39,10 +36,10 @@ const EditIcon = ({
 };
 
 EditIcon.propTypes = {
-  size: PropTypes.string,
-  color: PropTypes.string,
   className: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 export default EditIcon;

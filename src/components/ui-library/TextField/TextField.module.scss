@@ -1,0 +1,68 @@
+@import '../ui-style/ui-style.scss';
+
+.wrapper {
+  @include text-default;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.label {
+  color: $color-primary;
+  margin-bottom: 4px;
+  max-width: 100%;
+  padding: 0 16px;
+}
+
+.textfield {
+  align-items: center;
+  background-color: $color-input;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
+  color: $color-secondary;
+  column-gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  width: 100%;
+  &_focus {
+    border-color: $color-accent;
+    outline: 0;
+    color: $color-primary;
+  }
+  &_error {
+    border-color: $color-alert;
+  }
+  &_success {
+    border-color: $color-success;
+  }
+}
+
+.input {
+  background-color: transparent;
+  border: 0px;
+  height: 100%;
+  text-overflow: ellipsis;
+  width: 100%;
+  &:focus {
+    color: $color-primary;
+    outline: 0;
+  }
+  &::placeholder {
+    color: $color-white20;
+  }
+}
+
+.text {
+  color: $color-primary;
+  margin-top: 8px;
+  margin-bottom: 0;
+  max-width: 100%;
+  padding: 0 16px;
+  &_error {
+    color: $color-alert;
+  }
+  &_success {
+    color: $color-success;
+  }
+}

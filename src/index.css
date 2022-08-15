@@ -1,16 +1,20 @@
 @import url('./vendor/fonts/fonts.css');
 
 html {
-    height: 100%;
-    padding-bottom: 0;
+  height: 100%;
+  padding-bottom: 0;
+}
+
+*{
+  font-family: sans-serif;
 }
 
 :root {
-    --accent-color: #3333FF;
-    --bg-color: #131316;
-    --text-white: #F2F2F3;
-    --text-gray: #8585AD;
-    --bg-secondary: #1C1C21;
-    --bg-input: #2F2F37;
-    --container-width: 1140px;
+  --accent-color: #3333ff;
+  --bg-color: #131316;
+  --text-white: #f2f2f3;
+  --text-gray: #8585ad;
+  --bg-secondary: #1c1c21;
+  --bg-input: #2f2f37;
+  --container-width: 1140px;
 }

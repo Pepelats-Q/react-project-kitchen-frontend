@@ -1,0 +1,78 @@
+@import '../../ui-style/ui-style.scss';
+
+$animation_time: 0.5s;
+
+.button {
+  @include text-default;
+  border: 0;
+  outline: 0;
+  border-radius: 20px;
+  height: 40px;
+  padding: 0px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  & > span {
+    flex: 1;
+    white-space: nowrap;
+  }
+  &:focus {
+    outline: 0px;
+  }
+}
+
+.primary {
+  border: 2px solid transparent;
+  color: $color-primary;
+  background-color: $color-accent;
+  transition: background-color $animation_time, color $animation_time;
+  & svg > path {
+    stroke: $color-primary;
+    transition: stroke $animation_time;
+  }
+  &:hover {
+    background-color: $color-accent-dark;
+    transition: background-color $animation_time, color $animation_time;
+  }
+  &:focus-visible {
+    border: 2px solid $color-primary;
+  }
+  &:active {
+    background-color: $color-accent-light;
+  }
+  &:disabled {
+    color: $color-secondary;
+    background-color: $color-disabled;
+  }
+}
+
+.outline_alert {
+  color: $color-alert;
+  background-color: transparent;
+  border: 2px solid $color-alert;
+  transition: background-color $animation_time, color $animation_time, border $animation_time;
+  & svg > path {
+    stroke: $color-alert;
+    transition: stroke $animation_time;
+  }
+  &:focus-visible {
+    border: 2px solid lighten($color-alert, 20%);
+  }
+  &:hover {
+    color: $color-primary;
+    background-color: $color-alert;
+    border: 2px solid $color-alert;
+    transition: background-color $animation_time, color $animation_time, border $animation_time;
+    & svg > path {
+      stroke: $color-primary;
+      transition: stroke $animation_time;
+    }
+  }
+  &:active {
+    color: $color-primary;
+    border: 2px solid darken($color-alert, 20%);
+    background-color: darken($color-alert, 20%);
+    transition: background-color $animation_time, color $animation_time, border $animation_time;
+  }
+}

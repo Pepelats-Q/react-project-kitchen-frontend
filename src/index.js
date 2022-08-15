@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import './index.css';
+import './components/ui-library/ui-style/ui-typography.scss';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import store from './store';
@@ -13,7 +14,7 @@ ReactDOM.render(
     <BrowserRouter>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route path='/' component={App} />
+          <Route component={App} path='/' />
         </Switch>
       </ConnectedRouter>
     </BrowserRouter>

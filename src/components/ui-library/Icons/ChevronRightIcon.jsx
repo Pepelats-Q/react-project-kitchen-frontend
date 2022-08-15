@@ -14,7 +14,7 @@ const ChevronRightIcon = ({ onClick, size = 'default', color = 'primary', classN
     <IconWrapper
       className={icon.className}
       color={icon.color}
-      onClick={icon.onClick}
+      handleClick={icon.onClick}
       size={icon.size}
     >
       <path
@@ -36,10 +36,10 @@ const ChevronRightIcon = ({ onClick, size = 'default', color = 'primary', classN
 };
 
 ChevronRightIcon.propTypes = {
-  size: PropTypes.string,
-  color: PropTypes.string,
   className: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 export default ChevronRightIcon;

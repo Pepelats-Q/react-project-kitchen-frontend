@@ -1,0 +1,36 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+.wrapper {
+  background-color: $color-bg;
+  padding: 56px 0;
+}
+
+.content {
+  margin: 0 auto;
+  width: 540px;
+}
+
+.title{
+  margin-bottom: 40px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.submit_button {
+  align-self: flex-end;
+  margin-top: 28px;
+}
+
+.divider {
+  background-color: #2f2f37;
+  margin: 40px 0;
+  width: 100%;
+}
+
+.exit_button{
+  margin: 0 auto;
+}

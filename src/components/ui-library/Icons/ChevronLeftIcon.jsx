@@ -12,34 +12,34 @@ const ChevronLeftIcon = ({ onClick, size = 'default', color = 'primary', classNa
 
   return (
     <IconWrapper
-      size={icon.size}
-      color={icon.color}
       className={icon.className}
-      onClick={icon.onClick}
+      color={icon.color}
+      handleClick={icon.onClick}
+      size={icon.size}
     >
       <path
         d='M11 17L6 12L11 7'
         stroke={icon.color}
-        strokeWidth='2'
         strokeLinecap='round'
         strokeLinejoin='round'
+        strokeWidth='2'
       />
       <path
         d='M18 17L13 12L18 7'
         stroke={icon.color}
-        strokeWidth='2'
         strokeLinecap='round'
         strokeLinejoin='round'
+        strokeWidth='2'
       />
     </IconWrapper>
   );
 };
 
 ChevronLeftIcon.propTypes = {
-  size: PropTypes.string,
-  color: PropTypes.string,
   className: PropTypes.string,
+  color: PropTypes.string,
   onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 export default ChevronLeftIcon;
