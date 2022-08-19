@@ -6,6 +6,7 @@ module.exports = {
   },
   extends: [
     'airbnb',
+    'airbnb-typescript',
     'prettier',
     'eslint:recommended',
     'plugin:react/recommended',
@@ -16,6 +17,7 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    project: ['./tsconfig.json'],
     ecmaFeatures: {
       jsx: true,
     },
@@ -24,7 +26,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.jsx', '*.js'],
+      files: ['*.jsx', '*.js', '*.tsx', '*.ts'],
     },
   ],
   plugins: ['react', 'prettier', '@typescript-eslint'],
@@ -39,28 +41,28 @@ module.exports = {
     'linebreak-style': 'off',
 
     // React
-    'react/require-default-props': 'off', // предлагаю дефолты прописывать в объявлении
+    'react/destructuring-assignment': 'warn',
     'react/forbid-prop-types': 'warn',
-    'react/prop-types': 'warn',
+    'react/function-component-definition': ['warn', { namedComponents: 'arrow-function' }], // пишем в виде стрелочных функций
+    'react-hooks/exhaustive-deps': 'off', // На useEffect без зависимостей ругается.
     'react/no-multi-comp': ['error', { ignoreStateless: true }],
     'react/no-set-state': 'warn',
     'react/no-string-refs': 'error',
     'react/prefer-es6-class': 'error',
     'react/prefer-stateless-function': 'error',
+    'react/require-default-props': 'off', // предлагаю дефолты прописывать в объявлении
     'react/require-render-return': 'error',
+    'react/prop-types': 'warn',
     'react/self-closing-comp': 'error',
     'react/sort-comp': 'warn',
-    'react/destructuring-assignment': 'warn',
     'react/sort-prop-types': 'warn',
-    'react/function-component-definition': ['warn', { namedComponents: 'arrow-function' }], // пишем в виде стрелочных функций
-    'react-hooks/exhaustive-deps': 'off', // На useEffect без зависимостей ругается.
 
     // JSX
     'react/jsx-boolean-value': 'warn', // тут с error на warn
     'react/jsx-closing-bracket-location': 'error',
     'react/jsx-equals-spacing': 'error',
     'react/jsx-first-prop-new-line': 'error',
-    'react/jsx-filename-extension': 'warn',
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     'react/jsx-handler-names': 'warn',
     'react/jsx-indent-props': ['error', 2],
     'react/jsx-indent': ['error', 2],
@@ -71,7 +73,10 @@ module.exports = {
     'react/jsx-no-target-blank': 'error',
     'react/jsx-pascal-case': 'error',
     'react/jsx-sort-props': 'warn',
-    'react/jsx-space-before-closing': 'error',
+    'react/jsx-tag-spacing': 'error',
+
+    // TypeScript
+    '@typescript-eslint/default-param-last': 'warn',
 
     // переменные
     camelcase: 'warn', // переменные в css - по БЭМ с нижн. подчеркиванием. Но линт ругается. поэтому поставила warn
