@@ -23,12 +23,12 @@ const Header = ({ appName, currentUser }) => {
     <>
       <nav className={`navbar navbar-light ${styles.container}`}>
         <div className={`container ${styles.header}`}>
-          <Link to='/' className={styles.navLogo}>
+          <Link className={styles.navLogo} to='/'>
             {appName}
           </Link>
 
           <ul className={`nav navbar-nav pull-xs-right ${styles.nav}`}>{currentNav}</ul>
-          <button onClick={toggleMobileMenu} className={styles.button_type_mobile} type='button'>
+          <button className={styles.button_type_mobile} onClick={toggleMobileMenu} type='button'>
             <MenuIcon />
           </button>
         </div>

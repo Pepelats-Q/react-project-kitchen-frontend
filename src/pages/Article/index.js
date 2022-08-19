@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { marked } from 'marked';
 import ArticleMeta from './ArticleMeta';
 import CommentContainer from './CommentContainer';
-import agent from '../../../agent';
+import agent from '../../agent';
 import {
   ARTICLE_PAGE_LOADED,
   ARTICLE_PAGE_UNLOADED,
-} from '../../../constants/actionTypes';
+} from '../../constants/actionTypes';
 
 const mapStateToProps = (state) => ({
   ...state.article,
@@ -70,8 +70,8 @@ class Article extends React.Component {
               <ul className='tag-list'>
                 {this.props.article.tagList.map((tag) => (
                   <li
-                    className='tag-default tag-pill tag-outline'
                     key={tag}
+                    className='tag-default tag-pill tag-outline'
                   >
                     {tag}
                   </li>
@@ -87,9 +87,9 @@ class Article extends React.Component {
           <div className='row'>
             <CommentContainer
               comments={this.props.comments || []}
+              currentUser={this.props.currentUser}
               errors={this.props.commentErrors}
               slug={this.props.match.params.id}
-              currentUser={this.props.currentUser}
             />
           </div>
         </div>

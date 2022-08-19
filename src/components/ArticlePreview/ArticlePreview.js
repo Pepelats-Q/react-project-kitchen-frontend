@@ -44,11 +44,11 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
         </div>
         <div className={`${styles.col} ${styles.w100}`}>
           <div className={styles.article_meta}>
-            <Link to={`/@${article.author.username}`} className={styles.avatar}>
+            <Link className={styles.avatar} to={`/@${article.author.username}`}>
               {article.author.image === defaultAvatar ? (
-                <img src={avatar} alt={article.author.username} />
+                <img alt={article.author.username} src={avatar} />
               ) : (
-                <img src={article.author.image} alt={article.author.username} />
+                <img alt={article.author.username} src={article.author.image} />
               )}
             </Link>
 
@@ -67,20 +67,20 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
             </div>
 
             <div className={styles.pull_xs_right}>
-              <button type='button' className={favoriteButtonClass} onClick={handleClick}>
+              <button className={favoriteButtonClass} onClick={handleClick} type='button'>
                 {article.favoritesCount}
                 <i className='ion-heart offset-sm-6' />
               </button>
             </div>
           </div>
 
-          <Link to={`/article/${article.slug}`} className='preview-link'>
+          <Link className='preview-link' to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
             <p className={styles.text}>{article.description}</p>
             <span className={styles.continue}>Читать продолжение...</span>
             <ul className={styles.tag_list}>
               {article.tagList.map((tag) => (
-                <li className={styles.tag_default} key={tag}>
+                <li key={tag} className={styles.tag_default}>
                   {tag}
                 </li>
               ))}

@@ -5,16 +5,16 @@ import { push } from 'connected-react-router';
 import agent from '../../agent';
 import Header from '../Header/Header';
 import { APP_LOAD, REDIRECT } from '../../constants/actionTypes';
-import Article from '../Pages/Article';
+import Article from '../../pages/Article';
 import Editor from '../Editor/Editor';
-import Home from '../Pages/Home';
-import Login from '../Pages/Login/Login';
-import Profile from '../Profile/Profile';
-import ProfileFavorites from '../ProfileFavorites/ProfileFavorites';
-import Register from '../Pages/Register/Register';
+import Home from '../../pages/Home';
+import Login from '../../pages/Login/Login';
+import Profile from '../../pages/Profile/Profile';
+import ProfileFavorites from '../../pages/Profile/ProfileFavorites';
+import Register from '../../pages/Register/Register';
 import Settings from '../Settings/Settings';
 import store from '../../store';
-import UI from '../Pages/UI/UI';
+import UI from '../../pages/UI/UI';
 
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
@@ -59,16 +59,16 @@ class App extends React.Component {
           <Header appName={this.props.appName} currentUser={this.props.currentUser} />
 
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/login' component={Login} />
-            <Route path='/register' component={Register} />
-            <Route path='/editor/:slug' component={Editor} />
-            <Route path='/editor' component={Editor} />
-            <Route path='/article/:id' component={Article} />
-            <Route path='/settings' component={Settings} />
-            <Route path='/@:username/favorites' component={ProfileFavorites} />
-            <Route path='/@:username' component={Profile} />
-            <Route path='/ui' component={UI} />
+            <Route component={Home} exact path='/' />
+            <Route component={Login} path='/login' />
+            <Route component={Register} path='/register' />
+            <Route component={Editor} path='/editor/:slug' />
+            <Route component={Editor} path='/editor' />
+            <Route component={Article} path='/article/:id' />
+            <Route component={Settings} path='/settings' />
+            <Route component={ProfileFavorites} path='/@:username/favorites' />
+            <Route component={Profile} path='/@:username' />
+            <Route component={UI} path='/ui' />
           </Switch>
         </div>
       );

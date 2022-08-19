@@ -13,19 +13,19 @@ const Comment = (props) => {
       </div>
       <div className='card-footer'>
         <Link
-          to={`/@${comment.author.username}`}
           className='comment-author'
+          to={`/@${comment.author.username}`}
         >
           <img
-            src={comment.author.image}
-            className='comment-author-img'
             alt={comment.author.username}
+            className='comment-author-img'
+            src={comment.author.image}
           />
         </Link>
         &nbsp;
         <Link
-          to={`/@${comment.author.username}`}
           className='comment-author'
+          to={`/@${comment.author.username}`}
         >
           {comment.author.username}
         </Link>
@@ -33,9 +33,9 @@ const Comment = (props) => {
           {new Date(comment.createdAt).toDateString()}
         </span>
         <DeleteButton
+          commentId={comment.id}
           show={show}
           slug={props.slug}
-          commentId={comment.id}
         />
       </div>
     </div>

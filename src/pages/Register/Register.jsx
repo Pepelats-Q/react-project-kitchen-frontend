@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import agent from '../../../agent';
-import { REGISTER, SET_API_MESSAGE } from '../../../constants/actionTypes';
-import useFormValidation from '../../../hooks/useFormValidation';
-import styles from '../../AuthForm/authForm.module.scss';
-import AuthForm from '../../AuthForm/AuthForm';
-import HideIcon from '../../ui-library/Icons/HideIcon';
-import ShowIcon from '../../ui-library/Icons/ShowIcon';
-import AlertIcon from '../../ui-library/Icons/AlertIcon';
+import agent from '../../agent';
+import { REGISTER, SET_API_MESSAGE } from '../../constants/actionTypes';
+import useFormValidation from '../../hooks/useFormValidation';
+import styles from '../../components/AuthForm/authForm.module.scss';
+import AuthForm from '../../components/AuthForm/AuthForm';
+import HideIcon from '../../components/ui-library/Icons/HideIcon';
+import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
+import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -38,28 +38,28 @@ const Register = () => {
 
   return (
     <AuthForm
-      onSubmit={submitRegister}
       btnText='Зарегистрироваться'
       crossLinkText='Уже есть аккаунт?'
       formName='register'
-      oppositeLink='/login'
       isFormValid={isValid}
+      onSubmit={submitRegister}
+      oppositeLink='/login'
     >
       <fieldset className='form-group'>
-        <label htmlFor='name' className={styles.label}>
+        <label className={styles.label} htmlFor='name'>
           Имя пользователя
         </label>
         <div className={styles.inputarea}>
           <input
             className={`${styles.input} ${errors.name ? styles.input_invalid : ''}`}
-            type='text'
-            placeholder='Имя пользователя'
-            name='name'
-            value={name}
-            onChange={handleChange}
-            required
-            minLength='2'
             maxLength='25'
+            minLength='2'
+            name='name'
+            onChange={handleChange}
+            placeholder='Имя пользователя'
+            required
+            type='text'
+            value={name}
           />
           <p className={styles.error}>{errors.name}</p>
           <div className={styles.form__icon}>{errors.name ? <AlertIcon color='alert' /> : ''}</div>
@@ -67,20 +67,20 @@ const Register = () => {
       </fieldset>
 
       <fieldset className='form-group'>
-        <label htmlFor='email' className={styles.label}>
+        <label className={styles.label} htmlFor='email'>
           Email
         </label>
         <div className={styles.inputarea}>
           <input
             className={`${styles.input} ${errors.email ? styles.input_invalid : ''}`}
-            type='email'
-            placeholder='Email'
-            name='email'
-            value={email}
-            onChange={handleChange}
-            required
-            minLength='2'
             maxLength='30'
+            minLength='2'
+            name='email'
+            onChange={handleChange}
+            placeholder='Email'
+            required
+            type='email'
+            value={email}
           />
           <p className={styles.error}>{errors.email}</p>
           <div className={styles.form__icon}>{errors.email ? <AlertIcon color='alert' /> : ''}</div>
@@ -88,20 +88,20 @@ const Register = () => {
       </fieldset>
 
       <fieldset className='form-group'>
-        <label htmlFor='password' className={styles.label}>
+        <label className={styles.label} htmlFor='password'>
           Пароль
         </label>
         <div className={styles.inputarea}>
           <input
             className={`${styles.input} ${errors.password ? styles.input_invalid : ''}`}
-            type={isPassShownLogin ? 'password' : 'text'}
-            placeholder='Пароль'
-            name='password'
-            value={password}
-            onChange={handleChange}
-            required
-            minLength='2'
             maxLength='25'
+            minLength='2'
+            name='password'
+            onChange={handleChange}
+            placeholder='Пароль'
+            required
+            type={isPassShownLogin ? 'password' : 'text'}
+            value={password}
           />
           <div className={styles.form__icon} onClick={(e) => toggleShowPass(e)}>
             {errors.password ? <AlertIcon color='alert' /> : showPassIcon}

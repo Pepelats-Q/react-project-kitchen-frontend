@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import Banner from './Banner/Banner'
 import MainView from './MainView/MainView'
 import Tags from './Tags/Tags'
-import agent from '../../../agent'
+import agent from '../../agent'
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   APPLY_TAG_FILTER,
-} from '../../../constants/actionTypes'
+} from '../../constants/actionTypes'
 import styles from './home.module.scss'
 
 const { Promise } = global
