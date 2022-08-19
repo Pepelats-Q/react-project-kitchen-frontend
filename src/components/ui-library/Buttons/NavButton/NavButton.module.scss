@@ -83,6 +83,7 @@ $animation_time: 0.5s;
   }
   &:hover {
     background-color: $color-accent-dark;
+    color: $color-primary;
     transition: background-color $animation_time, color $animation_time;
   }
   &:focus-visible {

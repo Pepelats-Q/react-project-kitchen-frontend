@@ -14,7 +14,7 @@ const NavButton = ({
 }) => {
   const types = {
     primary: styles.primary,
-    outline_alert: styles.outline_alert,
+    navigation: styles.navigation,
   };
 
   return (

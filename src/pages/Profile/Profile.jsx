@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { NavLink, useLocation, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import ArticleList from '../../components/ArticleList/ArticleList';
@@ -18,7 +19,7 @@ import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons';
 import Tags from '../Home/Tags/Tags';
 
-const Profile = (props) => {
+const Profile = ({ children }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const locationIsFavorites = location.pathname.includes('favorites');
@@ -111,7 +112,7 @@ const Profile = (props) => {
             {/* Кнопка редактирования профиля не показывается, если это чужой профиль */}
             {isCurrentUserProfile ? (
               <NavButton icon={<GearIcon />} to='/settings' type='primary'>
-                Изменить настройки профиля
+                Редактировать профиль
               </NavButton>
             ) : (
               ''
@@ -136,11 +137,7 @@ const Profile = (props) => {
         <div className={styles.articlesSection}>
           <div className={styles.tablist}>
             <div className='articles-toggle'>{tabs}</div>
-            {props.children ? (
-              props.children
-            ) : (
-              <ArticleList articles={theseArticles} articlesCount={articlesCount1} />
-            )}
+            {children || <ArticleList articles={theseArticles} articlesCount={articlesCount1} />}
           </div>
           <div className={styles.tags}>
             <div className={styles.sidebar}>
@@ -154,4 +151,7 @@ const Profile = (props) => {
   );
 };
 
+Profile.propTypes = {
+  children: PropTypes.node,
+};
 export default Profile;
