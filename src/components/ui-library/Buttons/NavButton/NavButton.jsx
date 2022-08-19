@@ -4,17 +4,31 @@ import clsx from 'clsx';
 
 import styles from './NavButton.module.scss';
 
-const NavButton = ({ icon, to = '/', exact = true, className = '', children = 'Кнопка' }) => (
-  <NavLink
-    activeClassName={styles.navigation_active}
-    className={clsx(styles.button, styles.navigation, className)}
-    exact={exact}
-    to={to}
-  >
-    {icon && <icon.type />}
-    <span>{children}</span>
-  </NavLink>
-);
+const NavButton = ({
+  icon,
+  to = '/',
+  exact = true,
+  className = '',
+  children = 'Кнопка',
+  type = 'navigation',
+}) => {
+  const types = {
+    primary: styles.primary,
+    navigation: styles.navigation,
+  };
+
+  return (
+    <NavLink
+      activeClassName={styles.navigation_active}
+      className={clsx(styles.button, types[type] ? types[type] : styles.navigation, className)}
+      exact={exact}
+      to={to}
+    >
+      {icon && <icon.type />}
+      <span>{children}</span>
+    </NavLink>
+  );
+};
 
 NavButton.propTypes = {
   children: PropTypes.node,
@@ -22,6 +36,7 @@ NavButton.propTypes = {
   exact: PropTypes.bool,
   icon: PropTypes.node,
   to: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default NavButton;

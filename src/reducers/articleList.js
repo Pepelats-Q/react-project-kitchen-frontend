@@ -10,6 +10,8 @@ import {
   PROFILE_PAGE_UNLOADED,
   PROFILE_FAVORITES_PAGE_LOADED,
   PROFILE_FAVORITES_PAGE_UNLOADED,
+  LOAD_PROFILEOWN_POSTS,
+  LOAD_PROFILEFAV_POSTS,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -77,6 +79,16 @@ export default (state = {}, action) => {
         articlesCount: action.payload[1].articlesCount,
         currentPage: 0,
       };
+    case LOAD_PROFILEOWN_POSTS:
+      return {
+        ...state,
+        articles: action.payload.articles,
+      };
+      case LOAD_PROFILEFAV_POSTS:
+        return {
+          ...state,
+          articlesFavorites: action.payload.articles,
+        }
     case PROFILE_PAGE_UNLOADED:
     case PROFILE_FAVORITES_PAGE_UNLOADED:
       return {};

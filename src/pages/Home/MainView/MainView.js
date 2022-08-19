@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import ArticleList from '../../../ArticleList/ArticleList';
-import agent from '../../../../agent';
-import { CHANGE_TAB } from '../../../../constants/actionTypes';
+import ArticleList from '../../../components/ArticleList/ArticleList';
+import agent from '../../../agent';
+import { CHANGE_TAB } from '../../../constants/actionTypes';
 import styles from './mainView.module.scss';
 
 const YourFeedTab = (props) => {
@@ -18,12 +18,12 @@ const YourFeedTab = (props) => {
     return (
       <li className='nav-item'>
         <a
-          href='/'
           className={
             props.tab === 'feed'
               ? styles.active
               : styles.nav_link
           }
+          href='/'
           onClick={clickHandler}
         >
           Ваша лента
@@ -46,12 +46,12 @@ const GlobalFeedTab = (props) => {
   return (
     <li className='nav-item'>
       <a
-        href='/'
         className={
           props.tab === 'all'
             ? styles.active
             : styles.nav_link
         }
+        href='/'
         onClick={clickHandler}
       >
         Лента
@@ -68,8 +68,8 @@ const TagFilterTab = (props) => {
   return (
     <li className='nav-item'>
       <a
-        href='src/components/Pages/Home/MainView/MainView'
         className={styles.active}
+        href='src/components/Pages/Home/MainView/MainView'
       >
         <i className='ion-pound' /> {props.tag}
       </a>
@@ -98,14 +98,14 @@ const MainView = (props) => (
     <div className={styles.feed_toggle}>
       <ul className={`${styles.nav} ${styles.nav_pills}`}>
         <YourFeedTab
-          token={props.token}
-          tab={props.tab}
           onTabClick={props.onTabClick}
+          tab={props.tab}
+          token={props.token}
         />
 
         <GlobalFeedTab
-          tab={props.tab}
           onTabClick={props.onTabClick}
+          tab={props.tab}
         />
 
         <TagFilterTab tag={props.tag} />
@@ -113,11 +113,11 @@ const MainView = (props) => (
     </div>
 
     <ArticleList
-      pager={props.pager}
       articles={props.articles}
-      loading={props.loading}
       articlesCount={props.articlesCount}
       currentPage={props.currentPage}
+      loading={props.loading}
+      pager={props.pager}
     />
   </div>
 );

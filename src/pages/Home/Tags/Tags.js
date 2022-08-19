@@ -1,4 +1,4 @@
-import agent from '../../../../agent';
+import agent from '../../../agent';
 import styles from './tags.module.scss';
 
 const Tags = (props) => {
@@ -18,9 +18,9 @@ const Tags = (props) => {
 
           return (
             <a
-              href='/'
-              className={styles.tag_default}
               key={tag}
+              className={styles.tag_default}
+              href='/'
               onClick={handleClick}
             >
               {tag}

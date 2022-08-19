@@ -7,15 +7,15 @@ const ArticleMeta = (props) => {
     <div className='article-meta'>
       <Link to={`/@${article.author.username}`}>
         <img
-          src={article.author.image}
           alt={article.author.username}
+          src={article.author.image}
         />
       </Link>
 
       <div className='info'>
         <Link
-          to={`/@${article.author.username}`}
           className='author'
+          to={`/@${article.author.username}`}
         >
           {article.author.username}
         </Link>
@@ -25,8 +25,8 @@ const ArticleMeta = (props) => {
       </div>
 
       <ArticleActions
-        canModify={props.canModify}
         article={article}
+        canModify={props.canModify}
       />
     </div>
   );

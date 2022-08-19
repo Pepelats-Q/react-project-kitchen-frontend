@@ -44,7 +44,7 @@ $animation_time: 0.5s;
     text-decoration: none;
     color: $color-secondary;
   }
-  &:focus-visible{
+  &:focus-visible {
     outline: 2px solid $color-secondary;
   }
   &:active {
@@ -68,5 +68,32 @@ $animation_time: 0.5s;
     &:visited {
       color: $color-primary;
     }
+  }
+}
+
+.primary {
+  border: 2px solid transparent;
+  color: $color-primary;
+  background-color: $color-accent;
+  text-decoration: none;
+  transition: background-color $animation_time, color $animation_time;
+  & svg > path {
+    stroke: $color-primary;
+    transition: stroke $animation_time;
+  }
+  &:hover {
+    background-color: $color-accent-dark;
+    color: $color-primary;
+    transition: background-color $animation_time, color $animation_time;
+  }
+  &:focus-visible {
+    border: 2px solid $color-primary;
+  }
+  &:active {
+    background-color: $color-accent-light;
+  }
+  &:disabled {
+    color: $color-secondary;
+    background-color: $color-disabled;
   }
 }

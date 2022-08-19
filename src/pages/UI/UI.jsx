@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { useState } from 'react';
-import Button from '../../ui-library/Buttons/Button/Button';
-import NavButton from '../../ui-library/Buttons/NavButton/NavButton';
-import TextButton from '../../ui-library/Buttons/TextButton/TextButton';
+import Button from '../../components/ui-library/Buttons/Button/Button';
+import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
+import TextButton from '../../components/ui-library/Buttons/TextButton/TextButton';
 import {
   AlertIcon,
   CheckIcon,
@@ -25,9 +25,9 @@ import {
   ShowIcon,
   TrashIcon,
   MenuIcon,
-} from '../../ui-library/Icons';
-import TextArea from '../../ui-library/TextArea/TextArea';
-import TextField from '../../ui-library/TextField/TextField';
+} from '../../components/ui-library/Icons';
+import TextArea from '../../components/ui-library/TextArea/TextArea';
+import TextField from '../../components/ui-library/TextField/TextField';
 
 import styles from './UI.module.scss';
 

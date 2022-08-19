@@ -46,11 +46,11 @@ const ListPagination = ({
           };
           return (
             <li
+              key={v.toString()}
               className={
                 isCurrent ? 'page-item active' : 'page-item'
               }
               onClick={onClick}
-              key={v.toString()}
             >
               <a className='page-link' href='/'>
                 {v + 1}

@@ -29,15 +29,15 @@ const ArticleList = ({
     <div>
       {articles.map((article) => (
         <ArticlePreview
-          article={article}
           key={article.slug}
+          article={article}
         />
       ))}
 
       <ListPagination
-        pager={pager}
         articlesCount={articlesCount}
         currentPage={currentPage}
+        pager={pager}
       />
     </div>
   );

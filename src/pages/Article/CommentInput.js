@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import agent from '../../../agent';
-import { ADD_COMMENT } from '../../../constants/actionTypes';
+import agent from '../../agent';
+import { ADD_COMMENT } from '../../constants/actionTypes';
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (payload) =>
@@ -39,17 +39,17 @@ class CommentInput extends React.Component {
         <div className='card-block'>
           <textarea
             className='form-control'
-            placeholder='Write a comment...'
-            value={this.state.body}
             onChange={this.setBody}
+            placeholder='Write a comment...'
             rows='3'
+            value={this.state.body}
           />
         </div>
         <div className='card-footer'>
           <img
-            src={this.props.currentUser.image}
-            className='comment-author-img'
             alt={this.props.currentUser.username}
+            className='comment-author-img'
+            src={this.props.currentUser.image}
           />
           <button
             className='btn btn-sm btn-primary'

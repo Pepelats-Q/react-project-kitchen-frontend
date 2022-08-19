@@ -9,15 +9,15 @@ const CommentContainer = (props) => {
         <div>
           <list-errors errors={props.errors} />
           <CommentInput
-            slug={props.slug}
             currentUser={props.currentUser}
+            slug={props.slug}
           />
         </div>
 
         <CommentList
           comments={props.comments}
-          slug={props.slug}
           currentUser={props.currentUser}
+          slug={props.slug}
         />
       </div>
     );
@@ -33,8 +33,8 @@ const CommentContainer = (props) => {
 
       <CommentList
         comments={props.comments}
-        slug={props.slug}
         currentUser={props.currentUser}
+        slug={props.slug}
       />
     </div>
   );

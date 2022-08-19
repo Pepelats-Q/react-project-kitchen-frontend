@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import agent from '../../../agent';
-import { LOGIN, SET_API_MESSAGE } from '../../../constants/actionTypes';
-import useFormValidation from '../../../hooks/useFormValidation';
-import styles from '../../AuthForm/authForm.module.scss';
-import AuthForm from '../../AuthForm/AuthForm';
-import HideIcon from '../../ui-library/Icons/HideIcon';
-import ShowIcon from '../../ui-library/Icons/ShowIcon';
-import AlertIcon from '../../ui-library/Icons/AlertIcon';
+import agent from '../../agent';
+import { LOGIN, SET_API_MESSAGE } from '../../constants/actionTypes';
+import useFormValidation from '../../hooks/useFormValidation';
+import styles from '../../components/AuthForm/authForm.module.scss';
+import AuthForm from '../../components/AuthForm/AuthForm';
+import HideIcon from '../../components/ui-library/Icons/HideIcon';
+import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
+import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
+import { TValidity } from '../../utils/typesTs';
 
-const Login = () => {
+const Login: FC = () => {
   const dispatch = useDispatch();
   const [isPassShownLogin, setIsPassShownLogin] = useState(true);
 
@@ -18,9 +19,12 @@ const Login = () => {
     password: '',
   });
 
-  const { email, password } = values;
+  const valuesUsed: TValidity = values;
+  const errorsUsed: TValidity = errors;
 
-  const toggleShowPass = (e) => {
+  const { email, password } = valuesUsed;
+
+  const toggleShowPass = (e: SyntheticEvent) => {
     e.preventDefault();
     setIsPassShownLogin(!isPassShownLogin);
   };
@@ -50,9 +54,9 @@ const Login = () => {
         </label>
         <div className={styles.inputarea}>
           <input
-            className={`${styles.input} ${errors.email ? styles.input_invalid : ''}`}
-            maxLength='30'
-            minLength='2'
+            className={`${styles.input} ${errorsUsed.email ? styles.input_invalid : ''}`}
+            maxLength={30}
+            minLength={2}
             name='email'
             onChange={handleChange}
             placeholder='Email'
@@ -60,8 +64,10 @@ const Login = () => {
             type='email'
             value={email}
           />
-          <p className={styles.error}>{errors.email}</p>
-          <div className={styles.form__icon}>{errors.email ? <AlertIcon color='alert' /> : ''}</div>
+          <p className={styles.error}>{errorsUsed.email}</p>
+          <div className={styles.form__icon}>
+            {errorsUsed.email ? <AlertIcon color='alert' /> : ''}
+          </div>
         </div>
       </fieldset>
 
@@ -71,9 +77,9 @@ const Login = () => {
         </label>
         <div className={styles.inputarea}>
           <input
-            className={`${styles.input} ${errors.password ? styles.input_invalid : ''}`}
-            maxLength='25'
-            minLength='2'
+            className={`${styles.input} ${errorsUsed.password ? styles.input_invalid : ''}`}
+            maxLength={25}
+            minLength={2}
             name='password'
             onChange={handleChange}
             placeholder='Пароль'
@@ -82,10 +88,10 @@ const Login = () => {
             value={password}
           />
           <div className={styles.form__icon} onClick={(e) => toggleShowPass(e)}>
-            {errors.password ? <AlertIcon color='alert' /> : showPassIcon}
+            {errorsUsed.password ? <AlertIcon color='alert' /> : showPassIcon}
           </div>
         </div>
-        <p className={styles.error}>{errors.password}</p>
+        <p className={styles.error}>{errorsUsed.password}</p>
       </fieldset>
     </AuthForm>
   );
