@@ -1,8 +1,13 @@
 .home_page {
   min-height: calc(100vh - 60px);
   background-color: var(--bg-color);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 
+/* теперь этот функционал в ArticlesWithTabs
 .col_md_3 {
   position: relative;
   min-height: 1px;
@@ -30,6 +35,7 @@
   padding-left: 15px;
   padding-right: 15px;
 }
+*/
 
 @media (min-width: 544px) {
   .container {

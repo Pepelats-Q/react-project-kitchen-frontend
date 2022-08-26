@@ -1,7 +1,7 @@
 import agent from '../../../agent';
 import styles from './tags.module.scss';
 
-const Tags = (props) => {
+const Tags = (props) => {  
   const { tags } = props;
   if (tags) {
     return (

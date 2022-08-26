@@ -1,33 +1,31 @@
 import { useEffect } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import styles from './profile.module.scss';
+import tabsStyles from '../../components/Tabs/Tabs.module.scss';
 
 import {
   GET_PROFILE_DATA,
   LOAD_PROFILEOWN_POSTS,
   FOLLOW_USER,
   UNFOLLOW_USER,
-  APPLY_TAG_FILTER,
   LOAD_ALL_TAGS,
 } from '../../constants/actionTypes';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons';
-import Tags from '../Home/Tags/Tags';
+import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
+import Tabs from '../../components/Tabs/Tabs';
 
 const Profile = ({ children }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const locationIsFavorites = location.pathname.includes('favorites');
 
   const user = useSelector((state) => state.common.currentUser);
   const currentProfile = useSelector((state) => state.profile);
   const theseArticles = useSelector((state) => state.articleList.articles);
-  const tags = useSelector((state) => state.profile.tags);
 
   const { username } = useParams();
 
@@ -38,42 +36,6 @@ const Profile = ({ children }) => {
   }, [username]);
 
   const isCurrentUserProfile = user?.username === currentProfile?.username;
-
-  const textPosts = isCurrentUserProfile ? 'Ваши посты' : 'Посты пользователя';
-
-  const tabs = (
-    <ul className={styles.tabsList}>
-      <li className={`${styles.navItem} ${locationIsFavorites ? '' : styles.navItem_active}`}>
-        <NavLink
-          activeClassName={styles.navTab_active}
-          className={styles.navTab}
-          exact
-          to={`/@${currentProfile.username}`}
-        >
-          {textPosts}
-        </NavLink>
-      </li>
-
-      <li className={`${styles.navItem} ${locationIsFavorites ? styles.navItem_active : ''}`}>
-        <NavLink
-          activeClassName={styles.navTab_active}
-          className={styles.navTab}
-          to={`/@${currentProfile.username}/favorites`}
-        >
-          Любимые посты
-        </NavLink>
-      </li>
-    </ul>
-  );
-
-  const onClickTag = (tag, pager, payload) => {
-    dispatch({
-      type: APPLY_TAG_FILTER,
-      tag,
-      pager,
-      payload,
-    });
-  };
 
   const onFollow = () => {
     dispatch({ type: FOLLOW_USER, payload: agent.Profile.follow(username) });
@@ -91,6 +53,31 @@ const Profile = ({ children }) => {
       onFollow();
     }
   };
+  // <div className={styles.tablist}>
+
+  // const isCurrentUserProfile = user?.username === currentProfile?.username;
+  const textPosts = isCurrentUserProfile ? 'Ваши посты' : 'Посты пользователя';
+
+  const tab1Profile = (
+    <NavLink
+      activeClassName={tabsStyles.navTab_active}
+      className={tabsStyles.navTab}
+      exact
+      to={`/@${currentProfile.username}`}
+    >
+      {textPosts}
+    </NavLink>
+  );
+
+  const tab2Profile = (
+    <NavLink
+      activeClassName={tabsStyles.navTab_active}
+      className={tabsStyles.navTab}
+      to={`/@${currentProfile.username}/favorites`}
+    >
+      Любимые посты
+    </NavLink>
+  );
 
   const articlesCount1 = theseArticles ? theseArticles.length : 0;
   return (
@@ -133,20 +120,10 @@ const Profile = ({ children }) => {
           </div>
         </div>
       </div>
-      <div className={styles.container}>
-        <div className={styles.articlesSection}>
-          <div className={styles.tablist}>
-            <div className='articles-toggle'>{tabs}</div>
-            {children || <ArticleList articles={theseArticles} articlesCount={articlesCount1} />}
-          </div>
-          <div className={styles.tags}>
-            <div className={styles.sidebar}>
-              <p className={styles.title1}>Популярные теги</p>
-              <Tags onClickTag={onClickTag} tags={tags} />
-            </div>
-          </div>
-        </div>
-      </div>
+      <ArticlesWithTabs>
+        <Tabs tab1={tab1Profile} tab2={tab2Profile} />
+        {children || <ArticleList articles={theseArticles} articlesCount={articlesCount1} />}
+      </ArticlesWithTabs>
     </div>
   );
 };

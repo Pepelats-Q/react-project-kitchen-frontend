@@ -1,0 +1,60 @@
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.tags {
+  width: 268px;
+}
+
+.sidebar {
+  padding: 16px;
+  background-color: var(--bg-secondary);
+  border-radius: 20px;
+  color: var(--text-white);
+}
+
+.title {
+  font-family: 'JetBrains Mono', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.tablist {
+  width: 100%;
+  max-width: 840px;
+}
+
+.box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 32px 0;
+  padding: 0;
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 24px 0 0;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 760px) {
+  .box {
+    flex-direction: column-reverse;
+  }
+
+  .children {
+    margin: 0;
+    padding: 0 20px;
+  }
+}
