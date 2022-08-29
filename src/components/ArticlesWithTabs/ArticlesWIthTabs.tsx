@@ -1,12 +1,9 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { APPLY_TAG_FILTER } from '../../constants/actionTypes';
 import Tags from '../../pages/Home/Tags/Tags';
+import { TArticlesWithTabsProps } from '../../utils/typesTs';
 import styles from './ArticlesWithTabs.module.scss';
-
-type TArticlesWithTabsProps = {
-  children: React.ReactNode;
-};
 
 const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ children }) => {
   const dispatch = useDispatch<any>();

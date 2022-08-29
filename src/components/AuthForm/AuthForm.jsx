@@ -34,10 +34,7 @@ const AuthForm = ({
 
           <ListErrors errors={apiErrors} />
 
-          <form
-            className={styles.form} name={formName} noValidate
-            onSubmit={handleSubmitForm}
-          >
+          <form className={styles.form} name={formName} noValidate onSubmit={handleSubmitForm}>
             {children}
             <div className={styles.submit}>
               <Button disabled={!isFormValid} onClick={handleSubmitForm}>
@@ -53,12 +50,12 @@ const AuthForm = ({
 
 AuthForm.propTypes = {
   btnText: PropTypes.string,
-  oppositeLink: PropTypes.string,
+  children: PropTypes.node.isRequired,
   crossLinkText: PropTypes.string,
   formName: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
   isFormValid: PropTypes.bool.isRequired,
-  children: PropTypes.node.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  oppositeLink: PropTypes.string,
 };
 
 export default AuthForm;

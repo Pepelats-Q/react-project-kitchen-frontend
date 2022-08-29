@@ -1,17 +1,20 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
+import { TTabsProps } from '../../utils/typesTs';
+import TabButton from '../ui-library/Buttons/TabButton/TabButton';
 import styles from './Tabs.module.scss';
 
-type TTabsProps = {
-  tab1: React.ReactNode;
-  tab2: React.ReactNode;
-};
-
-const Tabs: FC<TTabsProps> = ({ tab1, tab2 }) => (
+const Tabs: FC<TTabsProps> = ({ tabsNames, handleClicks, currentTabFlag }) => (
   <div className='articles-toggle'>
-    {' '}
     <ul className={styles.tabsList}>
-      <li className={`${styles.navItem}`}>{tab1}</li>
-      <li className={`${styles.navItem}`}>{tab2}</li>
+      {tabsNames.map((tabName, index) => (
+        <li key={tabName.name} className={`${styles.navItem}`}>
+          <TabButton
+            isCurrent={currentTabFlag === tabName.flag}
+            name={tabName.name}
+            onClick={handleClicks[index]}
+          />
+        </li>
+      ))}
     </ul>
   </div>
 );

@@ -1,8 +1,10 @@
+@import '../../components/ui-library/ui-style/ui-style.scss';
+
 .page {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: var(--bg-color);
+  background-color: $color-bg;
   min-height: 95vh;
   align-items: center;
 }
@@ -52,22 +54,11 @@
   line-height: 28px;
   font-family: 'JetBrains Mono', sans-serif;
   font-weight: 700;
-  color: var(--text-white);
+  color: $color-primary;
   text-align: center;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-}
-
-.button {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.button1 {
-  background-color: var(--accent-color);
-  color: var(--text-white);
 }
 
 .section {
@@ -76,11 +67,17 @@
   justify-content: center;
 }
 
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .bio {
   font-size: 14px;
   line-height: 19px;
   font-family: 'JetBrains Mono', sans-serif;
-  color: var(--text-white);
+  color: $color-primary;
   margin: 0;
   padding: 8px 0;
 }
