@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import ArticleList from '../../components/ArticleList/ArticleList';
@@ -11,70 +10,47 @@ import {
   LOAD_PROFILEOWN_POSTS,
   FOLLOW_USER,
   UNFOLLOW_USER,
-  APPLY_TAG_FILTER,
   LOAD_ALL_TAGS,
+  LOAD_PROFILEFAV_POSTS,
+  PROFILE_PAGE_UNLOADED,
 } from '../../constants/actionTypes';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons';
-import Tags from '../Home/Tags/Tags';
+import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
+import Tabs from '../../components/Tabs/Tabs';
+import { TUsernameParams } from '../../utils/typesTs';
 
-const Profile = ({ children }) => {
+const Profile: FC = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const locationIsFavorites = location.pathname.includes('favorites');
-
-  const user = useSelector((state) => state.common.currentUser);
-  const currentProfile = useSelector((state) => state.profile);
-  const theseArticles = useSelector((state) => state.articleList.articles);
-  const tags = useSelector((state) => state.profile.tags);
-
-  const { username } = useParams();
-
-  useEffect(() => {
-    dispatch({ type: GET_PROFILE_DATA, payload: agent.Profile.get(username) });
-    dispatch({ type: LOAD_PROFILEOWN_POSTS, payload: agent.Articles.byAuthor(username, 0) });
-    dispatch({ type: LOAD_ALL_TAGS, payload: agent.Tags.getAll() });
-  }, [username]);
+  const user = useSelector((state: any) => state.common.currentUser);
+  const currentProfile = useSelector((state: any) => state.profile);
+  const yourArticles = useSelector((state: any) => state.articleList.articles);
+  const articlesFavList = useSelector((state: any) => state.articleList.articlesFavorites);
+  const [currentArticles, setCurrentArticles] = useState<any>(yourArticles); // когда добавим тип для статьи, сделаю вместо any: Array<тип статьи>
+  const [currentTabFlag, setCurrentTabFlag] = useState<string>('yourPosts');
 
   const isCurrentUserProfile = user?.username === currentProfile?.username;
 
-  const textPosts = isCurrentUserProfile ? 'Ваши посты' : 'Посты пользователя';
+  const { username } = useParams<TUsernameParams>();
 
-  const tabs = (
-    <ul className={styles.tabsList}>
-      <li className={`${styles.navItem} ${locationIsFavorites ? '' : styles.navItem_active}`}>
-        <NavLink
-          activeClassName={styles.navTab_active}
-          className={styles.navTab}
-          exact
-          to={`/@${currentProfile.username}`}
-        >
-          {textPosts}
-        </NavLink>
-      </li>
-
-      <li className={`${styles.navItem} ${locationIsFavorites ? styles.navItem_active : ''}`}>
-        <NavLink
-          activeClassName={styles.navTab_active}
-          className={styles.navTab}
-          to={`/@${currentProfile.username}/favorites`}
-        >
-          Любимые посты
-        </NavLink>
-      </li>
-    </ul>
-  );
-
-  const onClickTag = (tag, pager, payload) => {
-    dispatch({
-      type: APPLY_TAG_FILTER,
-      tag,
-      pager,
-      payload,
-    });
+  const onLoad = (): void => {
+    dispatch({ type: GET_PROFILE_DATA, payload: agent.Profile.get(username) });
+    dispatch({ type: LOAD_PROFILEOWN_POSTS, payload: agent.Articles.byAuthor(username, 0) });
+    dispatch({ type: LOAD_ALL_TAGS, payload: agent.Tags.getAll() });
   };
 
+  const onUnload = () => dispatch({ type: PROFILE_PAGE_UNLOADED });
+
+  useEffect(() => {
+    onLoad();
+
+    return () => {
+      onUnload();
+    };
+  }, [dispatch]);
+
+  /* handle follow behavior: */
   const onFollow = () => {
     dispatch({ type: FOLLOW_USER, payload: agent.Profile.follow(username) });
   };
@@ -83,7 +59,7 @@ const Profile = ({ children }) => {
     dispatch({ type: UNFOLLOW_USER, payload: agent.Profile.unfollow(username) });
   };
 
-  const handleClick = (ev) => {
+  const handleFollowClick = (ev: SyntheticEvent) => {
     ev.preventDefault();
     if (currentProfile.following) {
       onUnfollow();
@@ -92,7 +68,45 @@ const Profile = ({ children }) => {
     }
   };
 
-  const articlesCount1 = theseArticles ? theseArticles.length : 0;
+  /* handle tabs behavior: */
+
+  const onTabClick = (tab: any, type: any, payload: any) => {
+    setCurrentTabFlag(tab);
+    dispatch({
+      type,
+      payload,
+    });
+  };
+
+  const yourPostsTabClick = () => {
+    onTabClick('yourPosts', LOAD_PROFILEOWN_POSTS, agent.Articles.byAuthor(username, 0));
+  };
+
+  const favPostsTabClick = () => {
+    onTabClick(
+      'favorites',
+      LOAD_PROFILEFAV_POSTS,
+      agent.Articles.favoritedBy(currentProfile.username),
+    );
+  };
+
+  const textPosts = isCurrentUserProfile ? 'Ваши посты' : 'Посты пользователя';
+  const tabsNames = [
+    { name: textPosts, flag: 'yourPosts' },
+    { name: 'Любимые посты', flag: 'favorites' },
+  ];
+  const handleClicks = [yourPostsTabClick, favPostsTabClick];
+
+  const articlesCount = currentArticles ? currentArticles.length : 0;
+
+  useEffect(() => {
+    if (currentTabFlag === 'yourPosts') {
+      setCurrentArticles(yourArticles);
+    } else {
+      setCurrentArticles(articlesFavList);
+    }
+  }, [currentTabFlag, yourArticles, articlesFavList]);
+
   return (
     <div className={styles.page}>
       <div className={styles.userinfo}>
@@ -122,7 +136,7 @@ const Profile = ({ children }) => {
             {!isCurrentUserProfile ? (
               <Button
                 icon={currentProfile.following ? <MinusIcon /> : <PlusIcon />}
-                onClick={handleClick}
+                onClick={handleFollowClick}
                 type='primary'
               >
                 {currentProfile.following ? ' Отменить подписку' : ' Подписаться'}
@@ -133,25 +147,12 @@ const Profile = ({ children }) => {
           </div>
         </div>
       </div>
-      <div className={styles.container}>
-        <div className={styles.articlesSection}>
-          <div className={styles.tablist}>
-            <div className='articles-toggle'>{tabs}</div>
-            {children || <ArticleList articles={theseArticles} articlesCount={articlesCount1} />}
-          </div>
-          <div className={styles.tags}>
-            <div className={styles.sidebar}>
-              <p className={styles.title1}>Популярные теги</p>
-              <Tags onClickTag={onClickTag} tags={tags} />
-            </div>
-          </div>
-        </div>
-      </div>
+      <ArticlesWithTabs>
+        <Tabs currentTabFlag={currentTabFlag} handleClicks={handleClicks} tabsNames={tabsNames} />
+        <ArticleList articles={currentArticles} articlesCount={articlesCount} />
+      </ArticlesWithTabs>
     </div>
   );
 };
 
-Profile.propTypes = {
-  children: PropTypes.node,
-};
 export default Profile;

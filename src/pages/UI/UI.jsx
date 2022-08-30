@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
+import TabButton from '../../components/ui-library/Buttons/TabButton/TabButton';
 import TextButton from '../../components/ui-library/Buttons/TextButton/TextButton';
 import {
   AlertIcon,
@@ -237,6 +238,31 @@ const UI = () => {
           <h4 className={styles.h4}>{`<TextButton />`}</h4>
         </div>
       </div>
+
+      <div>
+        <h2 className={styles.h2}>Кнопка вкладки ленты</h2>
+        <p
+          className={styles.props}
+        >{`<TabButton name='Вкладка' onClick={() => console.log('кнопка вкладки')} isCurrent={false} />`}</p>
+        <div className={styles.group_layout}>
+          <TabButton
+            isCurrent={false}
+            name='Вкладка'
+            onClick={() => console.log('кнопка вкладки')}
+          />
+          <h4 className={styles.h4}>{`<TabButton isCurrent={false} />`} неактивная вкладка</h4>
+        </div>
+
+        <div className={styles.group_layout}>
+          <TabButton
+            isCurrent
+            name='Вкладка'
+            onClick={() => console.log('кнопка вкладки')}
+          />
+          <h4 className={styles.h4}>{`<TabButton isCurrent />`} активная вкладка</h4>
+        </div>
+      </div>
+
       <div>
         <h2 className={styles.h2}>Поле для ввода текста</h2>
         <p className={styles.props}>
@@ -244,7 +270,9 @@ const UI = () => {
         </p>
         <div className={styles.group_layout}>
           <TextField name='name1' onChange={setValue} value={value} />
-          <h4 className={styles.h4}>{`<TextField name='name1' onChange={func} value={value} />`}</h4>
+          <h4
+            className={styles.h4}
+          >{`<TextField name='name1' onChange={func} value={value} />`}</h4>
         </div>
         <div className={styles.group_layout}>
           <TextField
@@ -254,7 +282,9 @@ const UI = () => {
             type='password'
             value={value}
           />
-          <h4 className={styles.h4}>{`<TextField name='name2' onChange={func} value={value} />`}</h4>
+          <h4
+            className={styles.h4}
+          >{`<TextField name='name2' onChange={func} value={value} />`}</h4>
         </div>
         <div className={styles.group_layout}>
           <TextField

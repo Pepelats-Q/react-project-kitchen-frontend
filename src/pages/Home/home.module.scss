@@ -1,56 +1,10 @@
+@import '../../components/ui-library/ui-style/ui-style.scss';
+
 .home_page {
   min-height: calc(100vh - 60px);
-  background-color: var(--bg-color);
-}
-
-.col_md_3 {
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-  flex: 0 0 25%;
-  max-width: 25%;
-}
-
-.sidebar {
-  padding: 16px;
-  background-color: var(--bg-secondary);
-  border-radius: 20px;
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  color: var(--text-white);
-}
-
-.container {
-  padding-top: 32px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-@media (min-width: 544px) {
-  .container {
-    max-width: 576px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 720px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    max-width: 940px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
+  background-color: $color-bg;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }

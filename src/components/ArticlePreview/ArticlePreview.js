@@ -42,7 +42,7 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
         <div className={styles.col}>
           <div className={styles.image} />
         </div>
-        <div className={`${styles.col} ${styles.w100}`}>
+        <div className={`${styles.colArticle} ${styles.w100}`}>
           <div className={styles.article_meta}>
             <Link className={styles.avatar} to={`/@${article.author.username}`}>
               {article.author.image === defaultAvatar ? (

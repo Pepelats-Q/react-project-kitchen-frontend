@@ -10,7 +10,7 @@ import Editor from '../Editor/Editor';
 import Home from '../../pages/Home';
 import Login from '../../pages/Login/Login';
 import Profile from '../../pages/Profile/Profile';
-import ProfileFavorites from '../../pages/Profile/ProfileFavorites';
+// import ProfileFavorites from '../../pages/Profile/ProfileFavorites';
 import Register from '../../pages/Register/Register';
 import Settings from '../Settings/Settings';
 import store from '../../store';
@@ -66,7 +66,6 @@ class App extends React.Component {
             <Route component={Editor} path='/editor' />
             <Route component={Article} path='/article/:id' />
             <Route component={Settings} path='/settings' />
-            <Route component={ProfileFavorites} path='/@:username/favorites' />
             <Route component={Profile} path='/@:username' />
             <Route component={UI} path='/ui' />
           </Switch>

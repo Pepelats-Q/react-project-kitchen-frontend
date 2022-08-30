@@ -1,0 +1,12 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+.tabsList {
+  display: flex;
+  margin: 0;
+  list-style-type: none;
+  padding: 0;
+}
+
+.navItem {
+  box-sizing: border-box;
+}

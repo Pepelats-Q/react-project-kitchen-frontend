@@ -46,10 +46,10 @@ const MenuItem = ({ text, icon: Icon, path, isProfileIcon }) => {
   );
 };
 MenuItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
   icon: PropTypes.func.isRequired,
   isProfileIcon: PropTypes.bool,
+  path: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export default MenuItem;
