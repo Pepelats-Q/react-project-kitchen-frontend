@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import agent from '../../agent';
 import { ARTICLE_FAVORITED, ARTICLE_UNFAVORITED } from '../../constants/actionTypes';
 import styles from './articlePreview.module.scss';
 import avatar from '../../images/avatarTemp.svg';
+import translations from '../../constants/translations';
 
 const FAVORITED_CLASS = `${styles.btn} ${styles.btn_sm} ${styles.btn_primary}`;
 const NOT_FAVORITED_CLASS = `${styles.btn} ${styles.btn_sm} ${styles.btn_outline_primary}`;
@@ -35,6 +36,9 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
   };
 
   const defaultAvatar = 'https://static.productionready.io/images/smiley-cyrus.jpg';
+
+  const currentLang = useSelector((state) => state.header.currentLang);
+  const { articlesLang } = translations[currentLang];
 
   return (
     <div className={styles.article_preview}>
@@ -77,7 +81,7 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
           <Link className='preview-link' to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
             <p className={styles.text}>{article.description}</p>
-            <span className={styles.continue}>Читать продолжение...</span>
+            <span className={styles.continue}>{articlesLang.readMore}</span>
             <ul className={styles.tag_list}>
               {article.tagList.map((tag) => (
                 <li key={tag} className={styles.tag_default}>

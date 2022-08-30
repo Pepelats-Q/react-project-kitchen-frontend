@@ -7,6 +7,7 @@ import LoggedNav from './LoggedNav';
 import styles from './header.module.scss';
 import MenuIcon from '../ui-library/Icons/MenuIcon';
 import { TOGGLE_MOBILE_MENU } from '../../constants/actionTypes';
+import LangSelect from '../LangSelect/LangSelect';
 
 const Header = ({ appName, currentUser }) => {
   const currentNav = currentUser ? <LoggedNav currentUser={currentUser} /> : <NotLoggedNav />;
@@ -27,7 +28,12 @@ const Header = ({ appName, currentUser }) => {
             {appName}
           </Link>
 
-          <ul className={`nav navbar-nav pull-xs-right ${styles.nav}`}>{currentNav}</ul>
+          <ul className={`nav navbar-nav pull-xs-right ${styles.nav}`}>
+            {currentNav}
+            <li className={styles.navItem}>
+              <LangSelect />
+            </li>
+          </ul>
           <button className={styles.button_type_mobile} onClick={toggleMobileMenu} type='button'>
             <MenuIcon />
           </button>
@@ -37,7 +43,12 @@ const Header = ({ appName, currentUser }) => {
       <div
         className={`${styles.header__mobile} ${isMobileMenuOpen ? styles.mobileNav_opened : ''}`}
       >
-        <ul className={styles.mobileNav}>{currentNav}</ul>
+        <ul className={styles.mobileNav}>
+          {currentNav}
+          <li className={styles.navItem}>
+            <LangSelect />
+          </li>
+        </ul>
       </div>
     </>
   );

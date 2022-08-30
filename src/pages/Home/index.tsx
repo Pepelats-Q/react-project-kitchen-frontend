@@ -12,6 +12,7 @@ import styles from './home.module.scss';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
 import Tabs from '../../components/Tabs/Tabs';
 import ArticleList from '../../components/ArticleList/ArticleList';
+import translations from '../../constants/translations';
 
 const { Promise } = global;
 
@@ -62,9 +63,12 @@ const Home: FC = () => {
     onTabClick('all', agent.Articles.all, agent.Articles.all());
   };
 
+  const currentLang = useSelector((state: any) => state.header.currentLang);
+  const { homePage } = translations[currentLang];
+
   const tabsNames = [
-    { name: 'Ваша лента', flag: 'feedPosts' },
-    { name: 'Лента', flag: 'allPosts' },
+    { name: homePage.tab1Text, flag: 'feedPosts' },
+    { name: homePage.tab2Text, flag: 'allPosts' },
   ];
   const handleClicks = [yourTabClick, globalTabClick];
 

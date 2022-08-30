@@ -1,7 +1,8 @@
-import { TOGGLE_MOBILE_MENU } from '../constants/actionTypes';
+import { TOGGLE_MOBILE_MENU, CHANGE_LANG } from '../constants/actionTypes';
 
 const initialState = {
   isMobileMenuOpen: false,
+  currentLang: 'ru'
 };
 
 export default (state = initialState, action) => {
@@ -11,6 +12,12 @@ export default (state = initialState, action) => {
         ...state,
         isMobileMenuOpen: action.payload,
       };
+    
+    case CHANGE_LANG: 
+    return {
+      ...state,
+      currentLang: action.payload,
+    }
 
     default:
       return state;

@@ -1,0 +1,28 @@
+/* select langs: */
+
+.langs {
+    background-color: var(--bg-secondary);
+    color: white;
+    border-radius: 15px;
+    padding: 5px;
+    line-height: 20px;
+    box-sizing: border-box;
+    height: 35px;
+    /* outline: 1px solid white;*/
+    overflow: hidden;
+    -webkit-appearance: none;
+    -moz-appearance: none;  
+    background-image: url('../../images/showSelect.svg');
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    border: 1px solid var(--text-gray);
+    border-radius: 2px;
+    padding: 5px 24px 5px 5px;
+  }
+  
+  .langs:hover {
+    background-image: url('../../images/hoverSelect.svg');
+    cursor: pointer;
+  }
+  

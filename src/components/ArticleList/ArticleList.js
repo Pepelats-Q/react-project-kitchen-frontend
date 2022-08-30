@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import translations from '../../constants/translations';
 import ArticlePreview from '../ArticlePreview/ArticlePreview';
 import ListPagination from '../ListPagination/ListPagination';
 import styles from './articleList.module.scss';
@@ -9,10 +11,13 @@ const ArticleList = ({
   pager,
   currentPage,
 }) => {
+  const currentLang = useSelector((state) => state.header.currentLang);
+  const { common, articlesLang } = translations[currentLang];
+
   if (!articles) {
     return (
       <div className={styles.article_preview}>
-        Загрузка...
+        {common.loading}
       </div>
     );
   }
@@ -20,10 +25,11 @@ const ArticleList = ({
   if (articles.length === 0) {
     return (
       <div className={styles.article_preview}>
-        Нет статей...
+        {articlesLang.noArticlesMessage}
       </div>
     );
   }
+
 
   return (
     <div>
