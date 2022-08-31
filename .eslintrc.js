@@ -31,7 +31,7 @@ module.exports = {
   ],
   plugins: ['react', 'prettier', '@typescript-eslint'],
   rules: {
-    'no-param-reassign': 'warn',
+    'no-param-reassign': ['warn', { props: false }],
     'consistent-return': 'warn',
     'jsx-a11y/no-static-element-interactions': 'warn',
     'jsx-a11y/click-events-have-key-events': 'warn',

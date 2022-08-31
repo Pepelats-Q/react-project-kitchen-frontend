@@ -1,5 +1,33 @@
 import React, { MouseEventHandler } from 'react';
 
+export type TtodoAny = any;
+
+export type TUser = {
+  username: string;
+  bio: string;
+  image: string;
+  following: boolean;
+};
+
+export type TArticle = {
+  author: TUser;
+  body: string;
+  createdAt: string;
+  description: string;
+  favorited: boolean;
+  favoritesCount: number;
+  slug: string;
+  tagList: Array<string>;
+  title: string;
+  updatedAt: string;
+};
+
+export type TComment = {
+  id: string;
+  body: string;
+  createdAt: string;
+};
+
 export type TValidity = {
   email?: string;
   name?: string;
