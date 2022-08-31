@@ -38,7 +38,7 @@ const ArticleActions = ({ article, canModify }) => {
 
 ArticleActions.propTypes = {
   article: PropTypes.object.isRequired,
-  canModify: PropTypes.bool.isRequired,
+  canModify: PropTypes.bool,
 };
 
 export default ArticleActions;

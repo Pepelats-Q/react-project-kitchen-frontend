@@ -36,7 +36,7 @@ const Settings = () => {
 
   useEffect(() => {
     if (!token && isPressed) {
-      history.push('/');
+      history.push('/login');
     }
   }, [token]);
 

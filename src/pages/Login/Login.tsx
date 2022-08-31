@@ -32,10 +32,7 @@ const Login: FC = () => {
     setIsPassShownLogin(!isPassShownLogin);
   };
 
-  const [isPressed, setIsPressed] = useState(false);
-
   const submitLogin = () => {
-    setIsPressed(true);
     if (isValid) {
       dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) });
     } else {
@@ -43,13 +40,13 @@ const Login: FC = () => {
     }
   };
 
-  const loginErrors = useSelector((state: any) => state.auth.errors);
+  const currentUser = useSelector((state: any) => state.common.currentUser);
 
   useEffect(() => {
-    if (!loginErrors && isPressed) {
+    if (currentUser) {
       history.push('/');
     }
-  }, [loginErrors]);
+  }, [currentUser]);
 
   const currentLang = useSelector((state: any) => state.header.currentLang);
 

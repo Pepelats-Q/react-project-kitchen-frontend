@@ -137,13 +137,13 @@ const Profile: FC = () => {
             )}
 
             {/* Запрещаю подписку на себя */}
-            {!isCurrentUserProfile ? (
+            {!isCurrentUserProfile && user ? (
               <Button
                 icon={currentProfile.following ? <MinusIcon /> : <PlusIcon />}
                 onClick={handleFollowClick}
                 type='primary'
               >
-                {currentProfile.following ? ' Отменить подписку' : ' Подписаться'}
+                {currentProfile.following ? profile.unsubscribe : profile.subscribe}
               </Button>
             ) : (
               ''

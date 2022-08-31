@@ -21,7 +21,7 @@ const Home: FC = () => {
   const token = useSelector((state: any) => state.common.token);
   const appName = useSelector((state: any) => state.common.appName);
   const articles = useSelector((state: any) => state.articleList.articles);
-  const [currentTabFlag, setCurrentTabFlag] = useState<string>('feedPosts');
+  const [currentTabFlag, setCurrentTabFlag] = useState<string>('allPosts');
 
   const onLoad = (tab: string, pager: any, payload: any) => {
     dispatch({

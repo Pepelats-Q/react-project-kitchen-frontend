@@ -28,23 +28,22 @@ const Register = () => {
     e.preventDefault();
     setIsPassShownLogin(!isPassShownLogin);
   };
-  const [isPressed, setIsPressed] = useState(false);
 
   const submitRegister = () => {
-    setIsPressed(true);
     if (isValid) {
       dispatch({ type: REGISTER, payload: agent.Auth.register(name, email, password) });
     } else {
       dispatch({ type: SET_API_MESSAGE, payload: ['Заполните все поля формы верно'] });
     }
   };
-  const registerErrors = useSelector((state) => state.auth.errors);
+
+  const currentUser = useSelector((state) => state.common.currentUser);
 
   useEffect(() => {
-    if (!registerErrors && isPressed) {
+    if (currentUser) {
       history.push('/');
     }
-  }, [registerErrors]);
+  }, [currentUser]);
 
   const currentLang = useSelector((state) => state.header.currentLang);
 

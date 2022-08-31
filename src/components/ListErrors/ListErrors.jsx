@@ -19,7 +19,7 @@ const ListErrors = ({ errors }) => {
 };
 
 ListErrors.propTypes = {
-  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
+  errors: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ListErrors;

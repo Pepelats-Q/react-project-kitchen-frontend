@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import styles from './Article.module.scss';
-import ListErrors from '../../components/ListErrors/ListErrors';
 
-const CommentContainer = ({ errors, slug }) => {
+const CommentContainer = ({ slug }) => {
   const currentUser = useSelector((state) => state.common.currentUser);
 
   if (currentUser) {
@@ -14,7 +13,7 @@ const CommentContainer = ({ errors, slug }) => {
       <div className={styles.commentsContainer}>
         <h2 className={styles.commentsTitle}>Комментарии</h2>
         <div className={styles.comment}>
-          <ListErrors errors={errors} />
+          {/* позже с этим буду разбираться  <ListErrors errors={errors} /> */}
           <CommentInput currentUser={currentUser} slug={slug} />
         </div>
 
@@ -41,7 +40,6 @@ const CommentContainer = ({ errors, slug }) => {
 };
 
 CommentContainer.propTypes = {
-  errors: PropTypes.arrayOf(PropTypes.string).isRequired,
   slug: PropTypes.string.isRequired,
 };
 

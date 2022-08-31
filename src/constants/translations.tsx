@@ -25,6 +25,8 @@ type TProfile = {
   usersPosts: string;
   favoritePosts: string;
   editProfile: string;
+  subscribe: string;
+  unsubscribe: string;
 };
 
 type TAuthForm = {
@@ -107,6 +109,8 @@ const translations: Ttranslations | any = {
       usersPosts: "User's posts",
       favoritePosts: 'Favorites',
       editProfile: 'Edit your profile',
+      subscribe: ' Subscribe',
+      unsubscribe: ' Unsubscribe',
     },
     authForm: {
       registerText: 'Register',
@@ -169,6 +173,8 @@ const translations: Ttranslations | any = {
       usersPosts: 'Посты пользователя',
       favoritePosts: 'Любимые посты',
       editProfile: 'Редактировать профиль',
+      subscribe: ' Подписаться',
+      unsubscribe: ' Отменить подписку',
     },
     authForm: {
       registerText: 'Зарегистрироваться',

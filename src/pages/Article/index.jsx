@@ -20,7 +20,9 @@ const Article = () => {
 
   const onLoad = (payload) => {
     dispatch({ type: ARTICLE_PAGE_LOADED, payload });
-    dispatch({ type: GET_PROFILE_DATA, payload: agent.Profile.get(currentUser.username) });
+    if (currentUser) {
+      dispatch({ type: GET_PROFILE_DATA, payload: agent.Profile.get(currentUser.username) });
+    }
   };
   const onUnload = () => dispatch({ type: ARTICLE_PAGE_UNLOADED });
 
@@ -30,14 +32,12 @@ const Article = () => {
     onLoad(Promise.all([agent.Articles.get(id), agent.Comments.forArticle(id)]));
 
     return () => onUnload();
-  }, []);
-
-  const commentErrors = [];
+  }, [currentUser]);
 
   if (!article) {
     return null;
   }
-  const canModify = currentUser && currentUser.username === article.author.username;
+  const canModify = currentUser && currentUser?.username === article?.author?.username;
 
   return (
     <div className={styles.page}>
@@ -68,7 +68,7 @@ const Article = () => {
           </div>
 
           <div className={styles.comments}>
-            <CommentContainer errors={commentErrors} slug={id} />
+            <CommentContainer slug={id} />
           </div>
         </div>
       </div>
