@@ -12,7 +12,6 @@ const LoggedNav = ({ currentUser }) => {
     <>
       <MenuItem icon={HomeIcon} path='/' text={header.mainPageText} />
       <MenuItem icon={EditIcon} path='/editor' text={header.newNoteText} />
-      {/* <MenuItem icon={GearIcon} path='/settings' text='Настройки' /> */}
       <MenuItem
         icon={ProfileIconBlank}
         isProfileIcon

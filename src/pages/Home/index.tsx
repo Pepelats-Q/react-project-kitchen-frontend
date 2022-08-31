@@ -64,23 +64,38 @@ const Home: FC = () => {
   };
 
   const currentLang = useSelector((state: any) => state.header.currentLang);
+
   const { homePage } = translations[currentLang];
 
   const tabsNames = [
-    { name: homePage.tab1Text, flag: 'feedPosts' },
     { name: homePage.tab2Text, flag: 'allPosts' },
+    { name: homePage.tab1Text, flag: 'feedPosts' },
   ];
-  const handleClicks = [yourTabClick, globalTabClick];
+  const handleClicks = [globalTabClick, yourTabClick];
 
   const articlesCount = articles ? articles.length : 0;
+
+  const tabsNamesNoAuth = [{ name: homePage.tab2Text, flag: 'allPosts' }];
+  const handleClicksNoAuth = [globalTabClick];
 
   return (
     <div className={styles.home_page}>
       <Banner appName={appName} />
-      <ArticlesWithTabs>
-        <Tabs currentTabFlag={currentTabFlag} handleClicks={handleClicks} tabsNames={tabsNames} />
-        <ArticleList articles={articles} articlesCount={articlesCount} />
-      </ArticlesWithTabs>
+      {token ? (
+        <ArticlesWithTabs>
+          <Tabs currentTabFlag={currentTabFlag} handleClicks={handleClicks} tabsNames={tabsNames} />
+          <ArticleList articles={articles} articlesCount={articlesCount} />
+        </ArticlesWithTabs>
+      ) : (
+        <ArticlesWithTabs>
+          <Tabs
+            currentTabFlag='allPosts'
+            handleClicks={handleClicksNoAuth}
+            tabsNames={tabsNamesNoAuth}
+          />
+          <ArticleList articles={articles} articlesCount={articlesCount} />
+        </ArticlesWithTabs>
+      )}
     </div>
   );
 };

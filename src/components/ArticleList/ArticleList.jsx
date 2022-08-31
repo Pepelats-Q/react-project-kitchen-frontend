@@ -5,46 +5,25 @@ import ArticlePreview from '../ArticlePreview/ArticlePreview';
 import ListPagination from '../ListPagination/ListPagination';
 import styles from './articleList.module.scss';
 
-const ArticleList = ({
-  articles,
-  articlesCount,
-  pager,
-  currentPage,
-}) => {
+const ArticleList = ({ articles, articlesCount, pager, currentPage }) => {
   const currentLang = useSelector((state) => state.header.currentLang);
   const { common, articlesLang } = translations[currentLang];
 
   if (!articles) {
-    return (
-      <div className={styles.article_preview}>
-        {common.loading}
-      </div>
-    );
+    return <div className={styles.article_preview}>{common.loading}</div>;
   }
 
   if (articles.length === 0) {
-    return (
-      <div className={styles.article_preview}>
-        {articlesLang.noArticlesMessage}
-      </div>
-    );
+    return <div className={styles.article_preview}>{articlesLang.noArticlesMessage}</div>;
   }
-
 
   return (
     <div>
       {articles.map((article) => (
-        <ArticlePreview
-          key={article.slug}
-          article={article}
-        />
+        <ArticlePreview key={article.slug} article={article} />
       ))}
 
-      <ListPagination
-        articlesCount={articlesCount}
-        currentPage={currentPage}
-        pager={pager}
-      />
+      <ListPagination articlesCount={articlesCount} currentPage={currentPage} pager={pager} />
     </div>
   );
 };

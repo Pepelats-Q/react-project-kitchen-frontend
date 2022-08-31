@@ -1,5 +1,6 @@
-import { FC, SyntheticEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import agent from '../../agent';
 import { LOGIN, SET_API_MESSAGE } from '../../constants/actionTypes';
 import useFormValidation from '../../hooks/useFormValidation';
@@ -9,9 +10,11 @@ import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
 import { TValidity } from '../../utils/typesTs';
+import translations from '../../constants/translations';
 
 const Login: FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isPassShownLogin, setIsPassShownLogin] = useState(true);
 
   const { values, handleChange, errors, isValid } = useFormValidation({
@@ -29,7 +32,10 @@ const Login: FC = () => {
     setIsPassShownLogin(!isPassShownLogin);
   };
 
+  const [isPressed, setIsPressed] = useState(false);
+
   const submitLogin = () => {
+    setIsPressed(true);
     if (isValid) {
       dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) });
     } else {
@@ -37,12 +43,24 @@ const Login: FC = () => {
     }
   };
 
+  const loginErrors = useSelector((state: any) => state.auth.errors);
+
+  useEffect(() => {
+    if (!loginErrors && isPressed) {
+      history.push('/');
+    }
+  }, [loginErrors]);
+
+  const currentLang = useSelector((state: any) => state.header.currentLang);
+
+  const { authForm } = translations[currentLang];
+
   const showPassIcon = isPassShownLogin ? <ShowIcon /> : <HideIcon />;
 
   return (
     <AuthForm
-      btnText='Войти'
-      crossLinkText='Нужно зарегистрироваться?'
+      btnText={authForm.loginText}
+      crossLinkText={authForm.loginQuestion}
       formName='login'
       isFormValid={isValid}
       onSubmit={submitLogin}
@@ -50,7 +68,7 @@ const Login: FC = () => {
     >
       <fieldset className='form-group'>
         <label className={styles.label} htmlFor='email'>
-          Email
+          {authForm.placeholderEmail}
         </label>
         <div className={styles.inputarea}>
           <input
@@ -59,7 +77,7 @@ const Login: FC = () => {
             minLength={2}
             name='email'
             onChange={handleChange}
-            placeholder='Email'
+            placeholder={authForm.placeholderEmail}
             required
             type='email'
             value={email}
@@ -73,7 +91,7 @@ const Login: FC = () => {
 
       <fieldset className='form-group'>
         <label className={styles.label} htmlFor='password'>
-          Пароль
+          {authForm.placeholderPass}
         </label>
         <div className={styles.inputarea}>
           <input
@@ -82,7 +100,7 @@ const Login: FC = () => {
             minLength={2}
             name='password'
             onChange={handleChange}
-            placeholder='Пароль'
+            placeholder={authForm.placeholderPass}
             required
             type={isPassShownLogin ? 'password' : 'text'}
             value={password}

@@ -47,13 +47,13 @@
 }
 
 @media screen and (max-width: 1180px) {
-.container {
-  padding: 0 24px;
-}
+  .container {
+    padding: 0 24px;
+  }
 }
 
 @media screen and (max-width: 760px) {
-   .box {
+  .box {
     flex-direction: column-reverse;
   }
 

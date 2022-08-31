@@ -27,12 +27,52 @@ type TProfile = {
   editProfile: string;
 };
 
+type TAuthForm = {
+  registerText: string;
+  registerQuestion: string;
+  placeholderName: string;
+  placeholderEmail: string;
+  placeholderPass: string;
+  loginText: string;
+  loginQuestion: string;
+};
+
+type TEditor = {
+  editing: string;
+  newEntry: string;
+  header: string;
+  articleName: string;
+  description: string;
+  about: string;
+  image: string;
+  imageLink: string;
+  content: string;
+  articleText: string;
+  tags: string;
+  tagsText: string;
+  btnText: string;
+};
+
+type TSettings = {
+  image: string;
+  imageText: string;
+  placeholderName: string;
+  placeholderEmail: string;
+  placeholderPass: string;
+  info: string;
+  logout: string;
+  yourSettings: string;
+};
+
 type TTexts = {
   articlesLang: TArticles;
   common: TCommon;
   header: THeader;
   homePage: THomePageTexts;
   profile: TProfile;
+  authForm: TAuthForm;
+  editor: TEditor;
+  settings: TSettings;
 };
 
 type Ttranslations = {
@@ -68,6 +108,40 @@ const translations: Ttranslations | any = {
       favoritePosts: 'Favorites',
       editProfile: 'Edit your profile',
     },
+    authForm: {
+      registerText: 'Register',
+      registerQuestion: 'Do you already have an account?',
+      placeholderName: 'Username',
+      placeholderEmail: 'Email',
+      placeholderPass: 'Password',
+      loginText: 'Log in',
+      loginQuestion: 'Do you need to register?',
+    },
+    editor: {
+      editing: 'Edit entry',
+      newEntry: 'New entry',
+      header: 'Header',
+      articleName: 'Article name',
+      description: 'Desciription',
+      about: 'Briefly describe the article',
+      image: 'Image',
+      imageLink: 'Image link',
+      content: 'Content',
+      articleText: 'Article text in markdown',
+      tags: 'Tags',
+      tagsText: 'Enter a tag and press Enter',
+      btnText: 'Publish',
+    },
+    settings: {
+      image: 'Profile image',
+      imageText: 'URL to profile image',
+      placeholderName: 'Username',
+      placeholderEmail: 'Email',
+      placeholderPass: 'New password',
+      info: 'Some information about you',
+      logout: 'Log out',
+      yourSettings: 'Your settings',
+    },
   },
   ru: {
     articlesLang: {
@@ -95,6 +169,41 @@ const translations: Ttranslations | any = {
       usersPosts: 'Посты пользователя',
       favoritePosts: 'Любимые посты',
       editProfile: 'Редактировать профиль',
+    },
+    authForm: {
+      registerText: 'Зарегистрироваться',
+      registerQuestion: 'Уже есть аккаунт?',
+      placeholderName: 'Имя пользователя',
+      placeholderEmail: 'Email',
+      placeholderPass: 'Пароль',
+      loginText: 'Войти',
+      loginQuestion: 'Нужно зарегистрироваться?',
+    },
+
+    editor: {
+      editing: 'Редактирование',
+      newEntry: 'Новая запись',
+      header: 'Заголовок',
+      articleName: 'Название статьи',
+      description: 'Описание',
+      about: 'О чем статья',
+      image: 'Изображение',
+      imageLink: 'Ссылка на изображение',
+      content: 'Содержание',
+      articleText: 'Текст статьи (markdown-разметка)',
+      tags: 'Теги',
+      tagsText: 'Введите тег и нажмите Enter',
+      btnText: 'Опубликовать',
+    },
+    settings: {
+      image: 'Изображение профиля',
+      imageText: 'URL-адрес изображения профиля',
+      placeholderName: 'Имя пользователя',
+      placeholderEmail: 'Email',
+      placeholderPass: 'Новый пароль',
+      info: 'Информация о вас',
+      logout: 'Выйти из аккаунта',
+      yourSettings: 'Ваши настройки',
     },
   },
 };

@@ -5,7 +5,6 @@ import translations from '../../../constants/translations';
 import styles from './tags.module.scss';
 
 const Tags = ({ tags, onClickTag }) => {
-  
   const currentLang = useSelector((state) => state.header.currentLang);
   const { common } = translations[currentLang];
 

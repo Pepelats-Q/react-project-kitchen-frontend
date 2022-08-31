@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import agent from '../../agent';
 import { REGISTER, SET_API_MESSAGE } from '../../constants/actionTypes';
 import useFormValidation from '../../hooks/useFormValidation';
@@ -8,9 +9,11 @@ import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
+import translations from '../../constants/translations';
 
 const Register = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isPassShownLogin, setIsPassShownLogin] = useState(true);
 
   const { values, handleChange, errors, isValid } = useFormValidation({
@@ -25,21 +28,34 @@ const Register = () => {
     e.preventDefault();
     setIsPassShownLogin(!isPassShownLogin);
   };
+  const [isPressed, setIsPressed] = useState(false);
 
   const submitRegister = () => {
+    setIsPressed(true);
     if (isValid) {
       dispatch({ type: REGISTER, payload: agent.Auth.register(name, email, password) });
     } else {
       dispatch({ type: SET_API_MESSAGE, payload: ['Заполните все поля формы верно'] });
     }
   };
+  const registerErrors = useSelector((state) => state.auth.errors);
+
+  useEffect(() => {
+    if (!registerErrors && isPressed) {
+      history.push('/');
+    }
+  }, [registerErrors]);
+
+  const currentLang = useSelector((state) => state.header.currentLang);
+
+  const { authForm } = translations[currentLang];
 
   const showPassIcon = isPassShownLogin ? <ShowIcon /> : <HideIcon />;
 
   return (
     <AuthForm
-      btnText='Зарегистрироваться'
-      crossLinkText='Уже есть аккаунт?'
+      btnText={authForm.registerText}
+      crossLinkText={authForm.registerQuestion}
       formName='register'
       isFormValid={isValid}
       onSubmit={submitRegister}
@@ -47,7 +63,7 @@ const Register = () => {
     >
       <fieldset className='form-group'>
         <label className={styles.label} htmlFor='name'>
-          Имя пользователя
+          {authForm.placeholderName}
         </label>
         <div className={styles.inputarea}>
           <input
@@ -56,7 +72,7 @@ const Register = () => {
             minLength='2'
             name='name'
             onChange={handleChange}
-            placeholder='Имя пользователя'
+            placeholder={authForm.placeholderName}
             required
             type='text'
             value={name}
@@ -68,7 +84,7 @@ const Register = () => {
 
       <fieldset className='form-group'>
         <label className={styles.label} htmlFor='email'>
-          Email
+          {authForm.placeholderEmail}
         </label>
         <div className={styles.inputarea}>
           <input
@@ -77,7 +93,7 @@ const Register = () => {
             minLength='2'
             name='email'
             onChange={handleChange}
-            placeholder='Email'
+            placeholder={authForm.placeholderEmail}
             required
             type='email'
             value={email}
@@ -89,7 +105,7 @@ const Register = () => {
 
       <fieldset className='form-group'>
         <label className={styles.label} htmlFor='password'>
-          Пароль
+          {authForm.placeholderPass}
         </label>
         <div className={styles.inputarea}>
           <input
@@ -98,7 +114,7 @@ const Register = () => {
             minLength='2'
             name='password'
             onChange={handleChange}
-            placeholder='Пароль'
+            placeholder={authForm.placeholderPass}
             required
             type={isPassShownLogin ? 'password' : 'text'}
             value={password}

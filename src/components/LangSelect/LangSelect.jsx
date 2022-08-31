@@ -6,17 +6,16 @@ const LangSelect = () => {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    const {value} = e.target;
-    dispatch({type: CHANGE_LANG, payload: value});
-    }
+    const { value } = e.target;
+    dispatch({ type: CHANGE_LANG, payload: value });
+  };
 
-
-return (
-  <select className={styles.langs} onChange={handleChange}>
-    <option value='ru'>Русский</option>
-    <option value='en'>English</option>
-  </select>
-);
-}
+  return (
+    <select className={styles.langs} onChange={handleChange}>
+      <option value='ru'>Русский</option>
+      <option value='en'>English</option>
+    </select>
+  );
+};
 
 export default LangSelect;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
+import { useHistory } from 'react-router';
 import ListErrors from '../ListErrors/ListErrors';
 import agent from '../../agent';
 import { SETTINGS_SAVED, LOGOUT } from '../../constants/actionTypes';
@@ -11,6 +12,7 @@ import TextArea from '../ui-library/TextArea/TextArea';
 import { HideIcon, ShowIcon } from '../ui-library/Icons';
 import TextButton from '../ui-library/Buttons/TextButton/TextButton';
 import styles from './Settings.module.scss';
+import translations from '../../constants/translations';
 
 const Settings = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -22,8 +24,21 @@ const Settings = () => {
   }));
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const [isPressed, setIsPressed] = useState(false);
 
-  const onClickLogout = () => dispatch({ type: LOGOUT });
+  const onClickLogout = () => {
+    setIsPressed(true);
+    dispatch({ type: LOGOUT });
+  };
+
+  const token = useSelector((state) => state.common.token);
+
+  useEffect(() => {
+    if (!token && isPressed) {
+      history.push('/');
+    }
+  }, [token]);
 
   // TODO: удалить при рефакторинге редакса
   // const onUnload = () => dispatch({ type: SETTINGS_PAGE_UNLOADED });
@@ -65,46 +80,50 @@ const Settings = () => {
     onSubmitForm(user);
   };
 
+  const currentLang = useSelector((state) => state.header.currentLang);
+
+  const { settings } = translations[currentLang];
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <h1 className={clsx(styles.title, 'header-h2 align-center color-primary')}>
-          Ваши настройки
+          {settings.yourSettings}
         </h1>
 
         <ListErrors errors={errors} />
 
         <form className={styles.form} onSubmit={submitFormHandler}>
           <TextField
-            label='Изображение профиля'
+            label={settings.image}
             name='image'
             onChange={handleChange}
-            placeholder='URL-адрес изображения профиля'
+            placeholder={settings.imageText}
             type='text'
             value={values.image}
           />
           <TextField
-            label='Имя пользователя'
+            label={settings.placeholderName}
             name='username'
             onChange={handleChange}
-            placeholder='Имя пользователя'
+            placeholder={settings.placeholderName}
             type='text'
             value={values.username}
           />
           <TextArea
-            label='Информация о вас'
+            label={settings.info}
             name='bio'
             onChange={handleChange}
-            placeholder='Информация о вас'
+            placeholder={settings.info}
             rows={5}
             value={values.bio}
           />
           <TextField
             autocomplete='new-email'
-            label='E-mail'
+            label={settings.placeholderEmail}
             name='email'
             onChange={handleChange}
-            placeholder='Ваш email'
+            placeholder={settings.placeholderEmail}
             type='email'
             value={values.email}
           />
@@ -117,10 +136,10 @@ const Settings = () => {
                 <ShowIcon onClick={() => setIsPasswordVisible(true)} />
               )
             }
-            label='Новый пароль'
+            label={settings.placeholderPass}
             name='password'
             onChange={handleChange}
-            placeholder='Новый пароль'
+            placeholder={settings.placeholderPass}
             type={isPasswordVisible ? 'text' : 'password'}
             value={values.password}
           />
@@ -131,7 +150,7 @@ const Settings = () => {
 
         <hr className={styles.divider} />
         <TextButton className={styles.exit_button} color='alert' onClick={onClickLogout}>
-          Выйти из аккаунта
+          {settings.logout}
         </TextButton>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import { ARTICLE_FAVORITED, ARTICLE_UNFAVORITED } from '../../constants/actionTypes';
 import styles from './articlePreview.module.scss';
@@ -10,20 +10,21 @@ import translations from '../../constants/translations';
 const FAVORITED_CLASS = `${styles.btn} ${styles.btn_sm} ${styles.btn_primary}`;
 const NOT_FAVORITED_CLASS = `${styles.btn} ${styles.btn_sm} ${styles.btn_outline_primary}`;
 
-const mapDispatchToProps = (dispatch) => ({
-  favorite: (slug) =>
+const ArticlePreview = ({ article }) => {
+  const dispatch = useDispatch();
+
+  const favorite = () => (slug) =>
     dispatch({
       type: ARTICLE_FAVORITED,
       payload: agent.Articles.favorite(slug),
-    }),
-  unfavorite: (slug) =>
+    });
+
+  const unfavorite = (slug) =>
     dispatch({
       type: ARTICLE_UNFAVORITED,
       payload: agent.Articles.unfavorite(slug),
-    }),
-});
+    });
 
-const ArticlePreview = ({ article, favorite, unfavorite }) => {
   const favoriteButtonClass = article.favorited ? FAVORITED_CLASS : NOT_FAVORITED_CLASS;
 
   const handleClick = (ev) => {
@@ -44,7 +45,7 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
     <div className={styles.article_preview}>
       <div className={styles.row}>
         <div className={styles.col}>
-          <div className={styles.image} />
+          <div className={styles.image} style={{ backgroundImage: `url(${article.link})` }} />
         </div>
         <div className={`${styles.colArticle} ${styles.w100}`}>
           <div className={styles.article_meta}>
@@ -61,7 +62,7 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
                 {article.author.username}
               </Link>
               <span className={styles.date}>
-                {new Intl.DateTimeFormat('ru', {
+                {new Intl.DateTimeFormat(currentLang, {
                   weekday: 'short',
                   day: '2-digit',
                   month: 'long',
@@ -78,7 +79,7 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
             </div>
           </div>
 
-          <Link className='preview-link' to={`/article/${article.slug}`}>
+          <Link className={styles.link} to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
             <p className={styles.text}>{article.description}</p>
             <span className={styles.continue}>{articlesLang.readMore}</span>
@@ -98,8 +99,6 @@ const ArticlePreview = ({ article, favorite, unfavorite }) => {
 
 ArticlePreview.propTypes = {
   article: PropTypes.object,
-  unfavorite: PropTypes.func,
-  favorite: PropTypes.func,
 };
 
-export default connect(() => ({}), mapDispatchToProps)(ArticlePreview);
+export default ArticlePreview;

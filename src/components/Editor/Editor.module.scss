@@ -10,7 +10,7 @@
   width: 540px;
 }
 
-.title{
+.title {
   margin-bottom: 40px;
 }
 
@@ -25,14 +25,14 @@
   margin-top: 28px;
 }
 
-.tag_list{
+.tag_list {
   display: flex;
   flex-wrap: nowrap;
   padding: 8px 12px;
   gap: 4px;
 }
 
-.tag{
+.tag {
   @include text-default;
   background-color: $color-input;
   border-radius: 12px;

@@ -8,10 +8,9 @@ import styles from './ArticlesWithTabs.module.scss';
 
 const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ children }) => {
   const dispatch = useDispatch<any>();
-  const tags = useSelector((state: any) => state.profile.tags);    
+  const tags = useSelector((state: any) => state.profile.tags);
   const currentLang = useSelector((state: any) => state.header.currentLang);
   const { common } = translations[currentLang];
-
 
   const onClickTag = (tag: any, pager: any, payload: any) => {
     dispatch({
