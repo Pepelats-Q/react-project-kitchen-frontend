@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './listErrors.module.scss';
 
 const { messages } = styles;
@@ -15,6 +16,10 @@ const ListErrors = ({ errors }) => {
     );
   }
   return null;
+};
+
+ListErrors.propTypes = {
+  errors: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default ListErrors;

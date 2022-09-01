@@ -20,6 +20,7 @@ import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
 import Tabs from '../../components/Tabs/Tabs';
 import { TUsernameParams } from '../../utils/typesTs';
+import translations from '../../constants/translations';
 
 const Profile: FC = () => {
   const dispatch = useDispatch();
@@ -90,10 +91,13 @@ const Profile: FC = () => {
     );
   };
 
-  const textPosts = isCurrentUserProfile ? 'Ваши посты' : 'Посты пользователя';
+  const currentLang = useSelector((state: any) => state.header.currentLang);
+  const { profile } = translations[currentLang];
+
+  const textPosts = isCurrentUserProfile ? profile.yourPosts : profile.usersPosts;
   const tabsNames = [
     { name: textPosts, flag: 'yourPosts' },
-    { name: 'Любимые посты', flag: 'favorites' },
+    { name: profile.favoritePosts, flag: 'favorites' },
   ];
   const handleClicks = [yourPostsTabClick, favPostsTabClick];
 
@@ -126,20 +130,20 @@ const Profile: FC = () => {
             {/* Кнопка редактирования профиля не показывается, если это чужой профиль */}
             {isCurrentUserProfile ? (
               <NavButton icon={<GearIcon />} to='/settings' type='primary'>
-                Редактировать профиль
+                {profile.editProfile}
               </NavButton>
             ) : (
               ''
             )}
 
             {/* Запрещаю подписку на себя */}
-            {!isCurrentUserProfile ? (
+            {!isCurrentUserProfile && user ? (
               <Button
                 icon={currentProfile.following ? <MinusIcon /> : <PlusIcon />}
                 onClick={handleFollowClick}
                 type='primary'
               >
-                {currentProfile.following ? ' Отменить подписку' : ' Подписаться'}
+                {currentProfile.following ? profile.unsubscribe : profile.subscribe}
               </Button>
             ) : (
               ''

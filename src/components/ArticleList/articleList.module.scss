@@ -1,10 +1,12 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
 .article_preview {
-    border-top: 1px solid #2F2F37;
-    padding: 1.5rem 0;
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: var(--text-gray)
+  border-top: 1px solid $color-input;
+  padding: 1.5rem 0;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: $color-secondary;
 }
