@@ -1,6 +1,19 @@
+type TComments = {
+  comments: {
+    signIn: string;
+    or: string;
+    signUp: string;
+    signInText: string;
+    writeComment: string;
+    comments: string;
+    post: string;
+  }
+}
 type TArticles = {
   noArticlesMessage: string;
   readMore: string;
+  tags: string;
+  comments: TComments;
 };
 type TCommon = {
   loading: string;
@@ -64,6 +77,7 @@ type TSettings = {
   info: string;
   logout: string;
   yourSettings: string;
+  saveButton: string
 };
 
 type TTexts = {
@@ -87,6 +101,18 @@ const translations: Ttranslations | any = {
     articlesLang: {
       noArticlesMessage: "There's no articles...",
       readMore: 'Read more...',
+      tags: 'Tags: ',
+      edit: ' Edit Article',
+      delete: 'Delete Article',
+      comments: {
+        signIn: 'Sign in',
+        or: 'or',
+        signUp: 'sign up',
+        signInText: ' to add comments on this article.',
+        writeComment: 'Write a comment...',
+        comments: 'Comments',
+        post: 'Post Comment',
+      }
     },
     common: {
       loading: 'Loading...',
@@ -145,12 +171,25 @@ const translations: Ttranslations | any = {
       info: 'Some information about you',
       logout: 'Log out',
       yourSettings: 'Your settings',
+      saveButton: 'Save settings',
     },
   },
   ru: {
     articlesLang: {
       noArticlesMessage: 'Нет статей...',
       readMore: 'Читать продолжение...',
+      tags: 'Теги: ',
+      edit: 'Редактировать статью',
+      delete: 'Удалить статью',
+      comments: {
+        signIn: 'Войдите',
+        or: 'или',
+        signUp: 'зарегистрируйтесь',
+        signInText: ', чтобы добавить комментарий к этой статье',
+        writeComment: 'Напишите комментарий...',
+        comments: 'Комментарии',
+        post: 'Опубликовать комментарий',
+      }
     },
     common: {
       loading: 'Загрузка...',
@@ -210,6 +249,7 @@ const translations: Ttranslations | any = {
       info: 'Информация о вас',
       logout: 'Выйти из аккаунта',
       yourSettings: 'Ваши настройки',
+      saveButton: 'Сохранить',
     },
   },
 };

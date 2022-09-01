@@ -1,12 +1,12 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
 import { HomeIcon, EditIcon, ProfileIconBlank } from '../ui-library/Icons';
-import currentUserType from '../../utils/types';
-
 import translations from '../../constants/translations';
 
-const LoggedNav = ({ currentUser }) => {
-  const currentLang = useSelector((state) => state.header.currentLang);
+const LoggedNav: FC = () => {
+  const currentLang = useSelector((state: any) => state.header.currentLang);
+  const currentUser = useSelector((state: any) => state.common.currentUser);
   const { header } = translations[currentLang];
   return (
     <>
@@ -20,10 +20,6 @@ const LoggedNav = ({ currentUser }) => {
       />
     </>
   );
-};
-
-LoggedNav.propTypes = {
-  currentUser: currentUserType.isRequired,
 };
 
 export default LoggedNav;

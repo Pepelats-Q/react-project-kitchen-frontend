@@ -14,7 +14,7 @@
 
 .container {
   width: 100%;
-  max-width: var(--container-width);
+  max-width: $container-width;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,6 +41,9 @@
   line-height: 40px;
   font-family: 'JetBrains Mono', sans-serif;
   color: $color-primary;
+  margin: 16px 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .meta {
@@ -104,6 +107,17 @@
   padding: 0;
 }
 
+.commentsList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
 .commentForm {
   display: flex;
   width: 100%;
@@ -113,13 +127,14 @@
 
 .textarea {
   width: 100%;
-  background-color: $color-white20;
+  background-color: $color-input;
   box-sizing: border-box;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   outline: 0;
   border: 0;
   padding: 24px;
+  color: $color-secondary;
 }
 
 .textarea::placeholder {
@@ -129,12 +144,17 @@
   font-family: 'JetBrains Mono', sans-serif;
 }
 
+.comment_input {
+  margin: 32px 0 16px 0 !important;
+}
+
 .comment {
-  margin: 32px 0;
+  margin: 16px 0;
   width: 100%;
-  background-color: $color-white10;
+  background-color: $color-bg-secondary;
   box-sizing: border-box;
   border-radius: 10px;
+  padding: 0;
 }
 
 .commentPar {
@@ -192,8 +212,8 @@
 }
 
 .tag_default {
-  color: var(--text-white);
-  background-color: #2f2f37;
+  color: $color-primary;
+  background-color: $color-input;
   font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 400;

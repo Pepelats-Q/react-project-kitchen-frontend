@@ -5,6 +5,7 @@ import agent from '../../agent';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import { ADD_COMMENT } from '../../constants/actionTypes';
 import styles from './Article.module.scss';
+import translations from '../../constants/translations';
 
 const CommentInput = ({ slug }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,8 @@ const CommentInput = ({ slug }) => {
 
   const currentUser = useSelector((state) => state.common.currentUser);
   const currentProfile = useSelector((state) => state.profile);
+  const currentLang = useSelector((state) => state.header.currentLang);
+  const { comments } = translations[currentLang].articlesLang;
 
   const [state, setState] = useState({ body: '' });
 
@@ -34,7 +37,7 @@ const CommentInput = ({ slug }) => {
       <textarea
         className={styles.textarea}
         onChange={setBody}
-        placeholder='Write a comment...'
+        placeholder={comments.writeComment}
         rows='3'
         value={state.body}
       />
@@ -45,7 +48,7 @@ const CommentInput = ({ slug }) => {
             <p className={styles.userLink}>{currentUser.username}</p>
           </div>
         </div>
-        <Button onClick={createComment}>Post Comment</Button>
+        <Button onClick={createComment}>{comments.post}</Button>
       </div>
     </form>
   );

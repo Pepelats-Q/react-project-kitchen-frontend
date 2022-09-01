@@ -1,18 +1,21 @@
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 import styles from './Article.module.scss';
+import translations from '../../constants/translations';
 
 const CommentContainer = ({ slug }) => {
   const currentUser = useSelector((state) => state.common.currentUser);
+  const currentLang = useSelector((state) => state.header.currentLang);
+  const { comments } = translations[currentLang].articlesLang;
 
   if (currentUser) {
     return (
       <div className={styles.commentsContainer}>
-        <h2 className={styles.commentsTitle}>Комментарии</h2>
-        <div className={styles.comment}>
+        <h2 className={styles.commentsTitle}>{comments.comments}</h2>
+        <div className={`${styles.comment} ${styles.comment_input}`}>
           {/* позже с этим буду разбираться  <ListErrors errors={errors} /> */}
           <CommentInput currentUser={currentUser} slug={slug} />
         </div>
@@ -21,20 +24,23 @@ const CommentContainer = ({ slug }) => {
       </div>
     );
   }
-  return (
-    <div className={styles.commentPar}>
-      <p>
-        <Link to='/login' className={styles.userLink}>
-          Sign in
-        </Link>
-        &nbsp;or&nbsp;
-        <Link to='/register' className={styles.userLink}>
-          sign up
-        </Link>
-        &nbsp;to add comments on this article.
-      </p>
 
-      <CommentList slug={slug} />
+  return (
+    <div className={styles.commentsContainer}>
+      <div className={styles.commentPar}>
+        <p>
+          <Link to='/login' className={styles.userLink}>
+            {comments.signIn}
+          </Link>
+          &nbsp;{comments.or}&nbsp;
+          <Link to='/register' className={styles.userLink}>
+            {comments.signUp}
+          </Link>
+          {comments.signInText}
+        </p>
+
+        <CommentList slug={slug} />
+      </div>
     </div>
   );
 };

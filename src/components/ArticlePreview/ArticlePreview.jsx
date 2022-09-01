@@ -4,16 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import { ARTICLE_FAVORITED, ARTICLE_UNFAVORITED } from '../../constants/actionTypes';
 import styles from './articlePreview.module.scss';
-import avatar from '../../images/avatarTemp.svg';
-import translations from '../../constants/translations';
 
-const FAVORITED_CLASS = `${styles.btn} ${styles.btn_sm} ${styles.btn_primary}`;
-const NOT_FAVORITED_CLASS = `${styles.btn} ${styles.btn_sm} ${styles.btn_outline_primary}`;
+import translations from '../../constants/translations';
+import UserWithDate from '../UserWithDate/UserWithDate';
+import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
 
 const ArticlePreview = ({ article }) => {
   const dispatch = useDispatch();
 
-  const favorite = () => (slug) =>
+  const favorite = (slug) =>
     dispatch({
       type: ARTICLE_FAVORITED,
       payload: agent.Articles.favorite(slug),
@@ -25,9 +24,7 @@ const ArticlePreview = ({ article }) => {
       payload: agent.Articles.unfavorite(slug),
     });
 
-  const favoriteButtonClass = article.favorited ? FAVORITED_CLASS : NOT_FAVORITED_CLASS;
-
-  const handleClick = (ev) => {
+  const handleClickToFavorite = (ev) => {
     ev.preventDefault();
     if (article.favorited) {
       unfavorite(article.slug);
@@ -36,9 +33,8 @@ const ArticlePreview = ({ article }) => {
     }
   };
 
-  const defaultAvatar = 'https://static.productionready.io/images/smiley-cyrus.jpg';
-
   const currentLang = useSelector((state) => state.header.currentLang);
+  const currentUser = useSelector((state) => state.common.currentUser);
   const { articlesLang } = translations[currentLang];
 
   return (
@@ -49,32 +45,23 @@ const ArticlePreview = ({ article }) => {
         </div>
         <div className={`${styles.colArticle} ${styles.w100}`}>
           <div className={styles.article_meta}>
-            <Link className={styles.avatar} to={`/@${article.author.username}`}>
-              {article.author.image === defaultAvatar ? (
-                <img alt={article.author.username} src={avatar} />
-              ) : (
-                <img alt={article.author.username} src={article.author.image} />
-              )}
-            </Link>
-
-            <div className={styles.info}>
-              <Link className={styles.author} to={`/@${article.author.username}`}>
-                {article.author.username}
-              </Link>
-              <span className={styles.date}>
-                {new Intl.DateTimeFormat(currentLang, {
-                  weekday: 'short',
-                  day: '2-digit',
-                  month: 'long',
-                  year: 'numeric',
-                }).format(new Date(article.createdAt))}
-              </span>
-            </div>
+            <UserWithDate author={article.author} date={article.createdAt} />
 
             <div className={styles.pull_xs_right}>
-              <button className={favoriteButtonClass} onClick={handleClick} type='button'>
-                {article.favoritesCount}
-                <i className='ion-heart offset-sm-6' />
+              <button
+                disabled={!currentUser}
+                onClick={handleClickToFavorite}
+                type='button'
+                className={styles.favouriteButton}
+              >
+                <p className={`${styles.count} ${article.favorited ? styles.count_added : ''}`}>
+                  {article.favoritesCount}
+                </p>
+                {article.favorited ? (
+                  <HeartIconFilled size='small' className={styles.heart} color='alert' />
+                ) : (
+                  <HeartIcon size='small' className={styles.heart} color='primary' />
+                )}
               </button>
             </div>
           </div>

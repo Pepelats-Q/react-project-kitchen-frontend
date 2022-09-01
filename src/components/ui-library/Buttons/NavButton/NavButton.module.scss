@@ -85,6 +85,8 @@ $animation_time: 0.5s;
     background-color: $color-accent-dark;
     color: $color-primary;
     transition: background-color $animation_time, color $animation_time;
+    text-decoration: none;
+    cursor: pointer;
   }
   &:focus-visible {
     border: 2px solid $color-primary;

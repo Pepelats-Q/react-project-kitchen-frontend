@@ -1,27 +1,28 @@
+@import '../../../components/ui-library/ui-style/ui-style.scss';
 .tag_list {
-    display: flex;
-    justify-content: flex-end;
-    gap: 5px;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  flex-wrap: wrap;
 }
 
 .tag_default {
-    color: var(--text-white);
-    background-color: #2F2F37;
-    font-family: 'JetBrains Mono';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 100px;
-    text-decoration: none;
+  color: $color-primary;
+  background-color: $color-input;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 100px;
+  text-decoration: none;
 }
 
 .tag_default:hover {
-    color: var(--text-white);
+  color: $color-primary;
 }
 
 .tag_default:focus {
-    background-color: var(--accent-color);
-    color: var(--text-white);
+  background-color: $color-accent;
+  color: $color-primary;
 }

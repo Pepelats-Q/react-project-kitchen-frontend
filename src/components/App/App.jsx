@@ -12,6 +12,7 @@ import Profile from '../../pages/Profile/Profile';
 import Register from '../../pages/Register/Register';
 import Settings from '../Settings/Settings';
 import UI from '../../pages/UI/UI';
+import NotLoadedApp from '../NotLoadedApp/NotLoadedApp';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -33,13 +34,11 @@ const App = () => {
   }, []);
 
   const appLoaded = useSelector((state) => state.common.appLoaded);
-  const appName = useSelector((state) => state.common.appName);
-  const currentUser = useSelector((state) => state.common.currentUser);
 
   if (appLoaded) {
     return (
       <div>
-        <Header appName={appName} currentUser={currentUser} />
+        <Header />
 
         <Switch>
           <Route component={Home} exact path='/' />
@@ -57,7 +56,7 @@ const App = () => {
   }
   return (
     <div>
-      <Header appName={appName} currentUser={currentUser} />
+      <NotLoadedApp />
     </div>
   );
 };

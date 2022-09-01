@@ -63,7 +63,7 @@ const Login: FC = () => {
       onSubmit={submitLogin}
       oppositeLink='/register'
     >
-      <fieldset className='form-group'>
+      <fieldset className={styles.fieldset}>
         <label className={styles.label} htmlFor='email'>
           {authForm.placeholderEmail}
         </label>
@@ -86,7 +86,7 @@ const Login: FC = () => {
         </div>
       </fieldset>
 
-      <fieldset className='form-group'>
+      <fieldset className={styles.fieldset}>
         <label className={styles.label} htmlFor='password'>
           {authForm.placeholderPass}
         </label>

@@ -1,7 +1,6 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import currentUserType from '../../utils/types';
 import NotLoggedNav from './NotLoggedNav';
 import LoggedNav from './LoggedNav';
 import styles from './header.module.scss';
@@ -9,12 +8,13 @@ import MenuIcon from '../ui-library/Icons/MenuIcon';
 import { TOGGLE_MOBILE_MENU } from '../../constants/actionTypes';
 import LangSelect from '../LangSelect/LangSelect';
 
-const Header = ({ appName, currentUser }) => {
-  const currentNav = currentUser ? <LoggedNav currentUser={currentUser} /> : <NotLoggedNav />;
-
+const Header: FC = () => {
   const dispatch = useDispatch();
 
-  const isMobileMenuOpen = useSelector((state) => state.header.isMobileMenuOpen);
+  const isMobileMenuOpen = useSelector((state: any) => state.header.isMobileMenuOpen);
+  const appName = useSelector((state: any) => state.common.appName);
+  const currentUser = useSelector((state: any) => state.common.currentUser);
+  const currentNav = currentUser ? <LoggedNav /> : <NotLoggedNav />;
 
   const toggleMobileMenu = () => {
     dispatch({ type: TOGGLE_MOBILE_MENU, payload: !isMobileMenuOpen });
@@ -52,11 +52,6 @@ const Header = ({ appName, currentUser }) => {
       </div>
     </>
   );
-};
-
-Header.propTypes = {
-  appName: PropTypes.string.isRequired,
-  currentUser: currentUserType,
 };
 
 export default Header;

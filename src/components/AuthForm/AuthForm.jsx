@@ -26,11 +26,11 @@ const AuthForm = ({
       <div className={styles.container}>
         <div className={styles.formBox}>
           <h1 className={styles.title}>{btnText}</h1>
-          <p className='text-xs-center'>
+          <div className={styles.oppositeLink}>
             <Link className={styles.link} to={oppositeLink}>
               {crossLinkText}
             </Link>
-          </p>
+          </div>
 
           <ListErrors errors={apiErrors} />
 

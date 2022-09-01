@@ -10,6 +10,7 @@ import {
   GET_PROFILE_DATA,
 } from '../../constants/actionTypes';
 import styles from './Article.module.scss';
+import translations from '../../constants/translations';
 
 const Article = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Article = () => {
   const article = useSelector((state) => state.article.article);
 
   const currentUser = useSelector((state) => state.common.currentUser);
+  const currentLang = useSelector((state) => state.header.currentLang);
+  const { articlesLang } = translations[currentLang];
 
   const onLoad = (payload) => {
     dispatch({ type: ARTICLE_PAGE_LOADED, payload });
@@ -57,7 +60,7 @@ const Article = () => {
 
           <div dangerouslySetInnerHTML={{ __html: article.body }} className={styles.body} />
           <div className={styles.tagsContainer}>
-            <p>Теги: </p>
+            <p>{articlesLang.tags}</p>
             <ul className={styles.tag_list}>
               {article.tagList.map((tag) => (
                 <li key={tag} className={styles.tag_default}>

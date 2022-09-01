@@ -7,12 +7,9 @@ import { DELETE_COMMENT } from '../../constants/actionTypes';
 const DeleteButton = ({ slug, commentId, show }) => {
   const dispatch = useDispatch();
 
-  const onClick = (payload, commentIdGiven) =>
-    dispatch({ type: DELETE_COMMENT, payload, commentIdGiven });
-
   const del = () => {
     const payload = agent.Comments.delete(slug, commentId);
-    onClick(payload, commentId);
+    dispatch({ type: DELETE_COMMENT, payload, commentId });
   };
 
   if (show) {

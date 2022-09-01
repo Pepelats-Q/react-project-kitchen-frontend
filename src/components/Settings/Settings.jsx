@@ -144,7 +144,7 @@ const Settings = () => {
             value={values.password}
           />
           <Button className={styles.submit_button} disabled={inProgress} isSubmit>
-            Сохранить
+            {settings.saveButton}
           </Button>
         </form>
 

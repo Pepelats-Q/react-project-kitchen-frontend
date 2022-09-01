@@ -37,7 +37,7 @@ const Home: FC = () => {
 
   useEffect(() => {
     const tab = token ? 'feed' : 'all';
-    const articlesPromise = token ? agent.Articles.feed : agent.Articles.all;
+    const articlesPromise = agent.Articles.all;
     onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
     return () => {
       onUnload();

@@ -92,11 +92,8 @@ const Editor = () => {
   }, []);
 
   const currentLang = useSelector((state) => state.header.currentLang);
-
   const { editor } = translations[currentLang];
-
   const editorErrors = useSelector((state) => state.editor.errors);
-
   const newArticleSlug = useSelector((state) => state.common.redirectTo);
 
   useEffect(() => {
