@@ -227,6 +227,13 @@ const UI = () => {
           <NavButton icon={<HomeIcon />} to='/ui' />
           <h4 className={styles.h4}>{`<NavButton to='/ui' icon={<HomeIcon />} />`}</h4>
         </div>
+
+        <div className={styles.group_layout}>
+          <NavButton icon={<EditIcon />} to='/ui' type='primary' />
+          <h4
+            className={styles.h4}
+          >{`<NavButton to='/ui' icon={<HomeIcon />} type='primary' />`}</h4>
+        </div>
       </div>
       <div>
         <h2 className={styles.h2}>Текстовая кнопка</h2>
@@ -254,11 +261,7 @@ const UI = () => {
         </div>
 
         <div className={styles.group_layout}>
-          <TabButton
-            isCurrent
-            name='Вкладка'
-            onClick={() => console.log('кнопка вкладки')}
-          />
+          <TabButton isCurrent name='Вкладка' onClick={() => console.log('кнопка вкладки')} />
           <h4 className={styles.h4}>{`<TabButton isCurrent />`} активная вкладка</h4>
         </div>
       </div>

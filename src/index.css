@@ -1,3 +1,4 @@
+@import url('./vendor/normalize.css');
 @import url('./vendor/fonts/fonts.css');
 
 html {
@@ -5,16 +6,6 @@ html {
   padding-bottom: 0;
 }
 
-*{
-  font-family: sans-serif;
-}
-
-:root {
-  --accent-color: #3333ff;
-  --bg-color: #131316;
-  --text-white: #f2f2f3;
-  --text-gray: #8585ad;
-  --bg-secondary: #1c1c21;
-  --bg-input: #2f2f37;
-  --container-width: 1140px;
+* {
+  font-family: 'JetBrains Mono', sans-serif;
 }

@@ -1,6 +1,6 @@
 $color-primary: #f2f2f3;
 $color-secondary: #8585ad;
-$color-success: #00CCCC;
+$color-success: #00cccc;
 $color-alert: #f20d33;
 $color-white10: #ffffff1a;
 $color-white20: #ffffff33;
@@ -8,9 +8,11 @@ $color-disabled: #3a3a55;
 $color-accent: #4c4cff;
 $color-accent-dark: #3d3dcc;
 $color-accent-light: #7070ff;
-$color-input: #2F2F37;
+$color-input: #2f2f37;
 $color-bg: #131316;
-$color-bg-secondary: #1C1C21;
+$color-bg-secondary: #1c1c21;
+
+$container-width: 1140px;
 
 @mixin text-default {
   font-family: 'JetBrains Mono', sans-serif;
@@ -25,4 +27,3 @@ $color-bg-secondary: #1C1C21;
   font-size: 12px;
   line-height: 16px;
 }
-

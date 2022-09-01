@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
@@ -12,6 +12,7 @@ import Button from '../ui-library/Buttons/Button/Button';
 import { CloseIcon } from '../ui-library/Icons';
 
 import styles from './Editor.module.scss';
+import translations from '../../constants/translations';
 
 const Editor = () => {
   const { errors, inProgress } = useSelector((store) => ({
@@ -32,8 +33,14 @@ const Editor = () => {
   const urlParams = useParams();
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const onSubmit = (payload) => dispatch({ type: ARTICLE_SUBMITTED, payload });
+  const [isPressed, setIsPressed] = useState(false);
+
+  const onSubmit = (payload) => {
+    setIsPressed(true);
+    dispatch({ type: ARTICLE_SUBMITTED, payload });
+  };
 
   const watchForEnter = (ev) => {
     if (ev.keyCode === 13) {
@@ -84,45 +91,56 @@ const Editor = () => {
     }
   }, []);
 
+  const currentLang = useSelector((state) => state.header.currentLang);
+  const { editor } = translations[currentLang];
+  const editorErrors = useSelector((state) => state.editor.errors);
+  const newArticleSlug = useSelector((state) => state.common.redirectTo);
+
+  useEffect(() => {
+    if (!editorErrors && isPressed) {
+      history.push(newArticleSlug);
+    }
+  }, [editorErrors]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <h1 className={clsx(styles.title, 'header-h2 align-center color-primary')}>
-          {urlParams.slug ? 'Редактирование' : 'Новая запись'}
+          {urlParams.slug ? editor.editing : editor.newEntry}
         </h1>
 
         <ListErrors errors={errors} />
 
         <form className={styles.form}>
           <TextField
-            label='Заголовок'
+            label={editor.header}
             name='title'
             onChange={handleChange}
-            placeholder='Название статьи'
+            placeholder={editor.articleName}
             type='text'
             value={values.title}
           />
           <TextField
-            label='Описание'
+            label={editor.description}
             name='description'
             onChange={handleChange}
-            placeholder='О чем статья'
+            placeholder={editor.about}
             type='text'
             value={values.description}
           />
           <TextField
-            label='Изображение'
+            label={editor.image}
             name='link'
             onChange={handleChange}
-            placeholder='Ссылка на изображение'
+            placeholder={editor.imageLink}
             type='text'
             value={values.link}
           />
           <TextArea
-            label='Содержание'
+            label={editor.content}
             name='body'
             onChange={handleChange}
-            placeholder='Текст статьи (markdown-разметка)'
+            placeholder={editor.articleText}
             rows={8}
             type='text'
             value={values.body}
@@ -130,11 +148,11 @@ const Editor = () => {
 
           <div>
             <TextField
-              label='Теги'
+              label={editor.tags}
               name='tag'
               onChange={handleChange}
               onKeyUp={watchForEnter}
-              placeholder='Введите тег и нажмите Enter'
+              placeholder={editor.tagsText}
               type='text'
               value={values.tag}
             />
@@ -150,7 +168,7 @@ const Editor = () => {
           </div>
 
           <Button className={styles.submit_button} disabled={inProgress} onClick={submitForm}>
-            Опубликовать
+            {editor.btnText}
           </Button>
         </form>
       </div>

@@ -77,6 +77,7 @@ module.exports = {
 
     // TypeScript
     '@typescript-eslint/default-param-last': 'warn',
+    '@typescript-eslint/dot-notation': 'warn', // работаем с контекстом в app.js, там ругается
 
     // переменные
     camelcase: 'warn', // переменные в css - по БЭМ с нижн. подчеркиванием. Но линт ругается. поэтому поставила warn

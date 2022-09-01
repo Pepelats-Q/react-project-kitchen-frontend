@@ -1,0 +1,19 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+.page {
+  min-height: calc(100vh - 60px);
+  background-color: $color-bg;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.par {
+    color: $color-primary;
+    margin: 32px 0;
+    font-size: 16px;
+    line-height: 20px;
+    font-family: 'JetBrains Mono', sans-serif;
+}
