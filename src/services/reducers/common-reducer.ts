@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/typesTs';
-import { register, registerPageUnload } from './auth-reducer';
+import { login, register, registerPageUnload } from './auth-reducer';
 import { articleSubmit } from './editor-reducer';
 import { settingsSaved } from './settings-reducer';
 
@@ -57,6 +57,11 @@ const commonReducer = createSlice({
       state.currentUser = action.error ? null : action.payload.payload.user;
     },
     [register.type]: (state, action: AnyAction) => {
+      state.redirectTo = action.error ? null : '/';
+      state.token = action.error ? null : action.payload.payload.user.token;
+      state.currentUser = action.error ? null : action.payload.payload.user;
+    },
+    [login.type]: (state, action: AnyAction) => {
       state.redirectTo = action.error ? null : '/';
       state.token = action.error ? null : action.payload.payload.user.token;
       state.currentUser = action.error ? null : action.payload.payload.user;
