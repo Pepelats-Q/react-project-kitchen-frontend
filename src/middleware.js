@@ -7,7 +7,6 @@ function isPromise(v) {
 }
 
 const promiseMiddleware = (store) => (next) => (action) => {
-  console.log(action);
   if (isPromise(action.payload?.payload)) {
     store.dispatch(asyncStart(action.type));
 

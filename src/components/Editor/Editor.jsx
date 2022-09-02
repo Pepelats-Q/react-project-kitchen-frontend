@@ -97,7 +97,6 @@ const Editor = () => {
   const newArticleSlug = useSelector((state) => state.common.redirectTo);
 
   useEffect(() => {
-    console.log(isPressed);
     if (!editorErrors && isPressed) {
       history.push(newArticleSlug);
     }

@@ -9,7 +9,6 @@ const DeleteButton = ({ slug, commentId, show }) => {
   const dispatch = useDispatch();
   const del = () => {
     const payload = agent.Comments.delete(slug, commentId);
-    console.log(payload, commentId);
     dispatch(deleteComment({ payload, commentId }));
   };
 

@@ -25,7 +25,6 @@ const articleReducer = createSlice({
       return { ...initialState };
     },
     addComment(state, action: AnyAction) {
-      console.log(action)
       state.commentErrors = action.error ? action.payload.errors : null;
       state.comments = action.error
         ? null

@@ -43,7 +43,6 @@ const Login: FC = () => {
   const currentUser = useSelector((state: any) => state.common.currentUser);
 
   useEffect(() => {
-    console.log(currentUser)
     if (currentUser) {
       history.push('/');
     }
