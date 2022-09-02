@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/typesTs';
+import { asyncStart } from './auth-reducer';
 
 type TEditorState = {
   errors: TtodoAny | null;
@@ -37,16 +38,21 @@ const editorReducer = createSlice({
       state.tagInput = '';
       state.tagList = payload ? payload.article.tagList : [];
     },
-    editorPageUnload() {},
+    editorPageUnload() {
+      return { ...initialState };
+    },
     articleSubmit(state, action: AnyAction) {
       state.errors = action.error ? action.payload.errors : null;
       state.inProgress = false;
     },
   },
-  // extraReducers: {
-  //   [asyncStart]: (state) => {
-  //   },
-  // },
+  extraReducers: {
+    [asyncStart.type]: (state, action: AnyAction) => {
+      if (action.subtype === editorReducer.actions.articleSubmit.type) {
+        state.inProgress = true;
+      }
+    },
+  },
 });
 
 export const { editorPageLoad, editorPageUnload, articleSubmit } = editorReducer.actions;

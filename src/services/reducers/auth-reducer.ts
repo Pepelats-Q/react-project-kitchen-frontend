@@ -1,4 +1,4 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/typesTs';
 
 type TAuthState = {
@@ -15,16 +15,42 @@ const authReducer = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login() {},
+    login(state, action: TtodoAny) {
+      state.inProgress = false;
+      state.errors = action.error ? action.payload.errors : null;
+    },
     loginPageUnload() {},
     register(state, action: AnyAction) {
       state.inProgress = false;
       state.errors = action.error ? action.payload.errors : null;
     },
-    registerPageUnload() {},
+    registerPageUnload() {
+      return { ...initialState };
+    },
+    // TODO: Проверить работает ли проверка субтипа. Избавиться от UPDATE_FIELD_AUTH
+    asyncStart(state, action: AnyAction) {
+      if (
+        action.payload === authReducer.actions.login.type ||
+        action.payload === authReducer.actions.register.type
+      ) {
+        state.inProgress = true;
+      }
+    },
+    asyncEnd() {},
+    setApiMessage(state, action: PayloadAction<TtodoAny>) {
+      state.errors = action.payload;
+    },
   },
 });
 
-export const { login, loginPageUnload, register, registerPageUnload } = authReducer.actions;
+export const {
+  login,
+  loginPageUnload,
+  register,
+  registerPageUnload,
+  asyncStart,
+  asyncEnd,
+  setApiMessage,
+} = authReducer.actions;
 
 export default authReducer.reducer;

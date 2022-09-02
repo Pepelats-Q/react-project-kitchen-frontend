@@ -17,28 +17,29 @@ const articleReducer = createSlice({
   name: 'article',
   initialState,
   reducers: {
-    artilePageLoad(state, action: TtodoAny) {
-      state.article = action.payload[0].article;
-      state.comments = action.payload[1].comments;
+    articlePageLoad(state, action: TtodoAny) {
+      state.article = action.payload.payload[0].article;
+      state.comments = action.payload.payload[1].comments;
     },
-    artilePageUnload() {
+    articlePageUnload() {
       return { ...initialState };
     },
     addComment(state, action: AnyAction) {
+      console.log(action)
       state.commentErrors = action.error ? action.payload.errors : null;
       state.comments = action.error
         ? null
-        : (state.comments || []).concat([action.payload.comment]);
+        : (state.comments || []).concat([action.payload.payload.comment]);
     },
     deleteComment(state, action: AnyAction) {
       state.comments = state.comments
-        ? state.comments.filter((comment) => comment.id !== action.commentId)
+        ? state.comments.filter((comment) => comment.id !== action.payload.commentId)
         : null;
     },
   },
 });
 
-export const { artilePageLoad, artilePageUnload, addComment, deleteComment } =
+export const { articlePageLoad, articlePageUnload, addComment, deleteComment } =
   articleReducer.actions;
 
 export default articleReducer.reducer;

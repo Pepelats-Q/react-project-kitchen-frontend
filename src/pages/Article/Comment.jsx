@@ -4,6 +4,7 @@ import DeleteButton from './DeleteButton';
 import styles from './Article.module.scss';
 import UserWithDate from '../../components/UserWithDate/UserWithDate';
 
+// TODO: Надо перенести в components
 const Comment = ({ comment, slug }) => {
   const currentUser = useSelector((state) => state.common.currentUser);
 

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import agent from '../../agent';
 import Header from '../Header';
-import { APP_LOAD } from '../../constants/actionTypes';
 import Article from '../../pages/Article';
 import Editor from '../Editor/Editor';
 import Home from '../../pages/Home';
@@ -13,33 +12,27 @@ import Register from '../../pages/Register/Register';
 import Settings from '../Settings/Settings';
 import UI from '../../pages/UI/UI';
 import NotLoadedApp from '../NotLoadedApp/NotLoadedApp';
+import { appLoad } from '../../services/reducers/common-reducer';
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const onLoad = (payload, token) =>
-    dispatch({
-      type: APP_LOAD,
-      payload,
-      token,
-      skipTracking: true,
-    });
+  const onLoad = (payload) => dispatch(appLoad({ payload }));
 
   useEffect(() => {
     const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
     }
-    onLoad(token ? agent.Auth.current() : null, token);
+    onLoad(token ? agent.Auth.current() : null);
   }, []);
 
-  const appLoaded = useSelector((state) => state.common.appLoaded);
+  const appLoaded = useSelector((store) => store.common.appLoaded);
 
   if (appLoaded) {
     return (
       <div>
         <Header />
-
         <Switch>
           <Route component={Home} exact path='/' />
           <Route component={Login} path='/login' />

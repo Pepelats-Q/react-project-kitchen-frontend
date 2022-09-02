@@ -5,8 +5,8 @@ import NotLoggedNav from './NotLoggedNav';
 import LoggedNav from './LoggedNav';
 import styles from './header.module.scss';
 import MenuIcon from '../ui-library/Icons/MenuIcon';
-import { TOGGLE_MOBILE_MENU } from '../../constants/actionTypes';
 import LangSelect from '../LangSelect/LangSelect';
+import { toggleMobileMenuAction } from '../../services/reducers/header-reducer';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Header: FC = () => {
   const currentNav = currentUser ? <LoggedNav /> : <NotLoggedNav />;
 
   const toggleMobileMenu = () => {
-    dispatch({ type: TOGGLE_MOBILE_MENU, payload: !isMobileMenuOpen });
+    dispatch(toggleMobileMenuAction(!isMobileMenuOpen));
   };
 
   return (

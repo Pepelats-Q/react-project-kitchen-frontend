@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
 import agent from '../../agent';
-import { ARTICLE_SUBMITTED } from '../../constants/actionTypes';
 import useForm from '../../hooks/useForm';
 import TextField from '../ui-library/TextField/TextField';
 import TextArea from '../ui-library/TextArea/TextArea';
@@ -13,6 +12,7 @@ import { CloseIcon } from '../ui-library/Icons';
 
 import styles from './Editor.module.scss';
 import translations from '../../constants/translations';
+import { articleSubmit } from '../../services/reducers/editor-reducer';
 
 const Editor = () => {
   const { errors, inProgress } = useSelector((store) => ({
@@ -38,8 +38,8 @@ const Editor = () => {
   const [isPressed, setIsPressed] = useState(false);
 
   const onSubmit = (payload) => {
+    dispatch(articleSubmit({ payload }));
     setIsPressed(true);
-    dispatch({ type: ARTICLE_SUBMITTED, payload });
   };
 
   const watchForEnter = (ev) => {
@@ -97,10 +97,11 @@ const Editor = () => {
   const newArticleSlug = useSelector((state) => state.common.redirectTo);
 
   useEffect(() => {
+    console.log(isPressed);
     if (!editorErrors && isPressed) {
       history.push(newArticleSlug);
     }
-  }, [editorErrors]);
+  }, [editorErrors, isPressed]);
 
   return (
     <div className={styles.wrapper}>

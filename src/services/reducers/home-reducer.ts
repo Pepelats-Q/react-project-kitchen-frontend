@@ -1,9 +1,10 @@
-import { createSlice, AnyAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { TtodoAny } from '../../utils/typesTs';
 
 type THomeState = {
   tags: Array<string>;
 };
-
+// TODO: Что это за набор тегов?
 const initialState: THomeState = {
   tags: ['app', 'web', 'frontend', 'react'],
 };
@@ -14,8 +15,8 @@ const homeReducer = createSlice({
   initialState,
   reducers: {
     // TODO: Этот экшен надо проверить, так он ещё в articleList есть.
-    homePageLoad(state, action: AnyAction) {
-      state.tags = [...action.payload[0].tags];
+    homePageLoad(state, action: TtodoAny) {
+      state.tags = [...action.payload.payload[0].tags];
     },
     homePageUnload() {
       return { ...initialState };
@@ -23,6 +24,6 @@ const homeReducer = createSlice({
   },
 });
 
-export const { homePageUnload } = homeReducer.actions;
+export const { homePageLoad, homePageUnload } = homeReducer.actions;
 
 export default homeReducer.reducer;

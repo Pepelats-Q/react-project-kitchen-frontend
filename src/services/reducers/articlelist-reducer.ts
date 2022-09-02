@@ -1,6 +1,6 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TtodoAny, TArticle } from '../../utils/typesTs';
-import { homePageUnload } from './home-reducer';
+import { homePageLoad, homePageUnload } from './home-reducer';
 
 type TArticleListState = {
   articles: Array<TArticle>;
@@ -28,68 +28,70 @@ const articleListReducer = createSlice({
   name: 'articleList',
   initialState,
   reducers: {
-    articleFavoriteAdd() {},
-    articleFavoriteDelete(state, action: AnyAction) {
+    articleFavorite(state, action: AnyAction) {
       state.articles = state.articles.map((article) => {
-        if (article.slug === action.payload.article.slug) {
+        if (article.slug === action.payload.payload.article.slug) {
           return {
             ...article,
-            favorited: action.payload.article.favorited,
-            favoritesCount: action.payload.article.favoritesCount,
+            favorited: action.payload.payload.article.favorited,
+            favoritesCount: action.payload.payload.article.favoritesCount,
           };
         }
         return article;
       });
     },
-    setPage(state, action: AnyAction) {
-      state.articles = [...action.payload.articles];
-      state.articlesCount = action.payload.articlesCount;
+    setPageAction(state, action: AnyAction) {
+      state.articles = [...action.payload.payload.articles];
+      state.articlesCount = action.payload.payload.articlesCount;
       state.currentPage = action.page;
     },
-    applyTagFilter(state, action: AnyAction) {
-      state.articles = action.payload.articles;
-      state.articlesCount = action.payload.articlesCount;
+    applyTagFilter(state, action: TtodoAny) {
+      state.articles = action.payload.payload.articles;
+      state.articlesCount = action.payload.payload.articlesCount;
       state.currentPage = 0;
       state.pager = action.pager;
       state.tab = null;
       state.tag = action.tag;
     },
-    changeTab(state, action: AnyAction) {
+    changeTab(state, action: TtodoAny) {
       state.pager = action.pager;
-      state.articles = action.payload.articles;
-      state.articlesCount = action.payload.articlesCount;
+      state.articles = action.payload.payload.articles;
+      state.articlesCount = action.payload.payload.articlesCount;
       state.tab = action.tab;
       state.currentPage = 0;
       state.tag = null;
     },
-    profileFavoritesPageLoad(state, action: AnyAction) {
-      state.pager = action.pager;
-      state.articles = action.payload[1].articles;
-      state.articlesCount = action.payload[1].articlesCount;
-      state.currentPage = 0;
-    },
-    loadProfileOwnPosts(state, action: AnyAction) {
-      state.articles = action.payload.articles;
+    loadProfileOwnPosts(state, action: PayloadAction<TtodoAny>) {
+      state.articles = action.payload.payload.articles;
     },
     loadProfileFavPosts(state, action: AnyAction) {
-      state.articlesFavorites = action.payload.articles;
+      state.articlesFavorites = action.payload.payload.articles;
     },
-    profileFavoritesPageUnloaded(){
+    profileFavoritesPageUnloaded() {
       return { ...initialState };
-    }
+    },
   },
   extraReducers: {
-    [homePageUnload.type]: (state, action: AnyAction) => {
+    [homePageLoad.type]: (state, action: AnyAction) => {
       state.pager = action.pager;
-      state.tags = action.payload[0].tags;
-      state.articles = action.payload[1].articles;
-      state.articlesCount = action.payload[1].articlesCount;
+      state.tags = action.payload.payload[0].tags;
+      state.articles = action.payload.payload[1].articles;
+      state.articlesCount = action.payload.payload[1].articlesCount;
       state.currentPage = 0;
       state.tab = action.tab;
     },
+    [homePageUnload.type]: () => ({ ...initialState }),
   },
 });
 
-export const { articleFavoriteAdd } = articleListReducer.actions;
+export const {
+  articleFavorite,
+  setPageAction,
+  applyTagFilter,
+  changeTab,
+  loadProfileOwnPosts,
+  loadProfileFavPosts,
+  profileFavoritesPageUnloaded,
+} = articleListReducer.actions;
 
 export default articleListReducer.reducer;

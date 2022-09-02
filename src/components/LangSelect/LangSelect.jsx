@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { CHANGE_LANG } from '../../constants/actionTypes';
+import { changeLanguage } from '../../services/reducers/header-reducer';
 import TextButton from '../ui-library/Buttons/TextButton/TextButton';
 import styles from './langSelect.module.scss';
 
@@ -10,24 +10,24 @@ const LangSelect = () => {
 
   const handleChange = (e) => {
     const { value } = e.target;
-    dispatch({ type: CHANGE_LANG, payload: value });
+    dispatch(changeLanguage(value));
   };
 
   return (
     <>
       <TextButton
+        className={`${styles.button} ${currentLang === 'ru' ? styles.button_active : ''}`}
         onClick={handleChange}
         value='ru'
-        className={`${styles.button} ${currentLang === 'ru' ? styles.button_active : ''}`}
       >
         РУС
       </TextButton>
       <TextButton
-        onClick={handleChange}
-        value='en'
         className={`${styles.button} ${styles.button_last} ${
           currentLang === 'en' ? styles.button_active : ''
         }`}
+        onClick={handleChange}
+        value='en'
       >
         ENG
       </TextButton>

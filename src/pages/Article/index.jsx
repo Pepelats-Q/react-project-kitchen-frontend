@@ -4,13 +4,10 @@ import { useParams } from 'react-router';
 import ArticleMeta from './ArticleMeta';
 import CommentContainer from './CommentContainer';
 import agent from '../../agent';
-import {
-  ARTICLE_PAGE_LOADED,
-  ARTICLE_PAGE_UNLOADED,
-  GET_PROFILE_DATA,
-} from '../../constants/actionTypes';
 import styles from './Article.module.scss';
 import translations from '../../constants/translations';
+import { articlePageLoad, articlePageUnload } from '../../services/reducers/article-reducer';
+import { getProfile } from '../../services/reducers/profile-reducer';
 
 const Article = () => {
   const dispatch = useDispatch();
@@ -22,12 +19,12 @@ const Article = () => {
   const { articlesLang } = translations[currentLang];
 
   const onLoad = (payload) => {
-    dispatch({ type: ARTICLE_PAGE_LOADED, payload });
+    dispatch(articlePageLoad({payload}));
     if (currentUser) {
-      dispatch({ type: GET_PROFILE_DATA, payload: agent.Profile.get(currentUser.username) });
+      dispatch(getProfile({payload: agent.Profile.get(currentUser.username)}));
     }
   };
-  const onUnload = () => dispatch({ type: ARTICLE_PAGE_UNLOADED });
+  const onUnload = () => dispatch(articlePageUnload());
 
   const { id } = useParams();
 
