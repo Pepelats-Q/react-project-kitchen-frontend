@@ -7,7 +7,6 @@ import rootReducer from "../reducers";
 // TODO: от connected-react-router может лучше избавиться?
 const myRouterMiddleware = routerMiddleware(history);
 
-// TODO: надо будет разобраться с мидлварами
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>

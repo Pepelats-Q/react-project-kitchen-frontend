@@ -27,7 +27,7 @@ const authReducer = createSlice({
     registerPageUnload() {
       return { ...initialState };
     },
-    // TODO: Проверить работает ли проверка субтипа. Избавиться от UPDATE_FIELD_AUTH
+    // Избавиться от UPDATE_FIELD_AUTH
     asyncStart(state, action: AnyAction) {
       if (
         action.payload === authReducer.actions.login.type ||

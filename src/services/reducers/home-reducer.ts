@@ -14,7 +14,6 @@ const homeReducer = createSlice({
   name: 'home',
   initialState,
   reducers: {
-    // TODO: Этот экшен надо проверить, так он ещё в articleList есть.
     homePageLoad(state, action: TtodoAny) {
       state.tags = [...action.payload.payload[0].tags];
     },

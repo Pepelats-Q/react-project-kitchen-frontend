@@ -34,7 +34,6 @@ const profileReducer = createSlice({
     loadAllTags(state, action: PayloadAction<TtodoAny>) {
       state.tags = [...action.payload.payload.tags];
     },
-    // TODO: Этот экшен нигде не используется
     profilePageLoad(state, action: PayloadAction<TtodoAny>) {
       state.profile = action.payload[0].profile;
     },
