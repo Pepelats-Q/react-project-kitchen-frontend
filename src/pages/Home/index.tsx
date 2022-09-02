@@ -2,17 +2,14 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Banner from './Banner/Banner';
 import agent from '../../agent';
-import {
-  CHANGE_TAB,
-  HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED,
-  LOAD_ALL_TAGS,
-} from '../../constants/actionTypes';
 import styles from './home.module.scss';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
 import Tabs from '../../components/Tabs/Tabs';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import translations from '../../constants/translations';
+import { loadAllTags } from '../../services/reducers/profile-reducer';
+import { homePageLoad, homePageUnload } from '../../services/reducers/home-reducer';
+import { changeTab } from '../../services/reducers/articlelist-reducer';
 
 const { Promise } = global;
 
@@ -24,16 +21,11 @@ const Home: FC = () => {
   const [currentTabFlag, setCurrentTabFlag] = useState<string>('allPosts');
 
   const onLoad = (tab: string, pager: any, payload: any) => {
-    dispatch({
-      type: HOME_PAGE_LOADED,
-      tab,
-      pager,
-      payload,
-    });
-    dispatch({ type: LOAD_ALL_TAGS, payload: agent.Tags.getAll() });
+    dispatch(homePageLoad({ tab, pager, payload }));
+    dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
 
-  const onUnload = () => dispatch({ type: HOME_PAGE_UNLOADED });
+  const onUnload = () => dispatch(homePageUnload());
 
   useEffect(() => {
     const tab = token ? 'feed' : 'all';
@@ -45,14 +37,10 @@ const Home: FC = () => {
   }, []);
 
   /* handle tabs behavior: */
+  // TODO: С табами перемудрили
   const onTabClick = (tab: string, pager: any, payload: any) => {
     setCurrentTabFlag(tab);
-    dispatch({
-      type: CHANGE_TAB,
-      tab,
-      pager,
-      payload,
-    });
+    dispatch(changeTab({ tab, pager, payload }));
   };
 
   const yourTabClick = () => {

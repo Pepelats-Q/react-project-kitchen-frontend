@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { APPLY_TAG_FILTER } from '../../constants/actionTypes';
 import translations from '../../constants/translations';
 import Tags from '../../pages/Home/Tags/Tags';
+import { applyTagFilter } from '../../services/reducers/articlelist-reducer';
 import { TArticlesWithTabsProps } from '../../utils/typesTs';
 import styles from './ArticlesWithTabs.module.scss';
 
@@ -13,12 +13,7 @@ const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ children }) => {
   const { common } = translations[currentLang];
 
   const onClickTag = (tag: any, pager: any, payload: any) => {
-    dispatch({
-      type: APPLY_TAG_FILTER,
-      tag,
-      pager,
-      payload,
-    });
+    dispatch(applyTagFilter({ tag, pager, payload }));
   };
 
   return (

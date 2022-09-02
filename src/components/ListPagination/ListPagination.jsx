@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import agent from '../../agent';
-import { SET_PAGE } from '../../constants/actionTypes';
+import { setPageAction } from '../../services/reducers/articlelist-reducer';
 
 const mapDispatchToProps = (dispatch) => ({
-  onSetPage: (page, payload) => dispatch({ type: SET_PAGE, page, payload }),
+  onSetPage: (page, payload) => dispatch(setPageAction({ page, payload })),
 });
 
 const ListPagination = ({ articlesCount, pager, onSetPage, currentPage }) => {
@@ -53,9 +53,9 @@ const ListPagination = ({ articlesCount, pager, onSetPage, currentPage }) => {
 
 ListPagination.propTypes = {
   articlesCount: PropTypes.number,
-  pager: PropTypes.func,
-  onSetPage: PropTypes.func,
   currentPage: PropTypes.number,
+  onSetPage: PropTypes.func,
+  pager: PropTypes.func,
 };
 
 export default connect(() => ({}), mapDispatchToProps)(ListPagination);

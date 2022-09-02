@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import { useHistory } from 'react-router';
 import ListErrors from '../ListErrors/ListErrors';
 import agent from '../../agent';
-import { SETTINGS_SAVED, LOGOUT } from '../../constants/actionTypes';
 import useForm from '../../hooks/useForm';
 import TextField from '../ui-library/TextField/TextField';
 import Button from '../ui-library/Buttons/Button/Button';
@@ -13,6 +12,8 @@ import { HideIcon, ShowIcon } from '../ui-library/Icons';
 import TextButton from '../ui-library/Buttons/TextButton/TextButton';
 import styles from './Settings.module.scss';
 import translations from '../../constants/translations';
+import { settingsSaved } from '../../services/reducers/settings-reducer';
+import { logout } from '../../services/reducers/common-reducer';
 
 const Settings = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -29,7 +30,7 @@ const Settings = () => {
 
   const onClickLogout = () => {
     setIsPressed(true);
-    dispatch({ type: LOGOUT });
+    dispatch(logout());
   };
 
   const token = useSelector((state) => state.common.token);
@@ -39,9 +40,6 @@ const Settings = () => {
       history.push('/login');
     }
   }, [token]);
-
-  // TODO: удалить при рефакторинге редакса
-  // const onUnload = () => dispatch({ type: SETTINGS_PAGE_UNLOADED });
 
   const { values, handleChange, setValues } = useForm({
     image: '',
@@ -63,10 +61,7 @@ const Settings = () => {
   }, [currentUser]);
 
   const onSubmitForm = (user) => {
-    dispatch({
-      type: SETTINGS_SAVED,
-      payload: agent.Auth.save(user),
-    });
+    dispatch(settingsSaved({payload: agent.Auth.save(user)}));
   };
 
   const submitFormHandler = (e) => {

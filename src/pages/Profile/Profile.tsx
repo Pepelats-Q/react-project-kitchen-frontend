@@ -4,16 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import styles from './profile.module.scss';
-
-import {
-  GET_PROFILE_DATA,
-  LOAD_PROFILEOWN_POSTS,
-  FOLLOW_USER,
-  UNFOLLOW_USER,
-  LOAD_ALL_TAGS,
-  LOAD_PROFILEFAV_POSTS,
-  PROFILE_PAGE_UNLOADED,
-} from '../../constants/actionTypes';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons';
@@ -21,13 +11,24 @@ import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs
 import Tabs from '../../components/Tabs/Tabs';
 import { TUsernameParams } from '../../utils/typesTs';
 import translations from '../../constants/translations';
+import {
+  followUser,
+  getProfile,
+  loadAllTags,
+  profilePageUnload,
+  unFollowUser,
+} from '../../services/reducers/profile-reducer';
+import {
+  loadProfileFavPosts,
+  loadProfileOwnPosts,
+} from '../../services/reducers/articlelist-reducer';
 
 const Profile: FC = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.common.currentUser);
-  const currentProfile = useSelector((state: any) => state.profile);
-  const yourArticles = useSelector((state: any) => state.articleList.articles);
-  const articlesFavList = useSelector((state: any) => state.articleList.articlesFavorites);
+  const user = useSelector((store: any) => store.common.currentUser);
+  const currentProfile = useSelector((store: any) => store.profile.profile);
+  const yourArticles = useSelector((store: any) => store.articleList.articles);
+  const articlesFavList = useSelector((store: any) => store.articleList.articlesFavorites);
   const [currentArticles, setCurrentArticles] = useState<any>(yourArticles); // когда добавим тип для статьи, сделаю вместо any: Array<тип статьи>
   const [currentTabFlag, setCurrentTabFlag] = useState<string>('yourPosts');
 
@@ -36,12 +37,12 @@ const Profile: FC = () => {
   const { username } = useParams<TUsernameParams>();
 
   const onLoad = (): void => {
-    dispatch({ type: GET_PROFILE_DATA, payload: agent.Profile.get(username) });
-    dispatch({ type: LOAD_PROFILEOWN_POSTS, payload: agent.Articles.byAuthor(username, 0) });
-    dispatch({ type: LOAD_ALL_TAGS, payload: agent.Tags.getAll() });
+    dispatch(getProfile({ payload: agent.Profile.get(username) }));
+    dispatch(loadProfileOwnPosts({ payload: agent.Articles.byAuthor(username, 0) }));
+    dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
 
-  const onUnload = () => dispatch({ type: PROFILE_PAGE_UNLOADED });
+  const onUnload = () => dispatch(profilePageUnload());
 
   useEffect(() => {
     onLoad();
@@ -53,11 +54,11 @@ const Profile: FC = () => {
 
   /* handle follow behavior: */
   const onFollow = () => {
-    dispatch({ type: FOLLOW_USER, payload: agent.Profile.follow(username) });
+    dispatch(followUser({ payload: agent.Profile.follow(username) }));
   };
 
   const onUnfollow = () => {
-    dispatch({ type: UNFOLLOW_USER, payload: agent.Profile.unfollow(username) });
+    dispatch(unFollowUser({ payload: agent.Profile.unfollow(username) }));
   };
 
   const handleFollowClick = (ev: SyntheticEvent) => {
@@ -71,22 +72,20 @@ const Profile: FC = () => {
 
   /* handle tabs behavior: */
 
+  // TODO: Тут с табами перемудрили. Лучше через навлинки сделать
   const onTabClick = (tab: any, type: any, payload: any) => {
     setCurrentTabFlag(tab);
-    dispatch({
-      type,
-      payload,
-    });
+    dispatch(type({ payload }));
   };
 
   const yourPostsTabClick = () => {
-    onTabClick('yourPosts', LOAD_PROFILEOWN_POSTS, agent.Articles.byAuthor(username, 0));
+    onTabClick('yourPosts', loadProfileOwnPosts, agent.Articles.byAuthor(username, 0));
   };
 
   const favPostsTabClick = () => {
     onTabClick(
       'favorites',
-      LOAD_PROFILEFAV_POSTS,
+      loadProfileFavPosts,
       agent.Articles.favoritedBy(currentProfile.username),
     );
   };

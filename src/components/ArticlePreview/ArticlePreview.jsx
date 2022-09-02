@@ -2,27 +2,23 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
-import { ARTICLE_FAVORITED, ARTICLE_UNFAVORITED } from '../../constants/actionTypes';
 import styles from './articlePreview.module.scss';
 
 import translations from '../../constants/translations';
 import UserWithDate from '../UserWithDate/UserWithDate';
 import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
+import {
+  articleFavorite,
+} from '../../services/reducers/articlelist-reducer';
 
 const ArticlePreview = ({ article }) => {
   const dispatch = useDispatch();
 
   const favorite = (slug) =>
-    dispatch({
-      type: ARTICLE_FAVORITED,
-      payload: agent.Articles.favorite(slug),
-    });
+    dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
 
   const unfavorite = (slug) =>
-    dispatch({
-      type: ARTICLE_UNFAVORITED,
-      payload: agent.Articles.unfavorite(slug),
-    });
+    dispatch(articleFavorite({ payload: agent.Articles.unfavorite(slug) }));
 
   const handleClickToFavorite = (ev) => {
     ev.preventDefault();
@@ -49,18 +45,18 @@ const ArticlePreview = ({ article }) => {
 
             <div className={styles.pull_xs_right}>
               <button
+                className={styles.favouriteButton}
                 disabled={!currentUser}
                 onClick={handleClickToFavorite}
                 type='button'
-                className={styles.favouriteButton}
               >
                 <p className={`${styles.count} ${article.favorited ? styles.count_added : ''}`}>
                   {article.favoritesCount}
                 </p>
                 {article.favorited ? (
-                  <HeartIconFilled size='small' className={styles.heart} color='alert' />
+                  <HeartIconFilled  className={styles.heart} color='alert' size='small' />
                 ) : (
-                  <HeartIcon size='small' className={styles.heart} color='primary' />
+                  <HeartIcon className={styles.heart} color='primary' size='small' />
                 )}
               </button>
             </div>

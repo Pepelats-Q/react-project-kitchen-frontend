@@ -2,7 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './header.module.scss';
-import { TOGGLE_MOBILE_MENU } from '../../constants/actionTypes';
+import { toggleMobileMenuAction } from '../../services/reducers/header-reducer';
 
 const MenuItem = ({ text, icon: Icon, path, isProfileIcon }) => {
   const location = useLocation();
@@ -12,7 +12,7 @@ const MenuItem = ({ text, icon: Icon, path, isProfileIcon }) => {
 
   const closeMobileMenu = () => {
     if (isMobileMenuOpen) {
-      dispatch({ type: TOGGLE_MOBILE_MENU, payload: !isMobileMenuOpen });
+      dispatch(toggleMobileMenuAction(!isMobileMenuOpen));
     }
   };
 

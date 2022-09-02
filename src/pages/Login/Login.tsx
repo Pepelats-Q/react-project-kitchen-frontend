@@ -2,7 +2,6 @@ import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
-import { LOGIN, SET_API_MESSAGE } from '../../constants/actionTypes';
 import useFormValidation from '../../hooks/useFormValidation';
 import styles from '../../components/AuthForm/authForm.module.scss';
 import AuthForm from '../../components/AuthForm/AuthForm';
@@ -11,6 +10,7 @@ import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
 import { TValidity } from '../../utils/typesTs';
 import translations from '../../constants/translations';
+import { login, setApiMessage } from '../../services/reducers/auth-reducer';
 
 const Login: FC = () => {
   const dispatch = useDispatch();
@@ -34,9 +34,9 @@ const Login: FC = () => {
 
   const submitLogin = () => {
     if (isValid) {
-      dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) });
+      dispatch(login({ payload: agent.Auth.login(email, password) }));
     } else {
-      dispatch({ type: SET_API_MESSAGE, payload: ['Заполните все поля формы верно'] });
+      dispatch(setApiMessage(['Заполните все поля формы верно']));
     }
   };
 

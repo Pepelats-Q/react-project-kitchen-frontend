@@ -2,14 +2,14 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import agent from '../../agent';
 import { TrashIcon } from '../../components/ui-library/Icons';
-import { DELETE_COMMENT } from '../../constants/actionTypes';
+import { deleteComment } from '../../services/reducers/article-reducer';
 
+// TODO: думаю выносить кнопку удаления в отдельный компонент это избыточно
 const DeleteButton = ({ slug, commentId, show }) => {
   const dispatch = useDispatch();
-
   const del = () => {
     const payload = agent.Comments.delete(slug, commentId);
-    dispatch({ type: DELETE_COMMENT, payload, commentId });
+    dispatch(deleteComment({ payload, commentId }));
   };
 
   if (show) {
@@ -19,9 +19,9 @@ const DeleteButton = ({ slug, commentId, show }) => {
 };
 
 DeleteButton.propTypes = {
-  slug: PropTypes.string.isRequired,
   commentId: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
+  slug: PropTypes.string.isRequired,
 };
 
 export default DeleteButton;
