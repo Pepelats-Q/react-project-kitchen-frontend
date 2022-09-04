@@ -13,6 +13,7 @@ import Settings from '../Settings/Settings';
 import UI from '../../pages/UI/UI';
 import NotLoadedApp from '../NotLoadedApp/NotLoadedApp';
 import { appLoad } from '../../services/reducers/common-reducer';
+import styles from './App.module.scss';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,20 +32,22 @@ const App = () => {
 
   if (appLoaded) {
     return (
-      <div>
+      <>
         <Header />
-        <Switch>
-          <Route component={Home} exact path='/' />
-          <Route component={Login} path='/login' />
-          <Route component={Register} path='/register' />
-          <Route component={Editor} path='/editor/:slug' />
-          <Route component={Editor} path='/editor' />
-          <Route component={Article} path='/article/:id' />
-          <Route component={Settings} path='/settings' />
-          <Route component={Profile} path='/@:username' />
-          <Route component={UI} path='/ui' />
-        </Switch>
-      </div>
+        <main className={styles.main}>
+          <Switch>
+            <Route component={Home} exact path='/' />
+            <Route component={Login} path='/login' />
+            <Route component={Register} path='/register' />
+            <Route component={Editor} path='/editor/:slug' />
+            <Route component={Editor} path='/editor' />
+            <Route component={Article} path='/article/:id' />
+            <Route component={Settings} path='/settings' />
+            <Route component={Profile} path='/@:username' />
+            <Route component={UI} path='/ui' />
+          </Switch>
+        </main>
+      </>
     );
   }
   return (

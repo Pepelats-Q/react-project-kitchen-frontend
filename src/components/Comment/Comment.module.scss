@@ -1,0 +1,124 @@
+@import '/src/components/ui-library/ui-style/ui-style.scss';
+
+.commentsContainer {
+  width: 100%;
+  max-width: 728px;
+  margin: 32px auto;
+  box-sizing: border-box;
+}
+
+.commentsTitle {
+  font-size: 24px;
+  line-height: 28px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: $color-primary;
+  margin: 0;
+  padding: 0;
+}
+
+.commentsList {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.commentForm {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.textarea {
+  @include custom-scroll;
+  display: grid;
+  resize: vertical;
+  width: 100%;
+  background-color: $color-input;
+  box-sizing: border-box;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  outline: 0;
+  border: 0;
+  padding: 24px;
+  color: $color-secondary;
+  &::-webkit-resizer {
+    display: none;
+  }
+}
+
+
+.textarea::placeholder {
+  color: $color-secondary;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'JetBrains Mono', sans-serif;
+}
+
+.comment_input {
+  margin: 32px 0 16px 0 !important;
+}
+
+.comment {
+  margin: 16px 0;
+  width: 100%;
+  background-color: $color-bg-secondary;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 0;
+}
+
+.commentPar {
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: $color-secondary;
+  margin: 0;
+  padding: 24px 24px 0 24px;
+}
+
+.commentUser {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.userImage {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.userLink {
+  color: $color-primary;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 24px;
+  font-family: 'JetBrains Mono', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.date {
+  color: $color-secondary;
+  font-size: 12px;
+  line-height: 16px;
+  font-family: 'JetBrains Mono', sans-serif;
+  margin: 0;
+  padding: 0;
+}

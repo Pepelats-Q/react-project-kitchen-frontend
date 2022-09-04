@@ -4,7 +4,6 @@
   width: 100%;
   display: flex;
   background-color: $color-bg;
-  min-height: 95vh;
   justify-content: center;
 }
 
@@ -16,22 +15,20 @@
 }
 .title {
   color: $color-primary;
-  font-family: 'JetBrains Mono', sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0 0 40px 0;
+  margin: 56px 0 40px 0;
   text-align: center;
 }
 
 .formBox {
   width: 100%;
   max-width: 540px;
-  margin: 40px 0 0 0;
   display: flex;
   flex-direction: column;
 }
+
 .form {
-  margin: 24px 0 0 0;
+  margin-top: 24px;
+  row-gap: 12px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -40,8 +37,6 @@
 
 .link {
   color: $color-accent;
-  font-family: 'JetBrains Mono', sans-serif;
-  font-size: 14px;
   transition: color 0.4s ease;
 }
 
@@ -55,49 +50,11 @@
   display: flex;
   width: 100%;
   justify-content: flex-end;
-}
-
-.input {
-  border-radius: 20px;
-  width: 100%;
-  border: 0;
-  outline: 0;
-  box-sizing: border-box;
-  background-color: $color-input;
-  color: $color-secondary;
-  font-family: 'JetBrains Mono', sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-  padding: 12px 16px;
-}
-
-.input::placeholder {
-  color: $color-secondary;
-  font-family: 'JetBrains Mono', sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-}
-
-.label {
-  color: $color-primary;
-  font-family: 'JetBrains Mono', sans-serif;
-  font-size: 16px;
-  margin: 0 0 8px 16px;
-  padding: 0;
-  line-height: 20px;
+  margin-top: 28px;
 }
 
 .inputarea {
   position: relative;
-}
-
-.form__icon {
-  position: absolute;
-  top: 10px;
-  right: 16px;
-}
-.input_invalid {
-  outline: 1px solid red;
 }
 
 .error {
@@ -106,12 +63,13 @@
   color: red;
   font-size: 11px;
   font-family: 'JetBrains Mono', sans-serif;
-  min-height: 10px;
 }
 
 .fieldset {
   border: 0;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .oppositeLink {

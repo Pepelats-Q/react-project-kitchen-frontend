@@ -41,7 +41,7 @@ const commonReducer = createSlice({
     },
     // TODO: Этот экшен нигде не используется
     redirect(state) {
-      state.redirectTo = null;
+      state.redirectTo = null; 
     },
     // TODO: Почему редиректы вообще тут?
     articleDelete(state) {

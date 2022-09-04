@@ -1,0 +1,7 @@
+@import '/src/components/ui-library/ui-style/ui-style.scss';
+
+.main {
+  @include custom-scroll;
+  height: calc(100vh - 60px);
+  overflow-y: scroll;
+}

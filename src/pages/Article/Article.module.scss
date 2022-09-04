@@ -56,6 +56,15 @@
   display: flex;
 }
 
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action {
+  margin: 0 0 0 24px;
+}
+
 .userImage {
   width: 40px;
   height: 40px;
@@ -90,114 +99,6 @@
   color: $color-primary;
 }
 
-/* comments */
-.commentsContainer {
-  width: 100%;
-  max-width: 728px;
-  margin: 32px auto;
-  box-sizing: border-box;
-}
-
-.commentsTitle {
-  font-size: 24px;
-  line-height: 28px;
-  font-family: 'JetBrains Mono', sans-serif;
-  color: $color-primary;
-  margin: 0;
-  padding: 0;
-}
-
-.commentsList {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.commentForm {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.textarea {
-  width: 100%;
-  background-color: $color-input;
-  box-sizing: border-box;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  outline: 0;
-  border: 0;
-  padding: 24px;
-  color: $color-secondary;
-}
-
-.textarea::placeholder {
-  color: $color-secondary;
-  font-size: 16px;
-  line-height: 24px;
-  font-family: 'JetBrains Mono', sans-serif;
-}
-
-.comment_input {
-  margin: 32px 0 16px 0 !important;
-}
-
-.comment {
-  margin: 16px 0;
-  width: 100%;
-  background-color: $color-bg-secondary;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 0;
-}
-
-.commentPar {
-  font-size: 16px;
-  line-height: 24px;
-  font-family: 'JetBrains Mono', sans-serif;
-  color: $color-secondary;
-  margin: 0;
-  padding: 24px 24px 0 24px;
-}
-
-.commentUser {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-.userInfo {
-  display: flex;
-}
-
-.userLink {
-  color: $color-primary;
-  text-decoration: none;
-  font-size: 16px;
-  line-height: 24px;
-  font-family: 'JetBrains Mono', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-.date {
-  color: $color-secondary;
-  font-size: 12px;
-  line-height: 16px;
-  font-family: 'JetBrains Mono', sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
 .tagsContainer {
   display: flex;
   min-height: 30px;
@@ -222,11 +123,11 @@
   border-radius: 100px;
 }
 
-.actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.action {
-  margin: 0 0 0 24px;
+.date {
+  color: $color-secondary;
+  font-size: 12px;
+  line-height: 16px;
+  font-family: 'JetBrains Mono', sans-serif;
+  margin: 0;
+  padding: 0;
 }

@@ -3,18 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
-import styles from '../../components/AuthForm/authForm.module.scss';
+import styles from '../../components/AuthForm/AuthForm.module.scss';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
 import translations from '../../constants/translations';
 import { register, setApiMessage } from '../../services/reducers/auth-reducer';
+import TextField from '../../components/ui-library/TextField/TextField';
 
 const Register = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [isPassShownLogin, setIsPassShownLogin] = useState(true);
+  const { currentLang, currentUser } = useSelector((store) => ({
+    currentLang: store.header.currentLang,
+    currentUser: store.header.currentUser,
+  }));
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { authForm } = translations[currentLang];
 
   const { values, handleChange, errors, isValid } = useFormValidation({
     name: '',
@@ -22,22 +26,18 @@ const Register = () => {
     password: '',
   });
 
-  const { email, password, name } = values;
-
-  const toggleShowPass = (e) => {
-    e.preventDefault();
-    setIsPassShownLogin(!isPassShownLogin);
-  };
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const submitRegister = () => {
     if (isValid) {
-      dispatch(register({payload: agent.Auth.register(name, email, password)}));
+      dispatch(
+        register({ payload: agent.Auth.register(values.name, values.email, values.password) }),
+      );
     } else {
       dispatch(setApiMessage(['Заполните все поля формы верно']));
     }
   };
-
-  const currentUser = useSelector((state) => state.common.currentUser);
 
   useEffect(() => {
     if (currentUser) {
@@ -45,11 +45,11 @@ const Register = () => {
     }
   }, [currentUser]);
 
-  const currentLang = useSelector((state) => state.header.currentLang);
-
-  const { authForm } = translations[currentLang];
-
-  const showPassIcon = isPassShownLogin ? <ShowIcon /> : <HideIcon />;
+  const showPasswordIcon = isPasswordVisible ? (
+    <HideIcon onClick={() => setIsPasswordVisible(false)} />
+  ) : (
+    <ShowIcon onClick={() => setIsPasswordVisible(true)} />
+  );
 
   return (
     <AuthForm
@@ -60,70 +60,53 @@ const Register = () => {
       onSubmit={submitRegister}
       oppositeLink='/login'
     >
-      <fieldset className='form-group'>
-        <label className={styles.label} htmlFor='name'>
-          {authForm.placeholderName}
-        </label>
-        <div className={styles.inputarea}>
-          <input
-            className={`${styles.input} ${errors.name ? styles.input_invalid : ''}`}
-            maxLength='25'
-            minLength='2'
-            name='name'
-            onChange={handleChange}
-            placeholder={authForm.placeholderName}
-            required
-            type='text'
-            value={name}
-          />
-          <p className={styles.error}>{errors.name}</p>
-          <div className={styles.form__icon}>{errors.name ? <AlertIcon color='alert' /> : ''}</div>
-        </div>
-      </fieldset>
-
-      <fieldset className='form-group'>
-        <label className={styles.label} htmlFor='email'>
-          {authForm.placeholderEmail}
-        </label>
-        <div className={styles.inputarea}>
-          <input
-            className={`${styles.input} ${errors.email ? styles.input_invalid : ''}`}
-            maxLength='30'
-            minLength='2'
-            name='email'
-            onChange={handleChange}
-            placeholder={authForm.placeholderEmail}
-            required
-            type='email'
-            value={email}
-          />
-          <p className={styles.error}>{errors.email}</p>
-          <div className={styles.form__icon}>{errors.email ? <AlertIcon color='alert' /> : ''}</div>
-        </div>
-      </fieldset>
-
-      <fieldset className='form-group'>
-        <label className={styles.label} htmlFor='password'>
-          {authForm.placeholderPass}
-        </label>
-        <div className={styles.inputarea}>
-          <input
-            className={`${styles.input} ${errors.password ? styles.input_invalid : ''}`}
-            maxLength='25'
-            minLength='2'
-            name='password'
-            onChange={handleChange}
-            placeholder={authForm.placeholderPass}
-            required
-            type={isPassShownLogin ? 'password' : 'text'}
-            value={password}
-          />
-          <div className={styles.form__icon} onClick={(e) => toggleShowPass(e)}>
-            {errors.password ? <AlertIcon color='alert' /> : showPassIcon}
-          </div>
-        </div>
+      <div className={styles.fieldset}>
+        <TextField
+          icon={errors.password ? <AlertIcon color='alert' /> : null}
+          label={authForm.placeholderName}
+          maxLength={30}
+          minLength={2}
+          name='name'
+          onChange={handleChange}
+          placeholder={authForm.placeholderName}
+          required
+          type='text'
+          value={values.name}
+        />
+        <p className={styles.error}>{errors.name}</p>
+      </div>
+      <div className={styles.fieldset}>
+        <TextField
+          autocomplete='new-email'
+          icon={errors.password ? <AlertIcon color='alert' /> : null}
+          label={authForm.placeholderEmail}
+          maxLength={30}
+          minLength={2}
+          name='email'
+          onChange={handleChange}
+          placeholder={authForm.placeholderEmail}
+          required
+          type='email'
+          value={values.email}
+        />
+        <p className={styles.error}>{errors.email}</p>
+      </div>
+      <div className={styles.fieldset}>
+        <TextField
+          autocomplete='new-password'
+          icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
+          label={authForm.placeholderPass}
+          maxLength={25}
+          minLength={2}
+          name='password'
+          onChange={handleChange}
+          placeholder={authForm.placeholderPass}
+          required
+          type={isPasswordVisible ? 'text' : 'password'}
+          value={values.password}
+        />
         <p className={styles.error}>{errors.password}</p>
-      </fieldset>
+      </div>
     </AuthForm>
   );
 };

@@ -1,5 +1,5 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import ArticleList from '../../components/ArticleList/ArticleList';
@@ -22,18 +22,31 @@ import {
   loadProfileFavPosts,
   loadProfileOwnPosts,
 } from '../../services/reducers/articlelist-reducer';
+import { logout } from '../../services/reducers/common-reducer';
 
 const Profile: FC = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((store: any) => store.common.currentUser);
-  const currentProfile = useSelector((store: any) => store.profile.profile);
-  const yourArticles = useSelector((store: any) => store.articleList.articles);
-  const articlesFavList = useSelector((store: any) => store.articleList.articlesFavorites);
+  const { articlesFavList, currentLang, currentProfile, user, yourArticles } = useSelector(
+    (store: any) => ({
+      articlesFavList: store.articleList.articlesFavorites,
+      currentLang: store.header.currentLang,
+      currentProfile: store.profile.profile,
+      user: store.common.currentUser,
+      yourArticles: store.articleList.articles,
+    }),
+  );
   const [currentArticles, setCurrentArticles] = useState<any>(yourArticles); // когда добавим тип для статьи, сделаю вместо any: Array<тип статьи>
   const [currentTabFlag, setCurrentTabFlag] = useState<string>('yourPosts');
-
   const isCurrentUserProfile = user?.username === currentProfile?.username;
+  const { profile, settings } = translations[currentLang];
+  const textPosts = isCurrentUserProfile ? profile.yourPosts : profile.usersPosts;
+  const tabsNames = [
+    { name: textPosts, flag: 'yourPosts' },
+    { name: profile.favoritePosts, flag: 'favorites' },
+  ];
+  const articlesCount = currentArticles ? currentArticles.length : 0;
 
+  const history = useHistory();
+  const dispatch = useDispatch();
   const { username } = useParams<TUsernameParams>();
 
   const onLoad = (): void => {
@@ -71,7 +84,6 @@ const Profile: FC = () => {
   };
 
   /* handle tabs behavior: */
-
   // TODO: Тут с табами перемудрили. Лучше через навлинки сделать
   const onTabClick = (tab: any, type: any, payload: any) => {
     setCurrentTabFlag(tab);
@@ -90,17 +102,12 @@ const Profile: FC = () => {
     );
   };
 
-  const currentLang = useSelector((state: any) => state.header.currentLang);
-  const { profile } = translations[currentLang];
-
-  const textPosts = isCurrentUserProfile ? profile.yourPosts : profile.usersPosts;
-  const tabsNames = [
-    { name: textPosts, flag: 'yourPosts' },
-    { name: profile.favoritePosts, flag: 'favorites' },
-  ];
   const handleClicks = [yourPostsTabClick, favPostsTabClick];
-
-  const articlesCount = currentArticles ? currentArticles.length : 0;
+  
+  const onClickLogout = () => {
+    dispatch(logout());
+    history.push('/login');
+  };
 
   useEffect(() => {
     if (currentTabFlag === 'yourPosts') {
@@ -126,11 +133,15 @@ const Profile: FC = () => {
             <p className={styles.bio}>{currentProfile.bio}</p>
           </div>
           <div className={styles.button}>
-            {/* Кнопка редактирования профиля не показывается, если это чужой профиль */}
             {isCurrentUserProfile ? (
-              <NavButton icon={<GearIcon />} to='/settings' type='primary'>
-                {profile.editProfile}
-              </NavButton>
+              <div className={styles.actions}>
+                <NavButton icon={<GearIcon />} to='/settings' type='primary'>
+                  {profile.editProfile}
+                </NavButton>
+                <Button onClick={onClickLogout} type='outline_alert'>
+                  {settings.logout}
+                </Button>
+              </div>
             ) : (
               ''
             )}
