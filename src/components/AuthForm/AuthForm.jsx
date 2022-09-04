@@ -38,7 +38,7 @@ const AuthForm = ({
           <form className={styles.form} name={formName} noValidate onSubmit={handleSubmitForm}>
             {children}
             <div className={styles.submit}>
-              <Button disabled={!isFormValid} onClick={handleSubmitForm}>
+              <Button className={styles.submit_button} disabled={!isFormValid} onClick={handleSubmitForm}>
                 {btnText}
               </Button>
             </div>
