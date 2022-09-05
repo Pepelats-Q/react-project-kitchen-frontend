@@ -6,7 +6,6 @@ import { TrashIcon } from '../ui-library/Icons';
 import { deleteComment } from '../../services/reducers/article-reducer';
 import agent from '../../agent';
 
-// TODO: Надо перенести в components
 const Comment = ({ comment, slug }) => {
   const currentUser = useSelector((state) => state.common.currentUser);
   const show = currentUser && currentUser.username === comment.author.username;

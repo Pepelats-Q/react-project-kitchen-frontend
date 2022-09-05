@@ -1,5 +1,5 @@
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import agent from '../../agent';
 import ArticleList from '../../components/ArticleList/ArticleList';
@@ -34,20 +34,20 @@ const Profile: FC = () => {
       yourArticles: store.articleList.articles,
     }),
   );
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { username } = useParams<TUsernameParams>();
+
   const [currentArticles, setCurrentArticles] = useState<any>(yourArticles); // когда добавим тип для статьи, сделаю вместо any: Array<тип статьи>
-  const [currentTabFlag, setCurrentTabFlag] = useState<string>('yourPosts');
   const isCurrentUserProfile = user?.username === currentProfile?.username;
   const { profile, settings } = translations[currentLang];
   const textPosts = isCurrentUserProfile ? profile.yourPosts : profile.usersPosts;
   const tabsNames = [
-    { name: textPosts, flag: 'yourPosts' },
-    { name: profile.favoritePosts, flag: 'favorites' },
+    { name: textPosts, flag: 'yourPosts', path: `/@${username}` },
+    { name: profile.favoritePosts, flag: 'favorites', path: `/@${username}/favorites` },
   ];
   const articlesCount = currentArticles ? currentArticles.length : 0;
-
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const { username } = useParams<TUsernameParams>();
+  const location = useLocation();
 
   const onLoad = (): void => {
     dispatch(getProfile({ payload: agent.Profile.get(username) }));
@@ -63,7 +63,35 @@ const Profile: FC = () => {
     return () => {
       onUnload();
     };
-  }, [dispatch]);
+  }, [dispatch, location]);
+
+  const onTabChange = (type: any, payload: any) => {
+    dispatch(type({ payload }));
+  };
+
+  const loadYourOwnPosts = () => {
+    onTabChange(loadProfileOwnPosts, agent.Articles.byAuthor(username, 0));
+  };
+
+  const loadFavorites = () => {
+    onTabChange(loadProfileFavPosts, agent.Articles.favoritedBy(currentProfile.username));
+  };
+
+  useEffect(() => {
+    if (location.pathname.includes('favorite')) {
+      loadFavorites();
+    } else {
+      loadYourOwnPosts();
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (location.pathname.includes('favorite')) {
+      setCurrentArticles(articlesFavList);
+    } else {
+      setCurrentArticles(yourArticles);
+    }
+  }, [yourArticles, articlesFavList, location]);
 
   /* handle follow behavior: */
   const onFollow = () => {
@@ -83,39 +111,10 @@ const Profile: FC = () => {
     }
   };
 
-  /* handle tabs behavior: */
-  // TODO: Тут с табами перемудрили. Лучше через навлинки сделать
-  const onTabClick = (tab: any, type: any, payload: any) => {
-    setCurrentTabFlag(tab);
-    dispatch(type({ payload }));
-  };
-
-  const yourPostsTabClick = () => {
-    onTabClick('yourPosts', loadProfileOwnPosts, agent.Articles.byAuthor(username, 0));
-  };
-
-  const favPostsTabClick = () => {
-    onTabClick(
-      'favorites',
-      loadProfileFavPosts,
-      agent.Articles.favoritedBy(currentProfile.username),
-    );
-  };
-
-  const handleClicks = [yourPostsTabClick, favPostsTabClick];
-  
   const onClickLogout = () => {
     dispatch(logout());
     history.push('/login');
   };
-
-  useEffect(() => {
-    if (currentTabFlag === 'yourPosts') {
-      setCurrentArticles(yourArticles);
-    } else {
-      setCurrentArticles(articlesFavList);
-    }
-  }, [currentTabFlag, yourArticles, articlesFavList]);
 
   return (
     <div className={styles.page}>
@@ -162,7 +161,7 @@ const Profile: FC = () => {
         </div>
       </div>
       <ArticlesWithTabs>
-        <Tabs currentTabFlag={currentTabFlag} handleClicks={handleClicks} tabsNames={tabsNames} />
+        <Tabs tabsNames={tabsNames} />
         <ArticleList articles={currentArticles} articlesCount={articlesCount} />
       </ArticlesWithTabs>
     </div>

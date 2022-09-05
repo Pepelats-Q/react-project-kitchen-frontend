@@ -1,5 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import Banner from './Banner/Banner';
 import agent from '../../agent';
 import styles from './home.module.scss';
@@ -11,14 +12,18 @@ import { loadAllTags } from '../../services/reducers/profile-reducer';
 import { homePageLoad, homePageUnload } from '../../services/reducers/home-reducer';
 import { changeTab } from '../../services/reducers/articlelist-reducer';
 
-const { Promise } = global;
-
 const Home: FC = () => {
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state.common.token);
-  const appName = useSelector((state: any) => state.common.appName);
-  const articles = useSelector((state: any) => state.articleList.articles);
-  const [currentTabFlag, setCurrentTabFlag] = useState<string>('allPosts');
+  const { token, appName, articles, currentLang } = useSelector((state: any) => ({
+    token: state.common.token,
+    appName: state.common.appName,
+    articles: state.articleList.articles,
+    currentLang: state.header.currentLang,
+  }));
+
+  const { homePage } = translations[currentLang];
+  const location = useLocation();
+  const isFeed = location.pathname.includes('your-feed');
 
   const onLoad = (tab: string, pager: any, payload: any) => {
     dispatch(homePageLoad({ tab, pager, payload }));
@@ -28,7 +33,7 @@ const Home: FC = () => {
   const onUnload = () => dispatch(homePageUnload());
 
   useEffect(() => {
-    const tab = token ? 'feed' : 'all';
+    const tab = isFeed ? 'feed' : 'all';
     const articlesPromise = agent.Articles.all;
     onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
     return () => {
@@ -36,51 +41,46 @@ const Home: FC = () => {
     };
   }, []);
 
-  /* handle tabs behavior: */
-  // TODO: С табами перемудрили
-  const onTabClick = (tab: string, pager: any, payload: any) => {
-    setCurrentTabFlag(tab);
-    dispatch(changeTab({ tab, pager, payload }));
+  const onTabChange = (tab: string, pager: any, payload: any) => {
+    dispatch(changeTab({ pager, payload }));
   };
 
-  const yourTabClick = () => {
-    onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
+  const loadYourFeed = () => {
+    onTabChange('feed', agent.Articles.feed, agent.Articles.feed());
   };
 
-  const globalTabClick = () => {
-    onTabClick('all', agent.Articles.all, agent.Articles.all());
+  const loadGlobalFeed = () => {
+    onTabChange('all', agent.Articles.all, agent.Articles.all());
   };
 
-  const currentLang = useSelector((state: any) => state.header.currentLang);
-
-  const { homePage } = translations[currentLang];
+  useEffect(() => {
+    if (isFeed) {
+      loadYourFeed();
+    } else {
+      loadGlobalFeed();
+    }
+  }, [isFeed]);
 
   const tabsNames = [
-    { name: homePage.tab2Text, flag: 'allPosts' },
-    { name: homePage.tab1Text, flag: 'feedPosts' },
+    { name: homePage.tab2Text, path: '/' },
+    { name: homePage.tab1Text, path: '/your-feed' },
   ];
-  const handleClicks = [globalTabClick, yourTabClick];
 
   const articlesCount = articles ? articles.length : 0;
 
-  const tabsNamesNoAuth = [{ name: homePage.tab2Text, flag: 'allPosts' }];
-  const handleClicksNoAuth = [globalTabClick];
+  const tabsNamesNoAuth = [{ name: homePage.tab2Text, path: '/' }];
 
   return (
     <div className={styles.home_page}>
       <Banner appName={appName} />
       {token ? (
         <ArticlesWithTabs>
-          <Tabs currentTabFlag={currentTabFlag} handleClicks={handleClicks} tabsNames={tabsNames} />
+          <Tabs tabsNames={tabsNames} />
           <ArticleList articles={articles} articlesCount={articlesCount} />
         </ArticlesWithTabs>
       ) : (
         <ArticlesWithTabs>
-          <Tabs
-            currentTabFlag='allPosts'
-            handleClicks={handleClicksNoAuth}
-            tabsNames={tabsNamesNoAuth}
-          />
+          <Tabs tabsNames={tabsNamesNoAuth} />
           <ArticleList articles={articles} articlesCount={articlesCount} />
         </ArticlesWithTabs>
       )}

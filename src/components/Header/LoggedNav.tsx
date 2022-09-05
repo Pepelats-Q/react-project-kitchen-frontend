@@ -1,23 +1,37 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import MenuItem from './MenuItem';
-import { HomeIcon, EditIcon, ProfileIconBlank } from '../ui-library/Icons';
+import { HomeIcon, EditIcon } from '../ui-library/Icons';
 import translations from '../../constants/translations';
+import NavButton from '../ui-library/Buttons/NavButton/NavButton';
+import avatarTemp from '../../images/avatarTemp.svg';
 
 const LoggedNav: FC = () => {
-  const currentLang = useSelector((state: any) => state.header.currentLang);
-  const currentUser = useSelector((state: any) => state.common.currentUser);
+  const [imgSrc, setImgSrc] = useState(avatarTemp);
+
+  const { currentLang, currentUser, currentUserImg } = useSelector((store: any) => ({
+    currentLang: store.header.currentLang,
+    currentUser: store.common.currentUser,
+    currentUserImg: store.common.currentUser.image,
+  }));
   const { header } = translations[currentLang];
+
+  useEffect(() => {
+    if (currentUserImg) {
+      setImgSrc(currentUserImg);
+    }
+  }, [currentUserImg]);
+
   return (
     <>
-      <MenuItem icon={HomeIcon} path='/' text={header.mainPageText} />
-      <MenuItem icon={EditIcon} path='/editor' text={header.newNoteText} />
-      <MenuItem
-        icon={ProfileIconBlank}
-        isProfileIcon
-        path={`/@${currentUser.username}`}
-        text={currentUser.username}
-      />
+      <NavButton icon={<HomeIcon size='small' />} to='/' type='navigation'>
+        {header.mainPageText}
+      </NavButton>
+      <NavButton icon={<EditIcon size='small' />} to='/editor' type='navigation'>
+        {header.newNoteText}
+      </NavButton>
+      <NavButton image={imgSrc} to={`/@${currentUser.username}`} type='navigation'>
+        {currentUser.username}
+      </NavButton>
     </>
   );
 };

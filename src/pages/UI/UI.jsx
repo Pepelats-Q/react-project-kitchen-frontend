@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
-import TabButton from '../../components/ui-library/Buttons/TabButton/TabButton';
 import TextButton from '../../components/ui-library/Buttons/TextButton/TextButton';
 import {
   AlertIcon,
@@ -252,7 +251,8 @@ const UI = () => {
           className={styles.props}
         >{`<TabButton name='Вкладка' onClick={() => console.log('кнопка вкладки')} isCurrent={false} />`}</p>
         <div className={styles.group_layout}>
-          <TabButton
+          <NavButton
+            type='tab'
             isCurrent={false}
             name='Вкладка'
             onClick={() => console.log('кнопка вкладки')}
@@ -261,7 +261,12 @@ const UI = () => {
         </div>
 
         <div className={styles.group_layout}>
-          <TabButton isCurrent name='Вкладка' onClick={() => console.log('кнопка вкладки')} />
+          <NavButton
+            type='tab'
+            isCurrent
+            name='Вкладка'
+            onClick={() => console.log('кнопка вкладки')}
+          />
           <h4 className={styles.h4}>{`<TabButton isCurrent />`} активная вкладка</h4>
         </div>
       </div>

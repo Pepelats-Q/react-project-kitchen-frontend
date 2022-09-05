@@ -8,7 +8,7 @@ $animation_time: 0.5s;
   outline: 0;
   border-radius: 20px;
   height: 40px;
-  padding: 0px 16px;
+  padding: 0px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,15 +26,16 @@ $animation_time: 0.5s;
   color: $color-secondary;
   background-color: transparent;
   transition: background-color $animation_time, color $animation_time;
+  text-decoration: none;
   & svg > path {
     stroke: $color-secondary;
     transition: stroke $animation_time;
   }
   &:hover {
+    cursor: pointer;
     color: $color-primary;
     text-decoration: none;
-    background-color: $color-white10;
-    transition: background-color $animation_time, color $animation_time;
+    transition: color $animation_time;
     & svg > path {
       stroke: $color-primary;
       transition: stroke $animation_time;
@@ -49,11 +50,9 @@ $animation_time: 0.5s;
   }
   &:active {
     color: $color-primary;
-    background-color: $color-white10;
   }
   &:disabled {
     color: $color-secondary;
-    background-color: transparent;
   }
   &_active {
     color: $color-primary;
@@ -64,9 +63,6 @@ $animation_time: 0.5s;
     }
     &:hover {
       background-color: transparent;
-    }
-    &:visited {
-      color: $color-primary;
     }
   }
 }
@@ -98,4 +94,50 @@ $animation_time: 0.5s;
     color: $color-secondary;
     background-color: $color-disabled;
   }
+}
+
+.navigation_active {
+  color: $color-primary !important;
+  & svg > path {
+    stroke: $color-primary;
+    transition: stroke $animation_time;
+  }
+}
+
+.image {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.tab {
+  font-size: 16px;
+  line-height: 19px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: $color-secondary !important;
+  box-sizing: border-box;
+  text-decoration: none !important;
+  transition: color 0.3s ease-in;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 24px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  &:hover {
+    color: $color-primary !important;
+    transition: color 0.3s ease-in;
+  }
+  &:focus {
+    color: $color-primary !important;
+    border-bottom: 2px solid $color-accent;
+    outline: 0;
+  }
+}
+
+.tab_active {
+  color: $color-primary !important;
+  border-bottom: 2px solid $color-accent;
+  border-radius: 0;
 }

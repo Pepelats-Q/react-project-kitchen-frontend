@@ -36,7 +36,7 @@ export type TValidity = {
 
 export type TNames = {
   name: string;
-  flag: string;
+  path: string;
 };
 
 export type TUsernameParams = {
@@ -45,8 +45,6 @@ export type TUsernameParams = {
 
 export type TTabsProps = {
   tabsNames: Array<TNames>;
-  handleClicks: Array<MouseEventHandler<HTMLButtonElement>>;
-  currentTabFlag: string;
 };
 
 export type TArticlesWithTabsProps = {
@@ -62,3 +60,14 @@ export type TTabButtonProps = {
   isCurrent: boolean;
   name: string;
 };
+
+
+export type TAuthForm = {
+  btnText: string;
+  children: React.ReactNode;
+  crossLinkText: string;
+  formName: string;
+  isFormValid: boolean;
+  onSubmit: () => void;
+  oppositeLink: string,
+}

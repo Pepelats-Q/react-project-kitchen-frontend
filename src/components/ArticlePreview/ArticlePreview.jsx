@@ -7,15 +7,17 @@ import styles from './articlePreview.module.scss';
 import translations from '../../constants/translations';
 import UserWithDate from '../UserWithDate/UserWithDate';
 import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
-import {
-  articleFavorite,
-} from '../../services/reducers/articlelist-reducer';
+import { articleFavorite } from '../../services/reducers/articlelist-reducer';
 
 const ArticlePreview = ({ article }) => {
   const dispatch = useDispatch();
+  const { currentLang, currentUser } = useSelector((store) => ({
+    currentLang: store.header.currentLang,
+    currentUser: store.common.currentUser,
+  }));
+  const { articlesLang } = translations[currentLang];
 
-  const favorite = (slug) =>
-    dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
+  const favorite = (slug) => dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
 
   const unfavorite = (slug) =>
     dispatch(articleFavorite({ payload: agent.Articles.unfavorite(slug) }));
@@ -28,10 +30,6 @@ const ArticlePreview = ({ article }) => {
       favorite(article.slug);
     }
   };
-
-  const currentLang = useSelector((state) => state.header.currentLang);
-  const currentUser = useSelector((state) => state.common.currentUser);
-  const { articlesLang } = translations[currentLang];
 
   return (
     <div className={styles.article_preview}>
@@ -54,7 +52,7 @@ const ArticlePreview = ({ article }) => {
                   {article.favoritesCount}
                 </p>
                 {article.favorited ? (
-                  <HeartIconFilled  className={styles.heart} color='alert' size='small' />
+                  <HeartIconFilled className={styles.heart} color='alert' size='small' />
                 ) : (
                   <HeartIcon className={styles.heart} color='primary' size='small' />
                 )}

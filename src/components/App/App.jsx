@@ -37,6 +37,7 @@ const App = () => {
         <main className={styles.main}>
           <Switch>
             <Route component={Home} exact path='/' />
+            <Route component={Home} exact path='/your-feed' />
             <Route component={Login} path='/login' />
             <Route component={Register} path='/register' />
             <Route component={Editor} path='/editor/:slug' />
@@ -44,6 +45,7 @@ const App = () => {
             <Route component={Article} path='/article/:id' />
             <Route component={Settings} path='/settings' />
             <Route component={Profile} path='/@:username' />
+            <Route component={Profile} path='/@:username/favorites' />
             <Route component={UI} path='/ui' />
           </Switch>
         </main>
