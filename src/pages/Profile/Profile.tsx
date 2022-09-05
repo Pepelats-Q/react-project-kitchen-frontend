@@ -48,10 +48,10 @@ const Profile: FC = () => {
   ];
   const articlesCount = currentArticles ? currentArticles.length : 0;
   const location = useLocation();
+  const isFavorite = location.pathname.includes('favorite');
 
   const onLoad = (): void => {
     dispatch(getProfile({ payload: agent.Profile.get(username) }));
-    dispatch(loadProfileOwnPosts({ payload: agent.Articles.byAuthor(username, 0) }));
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
 
@@ -59,39 +59,28 @@ const Profile: FC = () => {
 
   useEffect(() => {
     onLoad();
-
     return () => {
       onUnload();
     };
   }, [dispatch, location]);
 
-  const onTabChange = (type: any, payload: any) => {
-    dispatch(type({ payload }));
-  };
-
-  const loadYourOwnPosts = () => {
-    onTabChange(loadProfileOwnPosts, agent.Articles.byAuthor(username, 0));
-  };
-
-  const loadFavorites = () => {
-    onTabChange(loadProfileFavPosts, agent.Articles.favoritedBy(currentProfile.username));
-  };
-
   useEffect(() => {
-    if (location.pathname.includes('favorite')) {
-      loadFavorites();
+    if (isFavorite) {
+      dispatch(
+        loadProfileFavPosts({ payload: agent.Articles.favoritedBy(currentProfile.username) }),
+      );
     } else {
-      loadYourOwnPosts();
+      dispatch(loadProfileOwnPosts({ payload: agent.Articles.byAuthor(username, 0) }));
     }
-  }, [location]);
+  }, [currentProfile, isFavorite]);
 
   useEffect(() => {
-    if (location.pathname.includes('favorite')) {
+    if (isFavorite) {
       setCurrentArticles(articlesFavList);
     } else {
       setCurrentArticles(yourArticles);
     }
-  }, [yourArticles, articlesFavList, location]);
+  }, [yourArticles, articlesFavList, isFavorite]);
 
   /* handle follow behavior: */
   const onFollow = () => {

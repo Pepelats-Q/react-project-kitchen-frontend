@@ -64,7 +64,7 @@ const articleListReducer = createSlice({
     loadProfileOwnPosts(state, action: PayloadAction<TtodoAny>) {
       state.articles = action.payload.payload.articles;
     },
-    loadProfileFavPosts(state, action: AnyAction) {
+    loadProfileFavPosts(state, action: PayloadAction<TtodoAny>) {
       state.articlesFavorites = action.payload.payload.articles;
     },
     profileFavoritesPageUnloaded() {
