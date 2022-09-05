@@ -8,7 +8,6 @@ const ArticleMeta = ({ article, canModify }) => (
     <div className={styles.usermeta}>
       <UserWithDate author={article.author} date={article.createdAt} />
     </div>
-
     <ArticleActions article={article} canModify={canModify} />
   </div>
 );

@@ -39,7 +39,9 @@
 }
 
 .input {
-  background-color: transparent;
+  background-color: $color-input;
+  -webkit-box-shadow: 0 0 0 20px $color-input inset;
+  -webkit-text-fill-color: $color-secondary;
   border: 0px;
   height: 100%;
   text-overflow: ellipsis;

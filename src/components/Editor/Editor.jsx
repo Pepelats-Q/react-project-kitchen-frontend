@@ -13,14 +13,18 @@ import { CloseIcon } from '../ui-library/Icons';
 import styles from './Editor.module.scss';
 import translations from '../../constants/translations';
 import { articleSubmit } from '../../services/reducers/editor-reducer';
+import { redirect } from '../../services/reducers/common-reducer';
 
 const Editor = () => {
-  const { errors, inProgress } = useSelector((store) => ({
+  const { errors, inProgress, currentLang, redirectTo } = useSelector((store) => ({
     errors: store.settings.errors,
     inProgress: store.settings.inProgress,
+    currentLang: store.header.currentLang,
+    redirectTo: store.common.redirectTo,
   }));
   const [tagList, setTagList] = useState([]);
   const [articleSlug, setArticleSlug] = useState('');
+  const { editor } = translations[currentLang];
 
   const { values, handleChange, setValues } = useForm({
     title: '',
@@ -31,15 +35,11 @@ const Editor = () => {
   });
 
   const urlParams = useParams();
-
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [isPressed, setIsPressed] = useState(false);
-
   const onSubmit = (payload) => {
     dispatch(articleSubmit({ payload }));
-    setIsPressed(true);
   };
 
   const watchForEnter = (ev) => {
@@ -91,16 +91,12 @@ const Editor = () => {
     }
   }, []);
 
-  const currentLang = useSelector((state) => state.header.currentLang);
-  const { editor } = translations[currentLang];
-  const editorErrors = useSelector((state) => state.editor.errors);
-  const newArticleSlug = useSelector((state) => state.common.redirectTo);
-
   useEffect(() => {
-    if (!editorErrors && isPressed) {
-      history.push(newArticleSlug);
+    if (!errors && redirectTo) {
+      history.push(redirectTo);
+      dispatch(redirect());
     }
-  }, [editorErrors, isPressed]);
+  }, [errors, redirectTo]);
 
   return (
     <div className={styles.wrapper}>

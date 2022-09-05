@@ -14,6 +14,7 @@
 }
 
 .textarea {
+  @include custom-scroll;
   background-color: $color-input;
   border: 2px solid transparent;
   border-radius: 20px;
@@ -32,19 +33,6 @@
   }
   &::placeholder {
     color: $color-white20;
-  }
-  &::-webkit-scrollbar {
-    width: 8px;
-  }
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-    margin: 10px 0;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-clip: content-box;
-    background-color: $color-white10;
-    border: 2px solid transparent;
-    border-radius: 8px;
   }
   &_error {
     border-color: $color-alert;

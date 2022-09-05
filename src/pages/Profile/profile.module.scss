@@ -19,6 +19,12 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.actions{
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
 .container {
   width: 100%;
   max-width: $container-width;

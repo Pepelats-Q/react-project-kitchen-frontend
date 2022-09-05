@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import ListErrors from '../ListErrors/ListErrors';
-import styles from './authForm.module.scss';
+import styles from './AuthForm.module.scss';
 import Button from '../ui-library/Buttons/Button/Button';
 
 const AuthForm = ({
@@ -25,9 +26,9 @@ const AuthForm = ({
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.formBox}>
-          <h1 className={styles.title}>{btnText}</h1>
+          <h1 className={clsx(styles.title, 'header-h2')}>{btnText}</h1>
           <div className={styles.oppositeLink}>
-            <Link className={styles.link} to={oppositeLink}>
+            <Link className={clsx(styles.link, 'text-default')} to={oppositeLink}>
               {crossLinkText}
             </Link>
           </div>
@@ -37,7 +38,7 @@ const AuthForm = ({
           <form className={styles.form} name={formName} noValidate onSubmit={handleSubmitForm}>
             {children}
             <div className={styles.submit}>
-              <Button disabled={!isFormValid} onClick={handleSubmitForm}>
+              <Button className={styles.submit_button} disabled={!isFormValid} onClick={handleSubmitForm}>
                 {btnText}
               </Button>
             </div>

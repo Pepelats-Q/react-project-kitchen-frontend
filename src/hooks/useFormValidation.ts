@@ -1,21 +1,14 @@
 import { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { UPDATE_FIELD_AUTH } from '../constants/actionTypes';
+import { TValidity } from '../utils/typesTs';
 
-function useFormValidation(initialState) {
-  const dispatch = useDispatch();
-  const [values, setValues] = useState(initialState);
-  const [errors, setErrors] = useState({});
+function useFormValidation(initialState: any) {
+  const [values, setValues] = useState<TValidity>(initialState);
+  const [errors, setErrors] = useState<TValidity>({});
   const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    dispatch({
-      type: UPDATE_FIELD_AUTH,
-      key: name,
-      value,
-    });
     setErrors({ ...errors, [name]: e.target.validationMessage });
     setIsValid(e.target.closest('form').checkValidity());
   };

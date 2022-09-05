@@ -9,34 +9,26 @@ import TextField from '../ui-library/TextField/TextField';
 import Button from '../ui-library/Buttons/Button/Button';
 import TextArea from '../ui-library/TextArea/TextArea';
 import { HideIcon, ShowIcon } from '../ui-library/Icons';
-import TextButton from '../ui-library/Buttons/TextButton/TextButton';
 import styles from './Settings.module.scss';
 import translations from '../../constants/translations';
 import { settingsSaved } from '../../services/reducers/settings-reducer';
-import { logout } from '../../services/reducers/common-reducer';
 
 const Settings = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const { currentUser, errors, inProgress } = useSelector((store) => ({
+  const { currentLang, currentUser, errors, inProgress, token } = useSelector((store) => ({
+    currentLang: store.header.currentLang,
     currentUser: store.common.currentUser,
     errors: store.settings.errors,
     inProgress: store.settings.inProgress,
+    token: store.common.token,
   }));
+  const { settings } = translations[currentLang];
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const [isPressed, setIsPressed] = useState(false);
-
-  const onClickLogout = () => {
-    setIsPressed(true);
-    dispatch(logout());
-  };
-
-  const token = useSelector((state) => state.common.token);
 
   useEffect(() => {
-    if (!token && isPressed) {
+    if (!token) {
       history.push('/login');
     }
   }, [token]);
@@ -61,7 +53,7 @@ const Settings = () => {
   }, [currentUser]);
 
   const onSubmitForm = (user) => {
-    dispatch(settingsSaved({payload: agent.Auth.save(user)}));
+    dispatch(settingsSaved({ payload: agent.Auth.save(user) }));
   };
 
   const submitFormHandler = (e) => {
@@ -74,10 +66,6 @@ const Settings = () => {
 
     onSubmitForm(user);
   };
-
-  const currentLang = useSelector((state) => state.header.currentLang);
-
-  const { settings } = translations[currentLang];
 
   return (
     <div className={styles.wrapper}>
@@ -142,11 +130,6 @@ const Settings = () => {
             {settings.saveButton}
           </Button>
         </form>
-
-        <hr className={styles.divider} />
-        <TextButton className={styles.exit_button} color='alert' onClick={onClickLogout}>
-          {settings.logout}
-        </TextButton>
       </div>
     </div>
   );

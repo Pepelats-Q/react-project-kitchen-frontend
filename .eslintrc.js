@@ -48,6 +48,7 @@ module.exports = {
     'react/no-multi-comp': ['error', { ignoreStateless: true }],
     'react/no-set-state': 'warn',
     'react/no-string-refs': 'error',
+    'react/no-unknown-property': 'error',
     'react/prefer-es6-class': 'error',
     'react/prefer-stateless-function': 'error',
     'react/require-default-props': 'off', // предлагаю дефолты прописывать в объявлении

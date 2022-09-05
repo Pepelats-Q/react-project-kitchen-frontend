@@ -9,15 +9,12 @@ import translations from '../../constants/translations';
 import { articleDelete } from '../../services/reducers/common-reducer';
 
 const ArticleActions = ({ article, canModify }) => {
-  const dispatch = useDispatch();
-
-  // TODO: лишняя вложенность функций. Можно было всё в одной функции прописать
-  const onClickDelete = (payload) => dispatch(articleDelete({ payload }));
   const currentLang = useSelector((state) => state.header.currentLang);
   const { articlesLang } = translations[currentLang];
+  const dispatch = useDispatch();
 
-  const del = () => {
-    onClickDelete(agent.Articles.del(article.slug));
+  const onDeleteHandler = () => {
+    dispatch(articleDelete({ payload: agent.Articles.del(article.slug) }));
   };
   if (canModify) {
     return (
@@ -30,7 +27,7 @@ const ArticleActions = ({ article, canModify }) => {
         >
           {articlesLang.edit}
         </NavButton>
-        <Button className={styles.action} icon={<TrashIcon />} onClick={del} type='outline_alert'>
+        <Button className={styles.action} icon={<TrashIcon />} onClick={onDeleteHandler} type='outline_alert'>
           {articlesLang.delete}
         </Button>
       </div>
