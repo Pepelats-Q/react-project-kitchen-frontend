@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
 import agent from '../../agent';
@@ -9,22 +9,29 @@ import TextField from '../ui-library/TextField/TextField';
 import TextArea from '../ui-library/TextArea/TextArea';
 import Button from '../ui-library/Buttons/Button/Button';
 import { CloseIcon } from '../ui-library/Icons';
-
 import styles from './Editor.module.scss';
-import translations from '../../constants/translations';
 import { articleSubmit } from '../../services/reducers/editor-reducer';
 import { redirect } from '../../services/reducers/common-reducer';
+import useTranslate from '../../hooks/useTranslate';
+import useSelector from '../../hooks/hooks';
 
 const Editor = () => {
-  const { errors, inProgress, currentLang, redirectTo } = useSelector((store) => ({
+  const { token, errors, inProgress, redirectTo } = useSelector((store) => ({
+    token: store.common.token,
     errors: store.settings.errors,
     inProgress: store.settings.inProgress,
-    currentLang: store.header.currentLang,
     redirectTo: store.common.redirectTo,
   }));
   const [tagList, setTagList] = useState([]);
   const [articleSlug, setArticleSlug] = useState('');
-  const { editor } = translations[currentLang];
+  const localization = useTranslate();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!token) {
+      history.push('/login');
+    }
+  }, []);
 
   const { values, handleChange, setValues } = useForm({
     title: '',
@@ -36,7 +43,6 @@ const Editor = () => {
 
   const urlParams = useParams();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const onSubmit = (payload) => {
     dispatch(articleSubmit({ payload }));
@@ -98,45 +104,49 @@ const Editor = () => {
     }
   }, [errors, redirectTo]);
 
+  //  {localization({ page: 'editor', key: 'editing' })}
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <h1 className={clsx(styles.title, 'header-h2 align-center color-primary')}>
-          {urlParams.slug ? editor.editing : editor.newEntry}
+          {urlParams.slug
+            ? localization({ page: 'editor', key: 'editing' })
+            : localization({ page: 'editor', key: 'newEntry' })}
         </h1>
 
         <ListErrors errors={errors} />
 
         <form className={styles.form}>
           <TextField
-            label={editor.header}
+            label={localization({ page: 'editor', key: 'header' })}
             name='title'
             onChange={handleChange}
-            placeholder={editor.articleName}
+            placeholder={localization({ page: 'editor', key: 'articleName' })}
             type='text'
             value={values.title}
           />
           <TextField
-            label={editor.description}
+            label={localization({ page: 'editor', key: 'description' })}
             name='description'
             onChange={handleChange}
-            placeholder={editor.about}
+            placeholder={localization({ page: 'editor', key: 'about' })}
             type='text'
             value={values.description}
           />
           <TextField
-            label={editor.image}
+            label={localization({ page: 'editor', key: 'image' })}
             name='link'
             onChange={handleChange}
-            placeholder={editor.imageLink}
+            placeholder={localization({ page: 'editor', key: 'imageLink' })}
             type='text'
             value={values.link}
           />
           <TextArea
-            label={editor.content}
+            label={localization({ page: 'editor', key: 'content' })}
             name='body'
             onChange={handleChange}
-            placeholder={editor.articleText}
+            placeholder={localization({ page: 'editor', key: 'articleText' })}
             rows={8}
             type='text'
             value={values.body}
@@ -144,11 +154,11 @@ const Editor = () => {
 
           <div>
             <TextField
-              label={editor.tags}
+              label={localization({ page: 'editor', key: 'tags' })}
               name='tag'
               onChange={handleChange}
               onKeyUp={watchForEnter}
-              placeholder={editor.tagsText}
+              placeholder={localization({ page: 'editor', key: 'tagsText' })}
               type='text'
               value={values.tag}
             />
@@ -164,7 +174,7 @@ const Editor = () => {
           </div>
 
           <Button className={styles.submit_button} disabled={inProgress} onClick={submitForm}>
-            {editor.btnText}
+            {localization({ page: 'editor', key: 'btnText' })}
           </Button>
         </form>
       </div>

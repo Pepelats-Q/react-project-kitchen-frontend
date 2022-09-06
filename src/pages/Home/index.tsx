@@ -1,56 +1,52 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import Banner from './Banner/Banner';
 import agent from '../../agent';
 import styles from './home.module.scss';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
-import Tabs from '../../components/Tabs/Tabs';
-import ArticleList from '../../components/ArticleList/ArticleList';
-import translations from '../../constants/translations';
+// import Tabs from '../../components/Tabs/Tabs';
+// import ArticleList from '../../components/ArticleList/ArticleList';
 import { loadAllTags } from '../../services/reducers/profile-reducer';
-import { homePageLoad, homePageUnload } from '../../services/reducers/home-reducer';
+import { homePageUnload } from '../../services/reducers/home-reducer';
 import { changeTab } from '../../services/reducers/articlelist-reducer';
+import useTranslate from '../../hooks/useTranslate';
 
 const Home: FC = () => {
   const dispatch = useDispatch();
-  const { token, appName, articles, currentLang } = useSelector((state: any) => ({
-    token: state.common.token,
-    appName: state.common.appName,
-    articles: state.articleList.articles,
-    currentLang: state.header.currentLang,
+  const { token, articlesAll, articlesYourFeed } = useSelector((store: any) => ({
+    token: store.common.token,
+    articlesAll: store.articleList.articles,
+    articlesYourFeed: store.articleList.articlesYourFeed,
   }));
 
-  const { homePage } = translations[currentLang];
   const location = useLocation();
+  const localization = useTranslate();
   const isFeed = location.pathname.includes('your-feed');
+  const [currentArticles, setCurrentArticles] = useState<any>(articlesAll);
+  const articlesCount = currentArticles ? currentArticles.length : 0;
 
-  const onLoad = (tab: string, pager: any, payload: any) => {
-    dispatch(homePageLoad({ tab, pager, payload }));
+  const onLoad = () => {
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
-
   const onUnload = () => dispatch(homePageUnload());
 
   useEffect(() => {
-    const tab = isFeed ? 'feed' : 'all';
-    const articlesPromise = agent.Articles.all;
-    onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+    onLoad();
     return () => {
       onUnload();
     };
   }, []);
 
-  const onTabChange = (tab: string, pager: any, payload: any) => {
-    dispatch(changeTab({ pager, payload }));
-  };
-
+  /* load articles which needed */
   const loadYourFeed = () => {
-    onTabChange('feed', agent.Articles.feed, agent.Articles.feed());
+    dispatch(
+      changeTab({ tab: 'feed', pager: agent.Articles.feed, payload: agent.Articles.feed() }),
+    );
   };
 
   const loadGlobalFeed = () => {
-    onTabChange('all', agent.Articles.all, agent.Articles.all());
+    dispatch(changeTab({ tab: 'all', pager: agent.Articles.all, payload: agent.Articles.all() }));
   };
 
   useEffect(() => {
@@ -61,28 +57,40 @@ const Home: FC = () => {
     }
   }, [isFeed]);
 
+  useEffect(() => {
+    if (isFeed) {
+      setCurrentArticles(articlesYourFeed);
+    } else {
+      setCurrentArticles(articlesAll);
+    }
+  }, [articlesYourFeed, articlesAll, isFeed]);
+
   const tabsNames = [
-    { name: homePage.tab2Text, path: '/' },
-    { name: homePage.tab1Text, path: '/your-feed' },
+    { name: localization({ page: 'homePage', key: 'tab2Text' }), path: '/' },
+    { name: localization({ page: 'homePage', key: 'tab1Text' }), path: '/your-feed' },
   ];
 
-  const articlesCount = articles ? articles.length : 0;
+  // {localization({ page: 'homePage', key: 'tab2Text' })}
 
-  const tabsNamesNoAuth = [{ name: homePage.tab2Text, path: '/' }];
+  const tabsNamesNoAuth = [
+    { name: localization({ page: 'homePage', key: 'tab2Text' }), path: '/' },
+  ];
 
   return (
     <div className={styles.home_page}>
-      <Banner appName={appName} />
+      <Banner />
       {token ? (
-        <ArticlesWithTabs>
-          <Tabs tabsNames={tabsNames} />
-          <ArticleList articles={articles} articlesCount={articlesCount} />
-        </ArticlesWithTabs>
+        <ArticlesWithTabs
+          tabsNames={tabsNames}
+          articles={currentArticles}
+          articlesCount={articlesCount}
+        />
       ) : (
-        <ArticlesWithTabs>
-          <Tabs tabsNames={tabsNamesNoAuth} />
-          <ArticleList articles={articles} articlesCount={articlesCount} />
-        </ArticlesWithTabs>
+        <ArticlesWithTabs
+          tabsNames={tabsNamesNoAuth}
+          articles={articlesAll}
+          articlesCount={articlesCount}
+        />
       )}
     </div>
   );

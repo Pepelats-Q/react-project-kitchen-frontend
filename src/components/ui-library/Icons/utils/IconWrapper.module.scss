@@ -1,6 +1,6 @@
 @import '../../ui-style/ui-style.scss';
 
-.button{
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,12 +9,12 @@
   background-color: transparent;
   font-size: 0;
   border-radius: 4px;
-  
-  &:focus{
+
+  &:focus {
     outline: 0;
   }
-  
-  &:focus-visible{
+
+  &:focus-visible {
     background-color: $color-white10;
   }
 }

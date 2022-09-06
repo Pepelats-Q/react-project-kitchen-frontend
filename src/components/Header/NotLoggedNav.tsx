@@ -1,22 +1,20 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
 import { HomeIcon, LoginIcon, EditIcon } from '../ui-library/Icons';
-import translations from '../../constants/translations';
 import NavButton from '../ui-library/Buttons/NavButton/NavButton';
+import useTranslate from '../../hooks/useTranslate';
 
 const NotLoggedNav: FC = () => {
-  const currentLang = useSelector((state: any) => state.header.currentLang);
-  const { header } = translations[currentLang];
+  const localization = useTranslate();
   return (
     <>
       <NavButton icon={<HomeIcon size='small' />} to='/' type='navigation'>
-        {header.mainPageText}
+        {localization({ page: 'header', key: 'mainPageText' })}
       </NavButton>
       <NavButton icon={<LoginIcon size='small' />} to='/login' type='navigation'>
-        {header.loginText}
+        {localization({ page: 'header', key: 'loginText' })}
       </NavButton>
       <NavButton icon={<EditIcon size='small' />} to='/register' type='navigation'>
-        {header.registerText}
+        {localization({ page: 'header', key: 'registerText' })}
       </NavButton>
     </>
   );

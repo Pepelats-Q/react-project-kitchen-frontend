@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
@@ -8,19 +8,20 @@ import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
-import translations from '../../constants/translations';
 import { login, setApiMessage } from '../../services/reducers/auth-reducer';
 import { redirect } from '../../services/reducers/common-reducer';
 import TextField from '../../components/ui-library/TextField/TextField';
+import useTranslate from '../../hooks/useTranslate';
+import useSelector from '../../hooks/hooks';
 
 const Login: FC = () => {
-  const { currentLang, currentUser } = useSelector((store: any) => ({
-    currentLang: store.header.currentLang,
+  const { currentUser } = useSelector((store) => ({
     currentUser: store.common.currentUser,
   }));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();
+  const localization = useTranslate();
   const history = useHistory();
   const { values, handleChange, errors, isValid } = useFormValidation({
     email: '',
@@ -42,7 +43,6 @@ const Login: FC = () => {
     }
   }, [currentUser]);
 
-  const { authForm } = translations[currentLang];
   const showPasswordIcon = isPasswordVisible ? (
     <HideIcon onClick={() => setIsPasswordVisible(false)} />
   ) : (
@@ -51,8 +51,8 @@ const Login: FC = () => {
 
   return (
     <AuthForm
-      btnText={authForm.loginText}
-      crossLinkText={authForm.loginQuestion}
+      btnText={localization({ page: 'authForm', key: 'loginText' })}
+      crossLinkText={localization({ page: 'authForm', key: 'loginQuestion' })}
       formName='login'
       isFormValid={isValid}
       onSubmit={submitLogin}
@@ -61,12 +61,12 @@ const Login: FC = () => {
       <div className={styles.fieldset}>
         <TextField
           icon={errors.password ? <AlertIcon color='alert' /> : null}
-          label={authForm.placeholderEmail}
+          label={localization({ page: 'authForm', key: 'placeholderEmail' })}
           maxLength={30}
           minLength={2}
           name='email'
           onChange={handleChange}
-          placeholder={authForm.placeholderEmail}
+          placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
           required
           type='email'
           value={values.email}
@@ -77,12 +77,12 @@ const Login: FC = () => {
       <div className={styles.fieldset}>
         <TextField
           icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
-          label={authForm.placeholderPass}
+          label={localization({ page: 'authForm', key: 'placeholderPass' })}
           maxLength={25}
           minLength={2}
           name='password'
           onChange={handleChange}
-          placeholder={authForm.placeholderPass}
+          placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
           required
           type={isPasswordVisible ? 'text' : 'password'}
           value={values.password}

@@ -1,16 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import agent from '../../agent';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import { EditIcon, TrashIcon } from '../../components/ui-library/Icons';
 import styles from './Article.module.scss';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
-import translations from '../../constants/translations';
 import { articleDelete } from '../../services/reducers/common-reducer';
+import useTranslate from '../../hooks/useTranslate';
 
 const ArticleActions = ({ article, canModify }) => {
-  const currentLang = useSelector((state) => state.header.currentLang);
-  const { articlesLang } = translations[currentLang];
+  const localization = useTranslate();
   const dispatch = useDispatch();
 
   const onDeleteHandler = () => {
@@ -25,10 +24,15 @@ const ArticleActions = ({ article, canModify }) => {
           to={`/editor/${article.slug}`}
           type='primary'
         >
-          {articlesLang.edit}
+          {localization({ page: 'articlesLang', key: 'edit' })}
         </NavButton>
-        <Button className={styles.action} icon={<TrashIcon />} onClick={onDeleteHandler} type='outline_alert'>
-          {articlesLang.delete}
+        <Button
+          className={styles.action}
+          icon={<TrashIcon />}
+          onClick={onDeleteHandler}
+          type='outline_alert'
+        >
+          {localization({ page: 'articlesLang', key: 'delete' })}
         </Button>
       </div>
     );

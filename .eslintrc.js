@@ -39,6 +39,8 @@ module.exports = {
     'default-param-last': 'warn',
     'prefer-destructuring': 'warn',
     'linebreak-style': 'off',
+    'import/no-cycle':'warn',
+
 
     // React
     'react/destructuring-assignment': 'warn',

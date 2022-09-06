@@ -1,11 +1,13 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice } from '@reduxjs/toolkit';
 import { TtodoAny, TArticle } from '../../utils/typesTs';
 import { homePageLoad, homePageUnload } from './home-reducer';
 
 type TArticleListState = {
   articles: Array<TArticle>;
+  articlesYourFeed: Array<TArticle>;
+  articlesProfileYourPosts: Array<TArticle>;
+  articlesProfileFavorites: Array<TArticle>;
   articlesCount: number;
-  articlesFavorites: Array<TArticle>;
   currentPage: number;
   pager: TtodoAny;
   tab: string | null;
@@ -15,8 +17,10 @@ type TArticleListState = {
 
 const initialState: TArticleListState = {
   articles: [],
+  articlesYourFeed: [],
+  articlesProfileYourPosts: [],
+  articlesProfileFavorites: [],
   articlesCount: 0,
-  articlesFavorites: [],
   currentPage: 1,
   pager: null,
   tab: null,
@@ -29,16 +33,26 @@ const articleListReducer = createSlice({
   initialState,
   reducers: {
     articleFavorite(state, action: AnyAction) {
-      state.articles = state.articles.map((article) => {
-        if (article.slug === action.payload.payload.article.slug) {
-          return {
-            ...article,
-            favorited: action.payload.payload.article.favorited,
-            favoritesCount: action.payload.payload.article.favoritesCount,
-          };
-        }
-        return article;
-      });
+      const updateAllLists = (articlesArray: Array<TArticle>) =>
+        articlesArray.map((article) => {
+          if (article.slug === action.payload.payload.article.slug) {
+            return {
+              ...article,
+              favorited: action.payload.payload.article.favorited,
+              favoritesCount: action.payload.payload.article.favoritesCount,
+            };
+          }
+          return article;
+        });
+
+      state.articles = updateAllLists(state.articles);
+      state.articlesYourFeed = updateAllLists(state.articlesYourFeed);
+      state.articlesProfileYourPosts = updateAllLists(state.articlesProfileYourPosts);
+      const updatedFavs = updateAllLists(state.articlesProfileFavorites);
+      state.articlesProfileFavorites = updatedFavs.filter((article) => article.favorited);
+    },
+    loadAllArticles(state, action: AnyAction) {
+      state.articles = [...action.payload.payload.articles];
     },
     setPageAction(state, action: AnyAction) {
       state.articles = [...action.payload.payload.articles];
@@ -55,19 +69,22 @@ const articleListReducer = createSlice({
     },
     changeTab(state, action: TtodoAny) {
       state.pager = action.pager;
-      state.articles = action.payload.payload.articles;
+      if (action.payload.tab === 'feed') {
+        state.articlesYourFeed = action.payload.payload.articles;
+      } else if (action.payload.tab === 'your-posts') {
+        state.articlesProfileYourPosts = action.payload.payload.articles;
+      } else if (action.payload.tab === 'favorites') {
+        state.articlesProfileFavorites = action.payload.payload.articles;
+      } else {
+        state.articles = action.payload.payload.articles;
+      }
       state.articlesCount = action.payload.payload.articlesCount;
       state.tab = action.tab;
       state.currentPage = 0;
       state.tag = null;
     },
-    loadProfileOwnPosts(state, action: PayloadAction<TtodoAny>) {
-      state.articles = action.payload.payload.articles;
-    },
-    loadProfileFavPosts(state, action: PayloadAction<TtodoAny>) {
-      state.articlesFavorites = action.payload.payload.articles;
-    },
-    profileFavoritesPageUnloaded() {
+
+    profileClearArticlesPageUnloaded() {
       return { ...initialState };
     },
   },
@@ -89,9 +106,7 @@ export const {
   setPageAction,
   applyTagFilter,
   changeTab,
-  loadProfileOwnPosts,
-  loadProfileFavPosts,
-  profileFavoritesPageUnloaded,
+  profileClearArticlesPageUnloaded,
 } = articleListReducer.actions;
 
 export default articleListReducer.reducer;

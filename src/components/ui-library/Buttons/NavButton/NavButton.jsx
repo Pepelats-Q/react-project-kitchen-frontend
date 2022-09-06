@@ -6,7 +6,6 @@ import styles from './NavButton.module.scss';
 
 const NavButton = ({
   icon,
-  image,
   to = '/',
   exact = true,
   className = '',
@@ -16,24 +15,20 @@ const NavButton = ({
   const types = {
     primary: styles.primary,
     navigation: styles.navigation,
-    tab: styles.tab,
   };
 
-  const activeTypes = {
-    primary: styles.primary_active,
-    navigation: styles.navigation_active,
-    tab: styles.tab_active,
-  };
+  const { alt, src } = icon.props;
+  const imageToShow =
+    icon.type === 'img' ? <img alt={alt} className={styles.image} src={src} /> : <icon.type />;
 
   return (
     <NavLink
-      activeClassName={activeTypes[type] ? activeTypes[type] : styles.navigation_active}
+      activeClassName={styles.navigation_active}
       className={clsx(styles.button, types[type] ? types[type] : styles.navigation, className)}
       exact={exact}
       to={to}
     >
-      {icon && <icon.type />}
-      {image && <img alt={children} className={clsx(styles.image, className)} src={image} />}
+      {icon && imageToShow}
       <span>{children}</span>
     </NavLink>
   );
@@ -44,7 +39,6 @@ NavButton.propTypes = {
   className: PropTypes.string,
   exact: PropTypes.bool,
   icon: PropTypes.node,
-  image: PropTypes.node,
   to: PropTypes.string,
   type: PropTypes.string,
 };

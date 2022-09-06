@@ -1,19 +1,19 @@
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { HomeIcon, EditIcon } from '../ui-library/Icons';
-import translations from '../../constants/translations';
+import useSelector from '../../hooks/hooks';
 import NavButton from '../ui-library/Buttons/NavButton/NavButton';
 import avatarTemp from '../../images/avatarTemp.svg';
+import useTranslate from '../../hooks/useTranslate';
 
 const LoggedNav: FC = () => {
   const [imgSrc, setImgSrc] = useState(avatarTemp);
 
-  const { currentLang, currentUser, currentUserImg } = useSelector((store: any) => ({
-    currentLang: store.header.currentLang,
+  const { currentUser, currentUserImg } = useSelector((store) => ({
     currentUser: store.common.currentUser,
     currentUserImg: store.common.currentUser.image,
   }));
-  const { header } = translations[currentLang];
+
+  const localization = useTranslate();
 
   useEffect(() => {
     if (currentUserImg) {
@@ -24,12 +24,16 @@ const LoggedNav: FC = () => {
   return (
     <>
       <NavButton icon={<HomeIcon size='small' />} to='/' type='navigation'>
-        {header.mainPageText}
+        {localization({ page: 'header', key: 'mainPageText' })}
       </NavButton>
       <NavButton icon={<EditIcon size='small' />} to='/editor' type='navigation'>
-        {header.newNoteText}
+        {localization({ page: 'header', key: 'newNoteText' })}
       </NavButton>
-      <NavButton image={imgSrc} to={`/@${currentUser.username}`} type='navigation'>
+      <NavButton
+        icon={<img alt='profile name' src={imgSrc} />}
+        to={`/@${currentUser.username}`}
+        type='navigation'
+      >
         {currentUser.username}
       </NavButton>
     </>

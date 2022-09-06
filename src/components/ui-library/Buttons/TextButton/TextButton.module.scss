@@ -23,9 +23,9 @@ $animation_time: 0.5s;
   }
 }
 
-.accent{
+.accent {
   color: $color-accent;
-  &:focus-visible{
+  &:focus-visible {
     border-bottom-color: $color-accent;
   }
   &:hover {
@@ -41,9 +41,9 @@ $animation_time: 0.5s;
   }
 }
 
-.alert{
+.alert {
   color: $color-alert;
-  &:focus-visible{
+  &:focus-visible {
     border-bottom-color: $color-alert;
   }
   &:hover {
@@ -51,29 +51,10 @@ $animation_time: 0.5s;
     border-bottom-color: $color-alert;
   }
   &:active {
-    color: lighten($color-alert,20%);
-    border-bottom-color: lighten($color-alert,20%);
+    color: lighten($color-alert, 20%);
+    border-bottom-color: lighten($color-alert, 20%);
   }
   &:disabled {
     color: $color-secondary;
   }
-}
-
-
-.languages {
-  color: $color-secondary!important;
-  border: 1px solid $color-secondary;
-  padding: 8px 16px;
-  border-radius: 40px;
-  margin: 0 0 0 8px;
-  &:hover {
-    background-color: $color-input;
-    transition: background-color $animation_time;
-  }
-
-}
-
-
-.btn_active {
-  background-color: $color-input;
 }

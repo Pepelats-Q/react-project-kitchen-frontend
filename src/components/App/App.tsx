@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import agent from '../../agent';
 import Header from '../Header';
@@ -7,32 +7,32 @@ import Article from '../../pages/Article';
 import Editor from '../Editor/Editor';
 import Home from '../../pages/Home';
 import Login from '../../pages/Login/Login';
-import Profile from '../../pages/Profile/Profile';
 import Register from '../../pages/Register/Register';
 import Settings from '../Settings/Settings';
 import UI from '../../pages/UI/UI';
 import NotLoadedApp from '../NotLoadedApp/NotLoadedApp';
 import { appLoad } from '../../services/reducers/common-reducer';
 import styles from './App.module.scss';
+import Profile from '../../pages/Profile/Profile';
+import { TranslationProvider } from '../../contexts/context';
+import useSelector from '../../hooks/hooks';
 
-const App = () => {
+const App: FC = () => {
   const dispatch = useDispatch();
-
-  const onLoad = (payload) => dispatch(appLoad({ payload }));
 
   useEffect(() => {
     const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
     }
-    onLoad(token ? agent.Auth.current() : null);
+    dispatch(appLoad({ payload: token ? agent.Auth.current() : null }));
   }, []);
 
   const appLoaded = useSelector((store) => store.common.appLoaded);
 
   if (appLoaded) {
     return (
-      <>
+      <TranslationProvider>
         <Header />
         <main className={styles.main}>
           <Switch>
@@ -44,12 +44,12 @@ const App = () => {
             <Route component={Editor} path='/editor' />
             <Route component={Article} path='/article/:id' />
             <Route component={Settings} path='/settings' />
-            <Route component={Profile} path='/@:username' />
+            <Route component={Profile} path='/@:username' exact />
             <Route component={Profile} path='/@:username/favorites' />
             <Route component={UI} path='/ui' />
           </Switch>
         </main>
-      </>
+      </TranslationProvider>
     );
   }
   return (

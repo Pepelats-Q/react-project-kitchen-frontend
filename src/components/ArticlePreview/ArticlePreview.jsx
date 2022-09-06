@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import agent from '../../agent';
 import styles from './articlePreview.module.scss';
-
-import translations from '../../constants/translations';
 import UserWithDate from '../UserWithDate/UserWithDate';
 import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
 import { articleFavorite } from '../../services/reducers/articlelist-reducer';
+import useTranslate from '../../hooks/useTranslate';
+import useSelector from '../../hooks/hooks';
 
 const ArticlePreview = ({ article }) => {
   const dispatch = useDispatch();
-  const { currentLang, currentUser } = useSelector((store) => ({
-    currentLang: store.header.currentLang,
+  const { currentUser } = useSelector((store) => ({
     currentUser: store.common.currentUser,
   }));
-  const { articlesLang } = translations[currentLang];
+  const areAllHeartsDisabled = !currentUser;
+  const localization = useTranslate();
 
   const favorite = (slug) => dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
 
@@ -43,8 +43,12 @@ const ArticlePreview = ({ article }) => {
 
             <div className={styles.pull_xs_right}>
               <button
-                className={styles.favouriteButton}
-                disabled={!currentUser}
+                className={`${styles.favouriteButton} ${
+                  areAllHeartsDisabled
+                    ? styles.favouriteButton_disabled
+                    : styles.favouriteButton_enabled
+                }`}
+                disabled={areAllHeartsDisabled}
                 onClick={handleClickToFavorite}
                 type='button'
               >
@@ -63,7 +67,9 @@ const ArticlePreview = ({ article }) => {
           <Link className={styles.link} to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
             <p className={styles.text}>{article.description}</p>
-            <span className={styles.continue}>{articlesLang.readMore}</span>
+            <span className={styles.continue}>
+              {localization({ page: 'articlesLang', key: 'readMore' })}
+            </span>
             <ul className={styles.tag_list}>
               {article.tagList.map((tag) => (
                 <li key={tag} className={styles.tag_default}>

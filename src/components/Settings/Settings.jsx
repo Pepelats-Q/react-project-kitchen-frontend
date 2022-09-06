@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { useHistory } from 'react-router';
 import ListErrors from '../ListErrors/ListErrors';
@@ -10,21 +10,21 @@ import Button from '../ui-library/Buttons/Button/Button';
 import TextArea from '../ui-library/TextArea/TextArea';
 import { HideIcon, ShowIcon } from '../ui-library/Icons';
 import styles from './Settings.module.scss';
-import translations from '../../constants/translations';
 import { settingsSaved } from '../../services/reducers/settings-reducer';
+import useTranslate from '../../hooks/useTranslate';
+import useSelector from '../../hooks/hooks';
 
 const Settings = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { currentLang, currentUser, errors, inProgress, token } = useSelector((store) => ({
-    currentLang: store.header.currentLang,
+  const { currentUser, errors, inProgress, token } = useSelector((store) => ({
     currentUser: store.common.currentUser,
     errors: store.settings.errors,
     inProgress: store.settings.inProgress,
     token: store.common.token,
   }));
-  const { settings } = translations[currentLang];
 
   const dispatch = useDispatch();
+  const localization = useTranslate();
   const history = useHistory();
 
   useEffect(() => {
@@ -71,42 +71,42 @@ const Settings = () => {
     <div className={styles.wrapper}>
       <div className={styles.content}>
         <h1 className={clsx(styles.title, 'header-h2 align-center color-primary')}>
-          {settings.yourSettings}
+          {localization({ page: 'settings', key: 'yourSettings' })}
         </h1>
 
         <ListErrors errors={errors} />
 
         <form className={styles.form} onSubmit={submitFormHandler}>
           <TextField
-            label={settings.image}
+            label={localization({ page: 'settings', key: 'image' })}
             name='image'
             onChange={handleChange}
-            placeholder={settings.imageText}
+            placeholder={localization({ page: 'settings', key: 'imageText' })}
             type='text'
             value={values.image}
           />
           <TextField
-            label={settings.placeholderName}
+            label={localization({ page: 'settings', key: 'placeholderName' })}
             name='username'
             onChange={handleChange}
-            placeholder={settings.placeholderName}
+            placeholder={localization({ page: 'settings', key: 'placeholderName' })}
             type='text'
             value={values.username}
           />
           <TextArea
-            label={settings.info}
+            label={localization({ page: 'settings', key: 'info' })}
             name='bio'
             onChange={handleChange}
-            placeholder={settings.info}
+            placeholder={localization({ page: 'settings', key: 'info' })}
             rows={5}
             value={values.bio}
           />
           <TextField
             autocomplete='new-email'
-            label={settings.placeholderEmail}
+            label={localization({ page: 'settings', key: 'placeholderEmail' })}
             name='email'
             onChange={handleChange}
-            placeholder={settings.placeholderEmail}
+            placeholder={localization({ page: 'settings', key: 'placeholderEmail' })}
             type='email'
             value={values.email}
           />
@@ -119,15 +119,15 @@ const Settings = () => {
                 <ShowIcon onClick={() => setIsPasswordVisible(true)} />
               )
             }
-            label={settings.placeholderPass}
+            label={localization({ page: 'settings', key: 'placeholderPass' })}
             name='password'
             onChange={handleChange}
-            placeholder={settings.placeholderPass}
+            placeholder={localization({ page: 'settings', key: 'placeholderPass' })}
             type={isPasswordVisible ? 'text' : 'password'}
             value={values.password}
           />
           <Button className={styles.submit_button} disabled={inProgress} isSubmit>
-            {settings.saveButton}
+            {localization({ page: 'settings', key: 'saveButton' })}
           </Button>
         </form>
       </div>

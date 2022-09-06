@@ -8,17 +8,15 @@ import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
-import translations from '../../constants/translations';
 import { register, setApiMessage } from '../../services/reducers/auth-reducer';
 import TextField from '../../components/ui-library/TextField/TextField';
+import useTranslate from '../../hooks/useTranslate';
 
 const Register = () => {
-  const { currentLang, currentUser } = useSelector((store) => ({
-    currentLang: store.header.currentLang,
+  const { currentUser } = useSelector((store) => ({
     currentUser: store.header.currentUser,
   }));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { authForm } = translations[currentLang];
 
   const { values, handleChange, errors, isValid } = useFormValidation({
     name: '',
@@ -27,6 +25,7 @@ const Register = () => {
   });
 
   const dispatch = useDispatch();
+  const localization = useTranslate();
   const history = useHistory();
 
   const submitRegister = () => {
@@ -53,8 +52,8 @@ const Register = () => {
 
   return (
     <AuthForm
-      btnText={authForm.registerText}
-      crossLinkText={authForm.registerQuestion}
+      btnText={localization({ page: 'authForm', key: 'registerText' })}
+      crossLinkText={localization({ page: 'authForm', key: 'registerQuestion' })}
       formName='register'
       isFormValid={isValid}
       onSubmit={submitRegister}
@@ -63,12 +62,12 @@ const Register = () => {
       <div className={styles.fieldset}>
         <TextField
           icon={errors.password ? <AlertIcon color='alert' /> : null}
-          label={authForm.placeholderName}
+          label={localization({ page: 'authForm', key: 'placeholderName' })}
           maxLength={30}
           minLength={2}
           name='name'
           onChange={handleChange}
-          placeholder={authForm.placeholderName}
+          placeholder={localization({ page: 'authForm', key: 'placeholderName' })}
           required
           type='text'
           value={values.name}
@@ -79,12 +78,12 @@ const Register = () => {
         <TextField
           autocomplete='new-email'
           icon={errors.password ? <AlertIcon color='alert' /> : null}
-          label={authForm.placeholderEmail}
+          label={localization({ page: 'authForm', key: 'placeholderEmail' })}
           maxLength={30}
           minLength={2}
           name='email'
           onChange={handleChange}
-          placeholder={authForm.placeholderEmail}
+          placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
           required
           type='email'
           value={values.email}
@@ -95,12 +94,12 @@ const Register = () => {
         <TextField
           autocomplete='new-password'
           icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
-          label={authForm.placeholderPass}
+          label={localization({ page: 'authForm', key: 'placeholderPass' })}
           maxLength={25}
           minLength={2}
           name='password'
           onChange={handleChange}
-          placeholder={authForm.placeholderPass}
+          placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
           required
           type={isPasswordVisible ? 'text' : 'password'}
           value={values.password}

@@ -76,3 +76,20 @@ $animation_time: 0.5s;
     transition: background-color $animation_time, color $animation_time, border $animation_time;
   }
 }
+
+.lang {
+  border: 2px solid $color-secondary;
+  color: $color-secondary;
+  background-color: transparent;
+  transition: background-color $animation_time, color $animation_time;
+  &:hover {
+    background-color: $color-input;
+    transition: background-color $animation_time, color $animation_time;
+  }
+  &:focus-visible {
+    border: 2px solid $color-primary;
+  }
+  &:active {
+    background-color: $color-accent-light;
+  }
+}
