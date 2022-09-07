@@ -17,7 +17,7 @@ const LangSelect: FC = () => {
   const langText = currentLang === 'ru' ? 'РУС' : 'ENG';
 
   return (
-    <Button onClick={handleChange} value={langValue} type='lang'>
+    <Button onClick={handleChange} type='lang' value={langValue}>
       {langText}
     </Button>
   );

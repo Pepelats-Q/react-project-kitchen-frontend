@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
+import TabButton from '../../components/ui-library/Buttons/TabButton/TabButton';
 import TextButton from '../../components/ui-library/Buttons/TextButton/TextButton';
 import {
   AlertIcon,
@@ -205,21 +206,23 @@ const UI = () => {
           <h4 className={styles.h4}>{`<Button type='outline_alert' icon={<TrashIcon />} />`}</h4>
         </div>
       </div>
+
       <div>
         <h2 className={styles.h2}>Навигационная кнопка</h2>
         <p className={styles.props}>
           {`<NavButton icon, to='/', exact=true, className='', children='Кнопка' />`}
         </p>
         <div className={styles.group_layout}>
-          <NavButton />
+          <NavButton to='/ui' />
           <h4 className={styles.h4}>{`<NavButton to='/' />`}</h4>
         </div>
         <div className={styles.group_layout}>
           <NavButton to='/ui' />
           <h4 className={styles.h4}>{`<NavButton to='/ui' />`}</h4>
         </div>
+
         <div className={styles.group_layout}>
-          <NavButton icon={<HomeIcon />} />
+          <NavButton icon={<HomeIcon />} to='/' />
           <h4 className={styles.h4}>{`<NavButton to='/' icon={<HomeIcon />} />`}</h4>
         </div>
         <div className={styles.group_layout}>
@@ -234,6 +237,7 @@ const UI = () => {
           >{`<NavButton to='/ui' icon={<HomeIcon />} type='primary' />`}</h4>
         </div>
       </div>
+
       <div>
         <h2 className={styles.h2}>Текстовая кнопка</h2>
         <p
@@ -251,23 +255,13 @@ const UI = () => {
           className={styles.props}
         >{`<TabButton name='Вкладка' onClick={() => console.log('кнопка вкладки')} isCurrent={false} />`}</p>
         <div className={styles.group_layout}>
-          <NavButton
-            type='tab'
-            isCurrent={false}
-            name='Вкладка'
-            onClick={() => console.log('кнопка вкладки')}
-          />
-          <h4 className={styles.h4}>{`<TabButton isCurrent={false} />`} неактивная вкладка</h4>
+          <TabButton to='/' text='Вкладка' />
+          <h4 className={styles.h4}>{`<TabButton />`} неактивная вкладка</h4>
         </div>
 
         <div className={styles.group_layout}>
-          <NavButton
-            type='tab'
-            isCurrent
-            name='Вкладка'
-            onClick={() => console.log('кнопка вкладки')}
-          />
-          <h4 className={styles.h4}>{`<TabButton isCurrent />`} активная вкладка</h4>
+          <TabButton to='/UI' text='Вкладка' />
+          <h4 className={styles.h4}>{`<TabButton />`} активная вкладка</h4>
         </div>
       </div>
 

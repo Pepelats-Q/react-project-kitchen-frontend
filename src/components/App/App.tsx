@@ -44,7 +44,7 @@ const App: FC = () => {
             <Route component={Editor} path='/editor' />
             <Route component={Article} path='/article/:id' />
             <Route component={Settings} path='/settings' />
-            <Route component={Profile} path='/@:username' exact />
+            <Route component={Profile} exact path='/@:username' />
             <Route component={Profile} path='/@:username/favorites' />
             <Route component={UI} path='/ui' />
           </Switch>

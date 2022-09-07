@@ -51,6 +51,7 @@ const CommentInput = ({ slug }) => {
           </div>
         </div>
         {/* TODO: У кнопки свойство cursor после обновления слетает на default  */}
+        {/* у кнопки Button в ховере прописала cursor: pointer, теперь не слетает. Надо еще протестировать  */}
         <Button onClick={createComment}>{localization({ page: 'comments', key: 'post' })}</Button>
       </div>
     </form>

@@ -15,9 +15,7 @@ import useTranslate from '../../hooks/useTranslate';
 import useSelector from '../../hooks/hooks';
 
 const Login: FC = () => {
-  const { currentUser } = useSelector((store) => ({
-    currentUser: store.common.currentUser,
-  }));
+  const currentUser = useSelector((store) => store.common.currentUser);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();

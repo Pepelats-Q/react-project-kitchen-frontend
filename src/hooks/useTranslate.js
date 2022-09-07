@@ -4,14 +4,14 @@ import { TranslationContext } from '../contexts/context';
 
 const useTranslate = () => {
   const context = useContext(TranslationContext);
-  const currentLanguage = useSelector(store => store.header.currentLang);
+  const currentLanguage = useSelector((store) => store.header.currentLang);
 
   return (key) => {
-    let translation = key;
+    let translation = key.key;
     if (context[currentLanguage][key.page]) {
       translation = context[currentLanguage][key.page][key.key];
     }
-    
+
     const result = translation || key.key;
 
     return result;

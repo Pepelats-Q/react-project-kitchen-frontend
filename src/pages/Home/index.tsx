@@ -5,8 +5,6 @@ import Banner from './Banner/Banner';
 import agent from '../../agent';
 import styles from './home.module.scss';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
-// import Tabs from '../../components/Tabs/Tabs';
-// import ArticleList from '../../components/ArticleList/ArticleList';
 import { loadAllTags } from '../../services/reducers/profile-reducer';
 import { homePageUnload } from '../../services/reducers/home-reducer';
 import { changeTab } from '../../services/reducers/articlelist-reducer';
@@ -38,7 +36,6 @@ const Home: FC = () => {
     };
   }, []);
 
-  /* load articles which needed */
   const loadYourFeed = () => {
     dispatch(
       changeTab({ tab: 'feed', pager: agent.Articles.feed, payload: agent.Articles.feed() }),
@@ -70,8 +67,6 @@ const Home: FC = () => {
     { name: localization({ page: 'homePage', key: 'tab1Text' }), path: '/your-feed' },
   ];
 
-  // {localization({ page: 'homePage', key: 'tab2Text' })}
-
   const tabsNamesNoAuth = [
     { name: localization({ page: 'homePage', key: 'tab2Text' }), path: '/' },
   ];
@@ -81,15 +76,15 @@ const Home: FC = () => {
       <Banner />
       {token ? (
         <ArticlesWithTabs
-          tabsNames={tabsNames}
           articles={currentArticles}
           articlesCount={articlesCount}
+          tabsNames={tabsNames}
         />
       ) : (
         <ArticlesWithTabs
-          tabsNames={tabsNamesNoAuth}
           articles={articlesAll}
           articlesCount={articlesCount}
+          tabsNames={tabsNamesNoAuth}
         />
       )}
     </div>

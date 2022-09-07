@@ -108,7 +108,6 @@ const Profile: FC = () => {
     },
   ];
 
-  /* handle follow behavior: */
   const onFollow = () => {
     dispatch(followUser({ payload: agent.Profile.follow(username) }));
   };
@@ -160,7 +159,6 @@ const Profile: FC = () => {
               ''
             )}
 
-            {/* Запрещаю подписку на себя */}
             {!isCurrentUserProfile && user ? (
               <Button
                 icon={currentProfile.following ? <MinusIcon /> : <PlusIcon />}

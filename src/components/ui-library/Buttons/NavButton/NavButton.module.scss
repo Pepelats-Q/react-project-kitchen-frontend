@@ -46,7 +46,7 @@ $animation_time: 0.5s;
     color: $color-secondary;
   }
   &:focus-visible {
-    outline: 0;
+    outline: 2px solid $color-secondary;
   }
   &:active {
     color: $color-primary;
@@ -90,7 +90,7 @@ $animation_time: 0.5s;
     cursor: pointer;
   }
   &:focus-visible {
-    border: 0;
+    border: 2px solid $color-primary;
   }
   &:active {
     background-color: $color-accent-light;
@@ -99,11 +99,4 @@ $animation_time: 0.5s;
     color: $color-secondary;
     background-color: $color-disabled;
   }
-}
-
-.image {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  object-fit: cover;
 }

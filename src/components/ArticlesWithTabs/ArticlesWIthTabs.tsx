@@ -12,11 +12,9 @@ import styles from './ArticlesWithTabs.module.scss';
 const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
   const dispatch = useDispatch<any>();
 
-  const { tags } = useSelector((store) => ({
-    tags: store.profile.tags,
-  }));
+  const tags = useSelector((store) => store.profile.tags);
 
-  const onClickTag = (tag: any, pager: any, payload: any) => {
+  const onClickTag = (tag: string, pager: any, payload: any) => {
     dispatch(applyTagFilter({ tag, pager, payload }));
   };
   const localization = useTranslate();

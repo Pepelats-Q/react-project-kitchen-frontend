@@ -4,9 +4,10 @@ import useSelector from '../../hooks/hooks';
 import NavButton from '../ui-library/Buttons/NavButton/NavButton';
 import avatarTemp from '../../images/avatarTemp.svg';
 import useTranslate from '../../hooks/useTranslate';
+import styles from './header.module.scss';
 
 const LoggedNav: FC = () => {
-  const [imgSrc, setImgSrc] = useState(avatarTemp);
+  const [imgSrc, setImgSrc] = useState<string>(avatarTemp);
 
   const { currentUser, currentUserImg } = useSelector((store) => ({
     currentUser: store.common.currentUser,
@@ -30,7 +31,7 @@ const LoggedNav: FC = () => {
         {localization({ page: 'header', key: 'newNoteText' })}
       </NavButton>
       <NavButton
-        icon={<img alt='profile name' src={imgSrc} />}
+        icon={<img alt='alt' className={styles.image} src={imgSrc} />}
         to={`/@${currentUser.username}`}
         type='navigation'
       >

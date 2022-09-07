@@ -11,9 +11,7 @@ import useSelector from '../../hooks/hooks';
 
 const ArticlePreview = ({ article }) => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((store) => ({
-    currentUser: store.common.currentUser,
-  }));
+  const currentUser = useSelector((store) => store.common.currentUser);
   const areAllHeartsDisabled = !currentUser;
   const localization = useTranslate();
 

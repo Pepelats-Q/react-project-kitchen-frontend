@@ -21,7 +21,7 @@ const CommentContainer: FC<TPropsWithSlug> = ({ slug }) => {
       </h2>
       {currentUser ? (
         <div className={`${styles.comment} ${styles.comment_input}`}>
-          {/* позже с этим буду разбираться  <ListErrors errors={errors} /> */}
+          {/* TODO: разобраться с массивом ошибок при комментировании  <ListErrors errors={errors} /> */}
           <CommentInput slug={slug} />
         </div>
       ) : (

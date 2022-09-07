@@ -39,8 +39,6 @@ module.exports = {
     'default-param-last': 'warn',
     'prefer-destructuring': 'warn',
     'linebreak-style': 'off',
-    'import/no-cycle':'warn',
-
 
     // React
     'react/destructuring-assignment': 'warn',
@@ -59,6 +57,7 @@ module.exports = {
     'react/self-closing-comp': 'error',
     'react/sort-comp': 'warn',
     'react/sort-prop-types': 'warn',
+    'react/jsx-props-no-spreading': 'warn',
 
     // JSX
     'react/jsx-boolean-value': 'warn', // тут с error на warn

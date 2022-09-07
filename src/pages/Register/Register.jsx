@@ -13,9 +13,7 @@ import TextField from '../../components/ui-library/TextField/TextField';
 import useTranslate from '../../hooks/useTranslate';
 
 const Register = () => {
-  const { currentUser } = useSelector((store) => ({
-    currentUser: store.header.currentUser,
-  }));
+  const currentUser = useSelector((store) => store.header.currentUser);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { values, handleChange, errors, isValid } = useFormValidation({

@@ -76,6 +76,12 @@
   color: $color-primary !important;
   text-decoration: none !important;
 }
+.image {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 50%;
+}
 
 .navLogo {
   color: $color-primary !important;

@@ -17,10 +17,6 @@ const NavButton = ({
     navigation: styles.navigation,
   };
 
-  const { alt, src } = icon.props;
-  const imageToShow =
-    icon.type === 'img' ? <img alt={alt} className={styles.image} src={src} /> : <icon.type />;
-
   return (
     <NavLink
       activeClassName={styles.navigation_active}
@@ -28,7 +24,7 @@ const NavButton = ({
       exact={exact}
       to={to}
     >
-      {icon && imageToShow}
+      {icon && <icon.type {...icon.props} />}
       <span>{children}</span>
     </NavLink>
   );
