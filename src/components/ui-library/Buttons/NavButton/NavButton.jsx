@@ -24,7 +24,7 @@ const NavButton = ({
       exact={exact}
       to={to}
     >
-      {icon && <icon.type />}
+      {icon && <icon.type {...icon.props} />}
       <span>{children}</span>
     </NavLink>
   );

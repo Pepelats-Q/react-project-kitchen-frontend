@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 
 export type TtodoAny = any;
 
@@ -36,7 +36,7 @@ export type TValidity = {
 
 export type TNames = {
   name: string;
-  flag: string;
+  path: string;
 };
 
 export type TUsernameParams = {
@@ -45,12 +45,12 @@ export type TUsernameParams = {
 
 export type TTabsProps = {
   tabsNames: Array<TNames>;
-  handleClicks: Array<MouseEventHandler<HTMLButtonElement>>;
-  currentTabFlag: string;
 };
 
 export type TArticlesWithTabsProps = {
-  children: React.ReactNode;
+  tabsNames: Array<TNames>;
+  articles: Array<TArticle>;
+  articlesCount: number;
 };
 
 export type TBannerProps = {
@@ -58,7 +58,25 @@ export type TBannerProps = {
 };
 
 export type TTabButtonProps = {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-  isCurrent: boolean;
-  name: string;
+  to: string;
+  exact?: boolean;
+  className?: string;
+  text: string;
+};
+
+export type TAuthForm = {
+  btnText: string;
+  children: React.ReactNode;
+  crossLinkText: string;
+  formName: string;
+  isFormValid: boolean;
+  onSubmit: () => void;
+  oppositeLink: string;
+};
+
+export type TPropsWithSlug = { slug: string };
+
+export type TUserWIthDate = {
+  author: any;
+  date: string;
 };

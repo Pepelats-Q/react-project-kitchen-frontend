@@ -1,21 +1,21 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import agent from '../../agent';
 import styles from './articlePreview.module.scss';
-
-import translations from '../../constants/translations';
 import UserWithDate from '../UserWithDate/UserWithDate';
 import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
-import {
-  articleFavorite,
-} from '../../services/reducers/articlelist-reducer';
+import { articleFavorite } from '../../services/reducers/articlelist-reducer';
+import useTranslate from '../../hooks/useTranslate';
+import useSelector from '../../hooks/hooks';
 
 const ArticlePreview = ({ article }) => {
   const dispatch = useDispatch();
+  const currentUser = useSelector((store) => store.common.currentUser);
+  const areAllHeartsDisabled = !currentUser;
+  const localization = useTranslate();
 
-  const favorite = (slug) =>
-    dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
+  const favorite = (slug) => dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
 
   const unfavorite = (slug) =>
     dispatch(articleFavorite({ payload: agent.Articles.unfavorite(slug) }));
@@ -29,10 +29,6 @@ const ArticlePreview = ({ article }) => {
     }
   };
 
-  const currentLang = useSelector((state) => state.header.currentLang);
-  const currentUser = useSelector((state) => state.common.currentUser);
-  const { articlesLang } = translations[currentLang];
-
   return (
     <div className={styles.article_preview}>
       <div className={styles.row}>
@@ -45,8 +41,12 @@ const ArticlePreview = ({ article }) => {
 
             <div className={styles.pull_xs_right}>
               <button
-                className={styles.favouriteButton}
-                disabled={!currentUser}
+                className={`${styles.favouriteButton} ${
+                  areAllHeartsDisabled
+                    ? styles.favouriteButton_disabled
+                    : styles.favouriteButton_enabled
+                }`}
+                disabled={areAllHeartsDisabled}
                 onClick={handleClickToFavorite}
                 type='button'
               >
@@ -54,7 +54,7 @@ const ArticlePreview = ({ article }) => {
                   {article.favoritesCount}
                 </p>
                 {article.favorited ? (
-                  <HeartIconFilled  className={styles.heart} color='alert' size='small' />
+                  <HeartIconFilled className={styles.heart} color='alert' size='small' />
                 ) : (
                   <HeartIcon className={styles.heart} color='primary' size='small' />
                 )}
@@ -65,7 +65,9 @@ const ArticlePreview = ({ article }) => {
           <Link className={styles.link} to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
             <p className={styles.text}>{article.description}</p>
-            <span className={styles.continue}>{articlesLang.readMore}</span>
+            <span className={styles.continue}>
+              {localization({ page: 'articlesLang', key: 'readMore' })}
+            </span>
             <ul className={styles.tag_list}>
               {article.tagList.map((tag) => (
                 <li key={tag} className={styles.tag_default}>

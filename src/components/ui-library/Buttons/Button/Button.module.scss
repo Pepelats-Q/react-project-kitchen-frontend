@@ -32,6 +32,7 @@ $animation_time: 0.5s;
     transition: stroke $animation_time;
   }
   &:hover {
+    cursor: pointer;
     background-color: $color-accent-dark;
     transition: background-color $animation_time, color $animation_time;
   }
@@ -60,6 +61,7 @@ $animation_time: 0.5s;
     border: 2px solid lighten($color-alert, 20%);
   }
   &:hover {
+    cursor: pointer;
     color: $color-primary;
     background-color: $color-alert;
     border: 2px solid $color-alert;
@@ -74,5 +76,23 @@ $animation_time: 0.5s;
     border: 2px solid darken($color-alert, 20%);
     background-color: darken($color-alert, 20%);
     transition: background-color $animation_time, color $animation_time, border $animation_time;
+  }
+}
+
+.lang {
+  border: 2px solid $color-secondary;
+  color: $color-secondary;
+  background-color: transparent;
+  transition: background-color $animation_time, color $animation_time;
+  &:hover {
+    cursor: pointer;
+    background-color: $color-input;
+    transition: background-color $animation_time, color $animation_time;
+  }
+  &:focus-visible {
+    border: 2px solid $color-primary;
+  }
+  &:active {
+    background-color: $color-accent-light;
   }
 }

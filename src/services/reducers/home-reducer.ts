@@ -9,7 +9,7 @@ const initialState: THomeState = {
   tags: ['app', 'web', 'frontend', 'react'],
 };
 
-// TODO: Кажется нужно этот редьюсер вообще удалить
+// TODO: Кажется нужно этот редьюсер вообще удалить - удаляем, я его убрала из использования 
 const homeReducer = createSlice({
   name: 'home',
   initialState,

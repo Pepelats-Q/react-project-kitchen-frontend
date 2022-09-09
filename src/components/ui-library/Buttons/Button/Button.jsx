@@ -11,10 +11,12 @@ const Button = ({
   disabled = false,
   className = '',
   children = 'Кнопка',
+  value = 'ru',
 }) => {
   const types = {
     primary: styles.primary,
     outline_alert: styles.outline_alert,
+    lang: styles.lang,
   };
 
   return (
@@ -23,9 +25,16 @@ const Button = ({
       disabled={disabled}
       onClick={onClick}
       type={isSubmit ? 'submit' : 'button'}
+      value={value}
     >
-      {icon && <icon.type />}
-      <span>{children}</span>
+      {icon ? (
+        <>
+          <icon.type />
+          <span>{children}</span>
+        </>
+      ) : (
+        children
+      )}
     </button>
   );
 };
@@ -38,6 +47,7 @@ Button.propTypes = {
   isSubmit: PropTypes.bool,
   onClick: PropTypes.func,
   type: PropTypes.string,
+  value: PropTypes.string,
 };
 
 export default Button;

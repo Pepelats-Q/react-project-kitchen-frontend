@@ -3,7 +3,13 @@ import clsx from 'clsx';
 
 import styles from './TextButton.module.scss';
 
-const TextButton = ({ onClick, children = 'Кнопка', className = '', color = 'accent', value= '' }) => (
+const TextButton = ({
+  onClick,
+  children = 'Кнопка',
+  className = '',
+  color = 'accent',
+  value = '',
+}) => (
   <button
     className={clsx(styles.text_button, styles[color], className)}
     onClick={onClick}

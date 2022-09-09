@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import agent from '../../agent';
 import Button from '../ui-library/Buttons/Button/Button';
 import styles from './Comment.module.scss';
-import translations from '../../constants/translations';
 import { addComment } from '../../services/reducers/article-reducer';
+import useTranslate from '../../hooks/useTranslate';
+import useSelector from '../../hooks/hooks';
 
 const CommentInput = ({ slug }) => {
-  const { currentUser, currentProfile, currentLang } = useSelector((state) => ({
+  const { currentUser, currentProfile } = useSelector((state) => ({
     currentUser: state.common.currentUser,
     currentProfile: state.profile.profile,
-    currentLang: state.header.currentLang,
   }));
-  const { comments } = translations[currentLang].articlesLang;
   const [state, setState] = useState({ body: '' });
+  const localization = useTranslate();
 
   const dispatch = useDispatch();
 
@@ -39,7 +39,7 @@ const CommentInput = ({ slug }) => {
       <textarea
         className={styles.textarea}
         onChange={setBody}
-        placeholder={comments.writeComment}
+        placeholder={localization({ page: 'comments', key: 'writeComment' })}
         rows='3'
         value={state.body}
       />
@@ -51,7 +51,8 @@ const CommentInput = ({ slug }) => {
           </div>
         </div>
         {/* TODO: У кнопки свойство cursor после обновления слетает на default  */}
-        <Button onClick={createComment}>{comments.post}</Button>
+        {/* у кнопки Button в ховере прописала cursor: pointer, теперь не слетает. Надо еще протестировать  */}
+        <Button onClick={createComment}>{localization({ page: 'comments', key: 'post' })}</Button>
       </div>
     </form>
   );

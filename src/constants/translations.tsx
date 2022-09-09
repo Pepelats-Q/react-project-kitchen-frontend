@@ -7,13 +7,12 @@ type TComments = {
     writeComment: string;
     comments: string;
     post: string;
-  }
-}
+  };
+};
 type TArticles = {
   noArticlesMessage: string;
   readMore: string;
   tags: string;
-  comments: TComments;
 };
 type TCommon = {
   loading: string;
@@ -77,7 +76,7 @@ type TSettings = {
   info: string;
   logout: string;
   yourSettings: string;
-  saveButton: string
+  saveButton: string;
 };
 
 type TTexts = {
@@ -89,6 +88,8 @@ type TTexts = {
   authForm: TAuthForm;
   editor: TEditor;
   settings: TSettings;
+
+  comments: TComments;
 };
 
 type Ttranslations = {
@@ -104,15 +105,6 @@ const translations: Ttranslations | any = {
       tags: 'Tags: ',
       edit: ' Edit Article',
       delete: 'Delete Article',
-      comments: {
-        signIn: 'Sign in',
-        or: 'or',
-        signUp: 'sign up',
-        signInText: ' to add comments on this article.',
-        writeComment: 'Write a comment...',
-        comments: 'Comments',
-        post: 'Post Comment',
-      }
     },
     common: {
       loading: 'Loading...',
@@ -173,6 +165,16 @@ const translations: Ttranslations | any = {
       yourSettings: 'Your settings',
       saveButton: 'Save settings',
     },
+
+    comments: {
+      signIn: 'Sign in',
+      or: 'or',
+      signUp: 'sign up',
+      signInText: ' to add comments on this article.',
+      writeComment: 'Write a comment...',
+      comments: 'Comments',
+      post: 'Post Comment',
+    },
   },
   ru: {
     articlesLang: {
@@ -181,15 +183,6 @@ const translations: Ttranslations | any = {
       tags: 'Теги: ',
       edit: 'Редактировать статью',
       delete: 'Удалить статью',
-      comments: {
-        signIn: 'Войдите',
-        or: 'или',
-        signUp: 'зарегистрируйтесь',
-        signInText: ', чтобы добавить комментарий к этой статье',
-        writeComment: 'Напишите комментарий...',
-        comments: 'Комментарии',
-        post: 'Опубликовать комментарий',
-      }
     },
     common: {
       loading: 'Загрузка...',
@@ -250,6 +243,15 @@ const translations: Ttranslations | any = {
       logout: 'Выйти из аккаунта',
       yourSettings: 'Ваши настройки',
       saveButton: 'Сохранить',
+    },
+    comments: {
+      signIn: 'Войдите',
+      or: 'или',
+      signUp: 'зарегистрируйтесь',
+      signInText: ', чтобы добавить комментарий к этой статье',
+      writeComment: 'Напишите комментарий...',
+      comments: 'Комментарии',
+      post: 'Опубликовать комментарий',
     },
   },
 };

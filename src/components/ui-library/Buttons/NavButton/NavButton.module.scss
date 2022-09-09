@@ -25,6 +25,7 @@ $animation_time: 0.5s;
 .navigation {
   color: $color-secondary;
   background-color: transparent;
+  text-decoration: none;
   transition: background-color $animation_time, color $animation_time;
   & svg > path {
     stroke: $color-secondary;

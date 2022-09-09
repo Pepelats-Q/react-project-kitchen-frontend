@@ -1,19 +1,30 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import NotLoggedNav from './NotLoggedNav';
 import LoggedNav from './LoggedNav';
 import styles from './header.module.scss';
 import MenuIcon from '../ui-library/Icons/MenuIcon';
 import LangSelect from '../LangSelect/LangSelect';
 import { toggleMobileMenuAction } from '../../services/reducers/header-reducer';
+import agent from '../../agent';
+import { getProfile } from '../../services/reducers/profile-reducer';
+import useSelector from '../../hooks/hooks';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
+  const { isMobileMenuOpen, appName, currentUser } = useSelector((store) => ({
+    isMobileMenuOpen: store.header.isMobileMenuOpen,
+    appName: store.common.appName,
+    currentUser: store.common.currentUser,
+  }));
 
-  const isMobileMenuOpen = useSelector((state: any) => state.header.isMobileMenuOpen);
-  const appName = useSelector((state: any) => state.common.appName);
-  const currentUser = useSelector((state: any) => state.common.currentUser);
+  useEffect(() => {
+    if (currentUser) {
+      dispatch(getProfile({ payload: agent.Profile.get(currentUser.username) }));
+    }
+  }, [currentUser]);
+
   const currentNav = currentUser ? <LoggedNav /> : <NotLoggedNav />;
 
   const toggleMobileMenu = () => {

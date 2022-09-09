@@ -1,6 +1,6 @@
 @import '../../ui-style/ui-style.scss';
 
-.navTab {
+.tab {
   font-size: 16px;
   line-height: 19px;
   font-family: 'JetBrains Mono', sans-serif;
@@ -12,21 +12,20 @@
   flex-direction: column;
   padding: 16px 24px;
   border: 0;
+  border-radius: 0;
   background-color: transparent;
-}
-
-.navTab:hover {
-  color: $color-primary !important;
-  transition: color 0.3s ease-in;
-}
-
-.navTab:focus {
-  color: $color-primary !important;
-  border-bottom: 2px solid $color-accent;
-  outline: 0;
-}
-
-.navTab_active {
-  color: $color-primary !important;
-  border-bottom: 2px solid $color-accent;
+  &:hover {
+    color: $color-primary !important;
+    transition: color 0.3s ease-in;
+  }
+  &:focus {
+    color: $color-primary !important;
+    border-bottom: 2px solid $color-accent;
+    outline: 0;
+  }
+  &_active {
+    color: $color-primary !important;
+    border-bottom: 2px solid $color-accent;
+    border-radius: 0;
+  }
 }

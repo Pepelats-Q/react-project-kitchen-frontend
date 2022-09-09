@@ -3,19 +3,13 @@ import { TTabsProps } from '../../utils/typesTs';
 import TabButton from '../ui-library/Buttons/TabButton/TabButton';
 import styles from './Tabs.module.scss';
 
-const Tabs: FC<TTabsProps> = ({ tabsNames, handleClicks, currentTabFlag }) => (
+const Tabs: FC<TTabsProps> = ({ tabsNames }) => (
   <div className='articles-toggle'>
-    <ul className={styles.tabsList}>
-      {tabsNames.map((tabName, index) => (
-        <li key={tabName.name} className={`${styles.navItem}`}>
-          <TabButton
-            isCurrent={currentTabFlag === tabName.flag}
-            name={tabName.name}
-            onClick={handleClicks[index]}
-          />
-        </li>
+    <div className={styles.tabsList}>
+      {tabsNames.map((tabName) => (
+        <TabButton key={tabName.name} text={tabName.name} to={tabName.path} />
       ))}
-    </ul>
+    </div>
   </div>
 );
 

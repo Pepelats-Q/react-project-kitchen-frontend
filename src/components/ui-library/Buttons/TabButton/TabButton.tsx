@@ -1,15 +1,24 @@
 import { FC } from 'react';
+import { NavLink } from 'react-router-dom';
+import clsx from 'clsx';
 import { TTabButtonProps } from '../../../../utils/typesTs';
+
 import styles from './TabButton.module.scss';
 
-const TabButton: FC<TTabButtonProps> = ({ onClick, isCurrent = true, name }) => (
-  <button
-    className={`${styles.navTab}${isCurrent ? ` ${styles.navTab_active}` : ''}`}
-    onClick={onClick}
-    type='button'
+const TabButton: FC<TTabButtonProps> = ({
+  to = '/',
+  exact = true,
+  className = '',
+  text = 'Вкладка',
+}) => (
+  <NavLink
+    activeClassName={styles.tab_active}
+    className={clsx(styles.tab, className)}
+    exact={exact}
+    to={to}
   >
-    {name}
-  </button>
+    {text}
+  </NavLink>
 );
 
 export default TabButton;

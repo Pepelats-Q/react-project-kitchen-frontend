@@ -1,14 +1,14 @@
-import { useSelector } from 'react-redux';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
-// import translations from '../../constants/translations';
+import useSelector from '../../hooks/hooks';
 import avatar from '../../images/avatarTemp.svg';
+import { TUserWIthDate } from '../../utils/typesTs';
 import styles from './userWithDate.module.scss';
 
-const UserWithDate = ({ author, date }) => {
+const UserWithDate: FC<TUserWIthDate> = ({ author, date }) => {
   const defaultAvatar = 'https://static.productionready.io/images/smiley-cyrus.jpg';
 
   const currentLang = useSelector((state) => state.header.currentLang);
-  // const { articlesLang } = translations[currentLang];
 
   return (
     <div className={styles.container}>

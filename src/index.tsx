@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './components/App/App';
 import store from './services/store/store';
 
+export type RootState = ReturnType<typeof store.getState>;
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>

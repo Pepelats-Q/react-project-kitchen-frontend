@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import agent from '../../../agent';
-import translations from '../../../constants/translations';
+import useTranslate from '../../../hooks/useTranslate';
 import styles from './tags.module.scss';
 
 const Tags = ({ tags, onClickTag }) => {
-  const currentLang = useSelector((state) => state.header.currentLang);
-  const { common } = translations[currentLang];
+  const localization = useTranslate();
 
   if (tags) {
     return (
@@ -26,7 +24,7 @@ const Tags = ({ tags, onClickTag }) => {
       </div>
     );
   }
-  return <div>{common.tagsLoading}</div>;
+  return <div>{localization({ page: 'common', key: 'tagsLoading' })}</div>;
 };
 
 Tags.propTypes = {

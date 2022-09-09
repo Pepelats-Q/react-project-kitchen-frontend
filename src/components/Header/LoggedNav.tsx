@@ -1,23 +1,42 @@
-import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import MenuItem from './MenuItem';
-import { HomeIcon, EditIcon, ProfileIconBlank } from '../ui-library/Icons';
-import translations from '../../constants/translations';
+import { FC, useEffect, useState } from 'react';
+import { HomeIcon, EditIcon } from '../ui-library/Icons';
+import useSelector from '../../hooks/hooks';
+import NavButton from '../ui-library/Buttons/NavButton/NavButton';
+import avatarTemp from '../../images/avatarTemp.svg';
+import useTranslate from '../../hooks/useTranslate';
+import styles from './header.module.scss';
 
 const LoggedNav: FC = () => {
-  const currentLang = useSelector((state: any) => state.header.currentLang);
-  const currentUser = useSelector((state: any) => state.common.currentUser);
-  const { header } = translations[currentLang];
+  const [imgSrc, setImgSrc] = useState<string>(avatarTemp);
+
+  const { currentUser, currentUserImg } = useSelector((store) => ({
+    currentUser: store.common.currentUser,
+    currentUserImg: store.common.currentUser.image,
+  }));
+
+  const localization = useTranslate();
+
+  useEffect(() => {
+    if (currentUserImg) {
+      setImgSrc(currentUserImg);
+    }
+  }, [currentUserImg]);
+
   return (
     <>
-      <MenuItem icon={HomeIcon} path='/' text={header.mainPageText} />
-      <MenuItem icon={EditIcon} path='/editor' text={header.newNoteText} />
-      <MenuItem
-        icon={ProfileIconBlank}
-        isProfileIcon
-        path={`/@${currentUser.username}`}
-        text={currentUser.username}
-      />
+      <NavButton icon={<HomeIcon size='small' />} to='/' type='navigation'>
+        {localization({ page: 'header', key: 'mainPageText' })}
+      </NavButton>
+      <NavButton icon={<EditIcon size='small' />} to='/editor' type='navigation'>
+        {localization({ page: 'header', key: 'newNoteText' })}
+      </NavButton>
+      <NavButton
+        icon={<img alt='alt' className={styles.image} src={imgSrc} />}
+        to={`/@${currentUser.username}`}
+        type='navigation'
+      >
+        {currentUser.username}
+      </NavButton>
     </>
   );
 };

@@ -1,18 +1,16 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
-import { TBannerProps } from '../../../utils/typesTs';
 import style from './banner.module.scss';
-import translations from '../../../constants/translations';
+import useTranslate from '../../../hooks/useTranslate';
+import useSelector from '../../../hooks/hooks';
 
-const Banner: FC<TBannerProps> = ({ appName }) => {
-  const currentLang = useSelector((state: any) => state.header.currentLang);
-  const { homePage } = translations[currentLang];
-
+const Banner: FC = () => {
+  const localization = useTranslate();
+  const appName = useSelector((store) => store.common.appName);
   return (
     <div className={style.banner}>
       <div className={style.container}>
         <h1 className={style.title}>{appName}</h1>
-        <p className={style.text}>{homePage.bannerText}</p>
+        <p className={style.text}>{localization({ page: 'homePage', key: 'bannerText' })}</p>
       </div>
     </div>
   );
