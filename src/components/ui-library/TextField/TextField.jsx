@@ -17,7 +17,7 @@ const TextField = ({
   minLength = 0,
   placeholder = '',
   required = false,
-  textfieldState = 'default',
+  fieldValid = true,
   type = 'text',
   value = '',
   autocomplete = 'off',
@@ -27,14 +27,14 @@ const TextField = ({
   return (
     <div className={clsx(className, styles.wrapper)}>
       <label className={styles.label} htmlFor={name}>
-        {label}
+        {label}<sup>{`${required ? '*' : '' }`}</sup>
       </label>
+      
       <div
         className={clsx(
           styles.textfield,
           isFocus ? styles.textfield_focus : '',
-          textfieldState === 'success' ? styles.textfield_success : '',
-          textfieldState === 'error' ? styles.textfield_error : '',
+          fieldValid ? '' : styles.textfield_error,
         )}
       >
         <input
@@ -60,8 +60,7 @@ const TextField = ({
         <p
           className={clsx(
             styles.text,
-            textfieldState === 'success' ? styles.text_success : '',
-            textfieldState === 'error' ? styles.text_error : '',
+            fieldValid ? '' : styles.text_error,
           )}
         >
           {message}
@@ -88,7 +87,7 @@ TextField.propTypes = {
     PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
   ]),
   required: PropTypes.bool,
-  textfieldState: PropTypes.string,
+  fieldValid: PropTypes.bool,
   type: PropTypes.string,
   value: PropTypes.string,
 };

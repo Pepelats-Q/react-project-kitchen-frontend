@@ -34,6 +34,12 @@ export type TValidity = {
   password?: string;
 };
 
+export type TValidityBoolean = {
+  email?: boolean;
+  name?: boolean;
+  password?: boolean;
+};
+
 export type TNames = {
   name: string;
   path: string;
@@ -67,11 +73,13 @@ export type TTabButtonProps = {
 export type TAuthForm = {
   btnText: string;
   children: React.ReactNode;
-  crossLinkText: string;
+  crossLinkText?: string;
   formName: string;
   isFormValid: boolean;
+  title: string;
   onSubmit: () => void;
-  oppositeLink: string;
+  oppositeLink?: string;
+  apiErrors: TValidity;
 };
 
 export type TPropsWithSlug = { slug: string };

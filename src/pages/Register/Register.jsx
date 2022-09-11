@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
-import styles from '../../components/AuthForm/AuthForm.module.scss';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
@@ -16,7 +15,7 @@ const Register = () => {
   const currentUser = useSelector((store) => store.header.currentUser);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { values, handleChange, errors, isValid } = useFormValidation({
+  const { values, handleChange, errors, isValid, validities } = useFormValidation({
     name: '',
     email: '',
     password: '',
@@ -57,53 +56,50 @@ const Register = () => {
       onSubmit={submitRegister}
       oppositeLink='/login'
     >
-      <div className={styles.fieldset}>
-        <TextField
-          icon={errors.password ? <AlertIcon color='alert' /> : null}
-          label={localization({ page: 'authForm', key: 'placeholderName' })}
-          maxLength={30}
-          minLength={2}
-          name='name'
-          onChange={handleChange}
-          placeholder={localization({ page: 'authForm', key: 'placeholderName' })}
-          required
-          type='text'
-          value={values.name}
-        />
-        <p className={styles.error}>{errors.name}</p>
-      </div>
-      <div className={styles.fieldset}>
-        <TextField
-          autocomplete='new-email'
-          icon={errors.password ? <AlertIcon color='alert' /> : null}
-          label={localization({ page: 'authForm', key: 'placeholderEmail' })}
-          maxLength={30}
-          minLength={2}
-          name='email'
-          onChange={handleChange}
-          placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
-          required
-          type='email'
-          value={values.email}
-        />
-        <p className={styles.error}>{errors.email}</p>
-      </div>
-      <div className={styles.fieldset}>
-        <TextField
-          autocomplete='new-password'
-          icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
-          label={localization({ page: 'authForm', key: 'placeholderPass' })}
-          maxLength={25}
-          minLength={2}
-          name='password'
-          onChange={handleChange}
-          placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
-          required
-          type={isPasswordVisible ? 'text' : 'password'}
-          value={values.password}
-        />
-        <p className={styles.error}>{errors.password}</p>
-      </div>
+      <TextField
+        fieldValid={validities.name}
+        icon={errors.name ? <AlertIcon color='alert' /> : null}
+        label={localization({ page: 'authForm', key: 'placeholderName' })}
+        maxLength={30}
+        message={errors.name}
+        minLength={2}
+        name='name'
+        onChange={handleChange}
+        placeholder={localization({ page: 'authForm', key: 'placeholderName' })}
+        required
+        type='text'
+        value={values.name}
+      />
+      <TextField
+        autocomplete='new-email'
+        fieldValid={validities.email}
+        icon={errors.email ? <AlertIcon color='alert' /> : null}
+        label={localization({ page: 'authForm', key: 'placeholderEmail' })}
+        maxLength={30}
+        message={errors.email}
+        minLength={2}
+        name='email'
+        onChange={handleChange}
+        placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
+        required
+        type='email'
+        value={values.email}
+      />
+      <TextField
+        autocomplete='new-password'
+        fieldValid={validities.password}
+        icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
+        label={localization({ page: 'authForm', key: 'placeholderPass' })}
+        maxLength={25}
+        message={errors.password}
+        minLength={2}
+        name='password'
+        onChange={handleChange}
+        placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
+        required
+        type={isPasswordVisible ? 'text' : 'password'}
+        value={values.password}
+      />
     </AuthForm>
   );
 };

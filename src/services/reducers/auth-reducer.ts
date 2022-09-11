@@ -40,6 +40,9 @@ const authReducer = createSlice({
     setApiMessage(state, action: PayloadAction<TtodoAny>) {
       state.errors = action.payload;
     },
+    clearApiMessage(state) {
+      state.errors = null;
+    },
   },
 });
 
@@ -51,6 +54,7 @@ export const {
   asyncStart,
   asyncEnd,
   setApiMessage,
+  clearApiMessage
 } = authReducer.actions;
 
 export default authReducer.reducer;
