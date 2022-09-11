@@ -40,10 +40,11 @@ const commonReducer = createSlice({
       state.currentUser = null;
     },
     redirect(state) {
-      state.redirectTo = null; 
+      state.redirectTo = null;
     },
     // TODO: Почему редиректы вообще тут?
-    articleDelete(state) {
+    articleDelete(state, action: TtodoAny) {
+      // TODO убрать удаление статьи из общего редьюсера. использовать этот экшен в редьюсере статьи
       state.redirectTo = '/';
     },
   },

@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
+// import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
+import { createSlice, AnyAction } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/typesTs';
 import { asyncStart } from './auth-reducer';
 
@@ -29,7 +30,7 @@ const editorReducer = createSlice({
   initialState,
   reducers: {
     // TODO этот экшен вообще нигде не используется. Я его удалил, когда переписывал редактор статей. Может обратно на стор переделать?
-    editorPageLoad(state, action: PayloadAction<TtodoAny>) {
+    editorPageLoad(state, action: TtodoAny) {
       const { payload } = action;
       state.articleSlug = payload ? payload.article.slug : '';
       state.title = payload ? payload.article.title : '';
@@ -41,7 +42,7 @@ const editorReducer = createSlice({
     editorPageUnload() {
       return { ...initialState };
     },
-    articleSubmit(state, action: AnyAction) {
+    articleSubmit(state, action: TtodoAny) {
       state.errors = action.error ? action.payload.errors : null;
       state.inProgress = false;
     },

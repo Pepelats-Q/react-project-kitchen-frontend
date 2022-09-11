@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { HomeIcon, EditIcon } from '../ui-library/Icons';
-import useSelector from '../../hooks/hooks';
+import { useSelector } from '../../hooks/hooks';
 import NavButton from '../ui-library/Buttons/NavButton/NavButton';
 import avatarTemp from '../../images/avatarTemp.svg';
 import useTranslate from '../../hooks/useTranslate';

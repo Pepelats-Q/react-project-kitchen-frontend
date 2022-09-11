@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { FC, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import agent from '../../agent';
@@ -6,9 +6,9 @@ import Button from '../ui-library/Buttons/Button/Button';
 import styles from './Comment.module.scss';
 import { addComment } from '../../services/reducers/article-reducer';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useSelector } from '../../hooks/hooks';
 
-const CommentInput = ({ slug }) => {
+const CommentInput: FC<{ slug: string }> = ({ slug }) => {
   const { currentUser, currentProfile } = useSelector((state) => ({
     currentUser: state.common.currentUser,
     currentProfile: state.profile.profile,
@@ -18,15 +18,16 @@ const CommentInput = ({ slug }) => {
 
   const dispatch = useDispatch();
 
-  const setBody = (ev) => {
-    setState({ body: ev.target.value });
+  const setBody = (ev: React.SyntheticEvent) => {
+    const target = ev.target as HTMLTextAreaElement;
+    setState({ body: target.value });
   };
 
-  const onSubmit = (payload) => {
+  const onSubmit = (payload: any) => {
     dispatch(addComment({ payload }));
   };
 
-  const createComment = (ev) => {
+  const createComment = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     const payload = agent.Comments.create(slug, { body: state.body });
     setState({ body: '' });
@@ -40,7 +41,7 @@ const CommentInput = ({ slug }) => {
         className={styles.textarea}
         onChange={setBody}
         placeholder={localization({ page: 'comments', key: 'writeComment' })}
-        rows='3'
+        rows={3}
         value={state.body}
       />
       <div className={styles.commentUser}>

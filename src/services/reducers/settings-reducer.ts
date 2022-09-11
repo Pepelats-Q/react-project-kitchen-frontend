@@ -1,4 +1,4 @@
-import { createSlice, AnyAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/typesTs';
 import { asyncEnd, asyncStart } from './auth-reducer';
 
@@ -16,7 +16,7 @@ const settingsReducer = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    settingsSaved(state, action: AnyAction) {
+    settingsSaved(state, action: TtodoAny) {
       state.errors = action.error ? action.payload.errors : null;
       state.inProgress = false;
     },

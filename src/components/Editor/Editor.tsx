@@ -1,30 +1,18 @@
-import { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
-/* import clsx from 'clsx';
-import ListErrors from '../ListErrors/ListErrors'; */
 import agent from '../../agent';
-// import useForm from '../../hooks/useForm';
 import TextField from '../ui-library/TextField/TextField';
 import TextArea from '../ui-library/TextArea/TextArea';
-// import Button from '../ui-library/Buttons/Button/Button';
 import { CloseIcon } from '../ui-library/Icons';
 import styles from './Editor.module.scss';
 import { articleSubmit } from '../../services/reducers/editor-reducer';
 import { redirect } from '../../services/reducers/common-reducer';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthForm from '../AuthForm/AuthForm';
 
-const Editor = () => {
-  /* const { token, errorsEditor, inProgress, redirectTo } = useSelector((store) => ({
-    token: store.common.token,
-    errorsEditor: store.settings.errors,
-    inProgress: store.settings.inProgress,
-    redirectTo: store.common.redirectTo,
-  })); */
-
+const Editor: FC = () => {
   const { token, errorsStore, redirectTo } = useSelector((store) => ({
     token: store.common.token,
     errorsStore: store.auth.errors,
@@ -32,7 +20,7 @@ const Editor = () => {
   }));
   const errorsEditor = errorsStore?.errors;
 
-  const [tagList, setTagList] = useState([]);
+  const [tagList, setTagList] = useState<Array<string>>([]);
   const [articleSlug, setArticleSlug] = useState('');
   const localization = useTranslate();
   const history = useHistory();
@@ -43,17 +31,6 @@ const Editor = () => {
     }
   }, []);
 
-  /* const { values, handleChange, setValues } = useForm({
-    title: '',
-    description: '',
-    link: '',
-    body: '',
-    tag: '',
-  }); */
-
-  // console.log('err redux: ', errorsEditor);
-  // console.log('err redux: ', inProgress);
-
   const { values, handleChange, setValues, errors, isValid, validities } = useFormValidation({
     title: '',
     description: '',
@@ -62,26 +39,26 @@ const Editor = () => {
     tag: '',
   });
 
-  // console.log('isValid? ', isValid);
-
-  const urlParams = useParams();
+  const urlParams = useParams<{ slug: string }>();
   const dispatch = useDispatch();
 
-  const onSubmit = (payload) => {
+  const onSubmit = (payload: any) => {
     dispatch(articleSubmit({ payload }));
   };
 
-  const watchForEnter = (ev) => {
+  const watchForEnter = (ev: React.KeyboardEvent) => {
     if (ev.keyCode === 13) {
       ev.preventDefault();
-      if (!tagList.find((element) => element === values.tag)) {
-        setTagList([...tagList, values.tag]);
-        setValues({ ...values, tag: '' });
+      if (values.tag) {
+        if (!tagList.find((element) => element === values.tag)) {
+          setTagList([...tagList, values.tag]);
+          setValues({ ...values, tag: '' });
+        }
       }
     }
   };
 
-  const removeTagHandler = (tag) => () => {
+  const removeTagHandler = (tag: string) => () => {
     setTagList(tagList.filter((element) => element !== tag));
   };
 
@@ -104,7 +81,7 @@ const Editor = () => {
 
   useEffect(() => {
     if (urlParams.slug) {
-      agent.Articles.get(urlParams.slug).then((res) => {
+      agent.Articles.get(urlParams.slug).then((res: any) => {
         if (res) {
           setArticleSlug(res.article.slug);
           setValues({
@@ -186,7 +163,6 @@ const Editor = () => {
         type='text'
         value={values.body}
         message={errors.body}
-        fieldValid={validities.body}
       />
 
       <div>
@@ -194,6 +170,7 @@ const Editor = () => {
           fieldValid={validities.tag}
           label={localization({ page: 'editor', key: 'tags' })}
           message={errors.tag}
+          minLength={2}
           name='tag'
           onChange={handleChange}
           onKeyUp={watchForEnter}

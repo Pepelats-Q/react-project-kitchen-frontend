@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import ArticleActions from './ArticleActions';
 import styles from './Article.module.scss';
 import UserWithDate from '../../components/UserWithDate/UserWithDate';
+import { TArticle } from '../../utils/typesTs';
 
-const ArticleMeta = ({ article, canModify }) => (
+const ArticleMeta: FC<{article: TArticle; canModify: boolean;}> = ({ article, canModify }) => (
   <div className={styles.meta}>
     <div className={styles.usermeta}>
       <UserWithDate author={article.author} date={article.createdAt} />
@@ -11,10 +12,5 @@ const ArticleMeta = ({ article, canModify }) => (
     <ArticleActions article={article} canModify={canModify} />
   </div>
 );
-
-ArticleMeta.propTypes = {
-  article: PropTypes.object.isRequired,
-  canModify: PropTypes.bool,
-};
 
 export default ArticleMeta;

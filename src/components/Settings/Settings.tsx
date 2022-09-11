@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import TextField from '../ui-library/TextField/TextField';
@@ -7,11 +6,11 @@ import TextArea from '../ui-library/TextArea/TextArea';
 import { HideIcon, ShowIcon } from '../ui-library/Icons';
 import { settingsSaved } from '../../services/reducers/settings-reducer';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthForm from '../AuthForm/AuthForm';
 
-const Settings = () => {
+const Settings: FC = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const { currentUser, token, errorsStore } = useSelector((store) => ({
     currentUser: store.common.currentUser,
@@ -48,7 +47,7 @@ const Settings = () => {
     }
   }, [currentUser]);
 
-  const onSubmitForm = (user) => {
+  const onSubmitForm = (user: any) => {
     dispatch(settingsSaved({ payload: agent.Auth.save(user) }));
   };
 
@@ -95,7 +94,6 @@ const Settings = () => {
         value={values.username}
       />
       <TextArea
-        fieldValid={validities.bio}
         label={localization({ page: 'settings', key: 'info' })}
         message={errors.bio}
         name='bio'

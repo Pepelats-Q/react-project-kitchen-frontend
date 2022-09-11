@@ -1,4 +1,4 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/typesTs';
 
 type TAuthState = {
@@ -20,7 +20,7 @@ const authReducer = createSlice({
       state.errors = action.error ? action.payload.errors : null;
     },
     loginPageUnload() {},
-    register(state, action: AnyAction) {
+    register(state, action: TtodoAny) {
       state.inProgress = false;
       state.errors = action.error ? action.payload.errors : null;
     },
@@ -28,7 +28,7 @@ const authReducer = createSlice({
       return { ...initialState };
     },
     // Избавиться от UPDATE_FIELD_AUTH
-    asyncStart(state, action: AnyAction) {
+    asyncStart(state, action: TtodoAny) {
       if (
         action.payload === authReducer.actions.login.type ||
         action.payload === authReducer.actions.register.type
@@ -54,7 +54,7 @@ export const {
   asyncStart,
   asyncEnd,
   setApiMessage,
-  clearApiMessage
+  clearApiMessage,
 } = authReducer.actions;
 
 export default authReducer.reducer;

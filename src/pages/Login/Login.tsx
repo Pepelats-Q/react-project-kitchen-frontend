@@ -1,9 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
-// import styles from '../../components/AuthForm/AuthForm.module.scss';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
@@ -12,7 +10,7 @@ import { login, setApiMessage } from '../../services/reducers/auth-reducer';
 import { redirect } from '../../services/reducers/common-reducer';
 import TextField from '../../components/ui-library/TextField/TextField';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Login: FC = () => {
   const { currentUser, errorsStore } = useSelector((store) => ({

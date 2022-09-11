@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import agent from '../../agent';
 import Header from '../Header';
@@ -15,7 +14,7 @@ import { appLoad } from '../../services/reducers/common-reducer';
 import styles from './App.module.scss';
 import Profile from '../../pages/Profile/Profile';
 import { TranslationProvider } from '../../contexts/context';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { clearApiMessage } from '../../services/reducers/auth-reducer';
 
 const App: FC = () => {
@@ -28,12 +27,12 @@ const App: FC = () => {
     }
     dispatch(appLoad({ payload: token ? agent.Auth.current() : null }));
   }, []);
-  
+
   const location = useLocation();
 
   useEffect(() => {
     dispatch(clearApiMessage());
-  },[location]);
+  }, [location]);
 
   const appLoaded = useSelector((store) => store.common.appLoaded);
 

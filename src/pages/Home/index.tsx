@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import Banner from './Banner/Banner';
 import agent from '../../agent';
@@ -9,6 +8,7 @@ import { loadAllTags } from '../../services/reducers/profile-reducer';
 import { homePageUnload } from '../../services/reducers/home-reducer';
 import { changeTab } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Home: FC = () => {
   const dispatch = useDispatch();

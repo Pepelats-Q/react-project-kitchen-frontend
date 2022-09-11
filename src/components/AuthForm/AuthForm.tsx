@@ -24,8 +24,6 @@ const AuthForm: FC<TAuthForm> = ({
     onSubmit();
   };
 
-  console.log('err: ', apiErrors);
-
   return (
     <div className={styles.page}>
       <div className={styles.container}>

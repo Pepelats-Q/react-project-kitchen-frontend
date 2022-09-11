@@ -1,26 +1,26 @@
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import agent from '../../agent';
 import styles from './articlePreview.module.scss';
 import UserWithDate from '../UserWithDate/UserWithDate';
 import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
 import { articleFavorite } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
+import { TArticle } from '../../utils/typesTs';
 
-const ArticlePreview = ({ article }) => {
+const ArticlePreview: FC<{article: TArticle}> = ({ article }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.common.currentUser);
   const areAllHeartsDisabled = !currentUser;
   const localization = useTranslate();
 
-  const favorite = (slug) => dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
+  const favorite = (slug: string) => dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
 
-  const unfavorite = (slug) =>
+  const unfavorite = (slug: string) =>
     dispatch(articleFavorite({ payload: agent.Articles.unfavorite(slug) }));
 
-  const handleClickToFavorite = (ev) => {
+  const handleClickToFavorite = (ev:  React.FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();
     if (article.favorited) {
       unfavorite(article.slug);
@@ -80,10 +80,6 @@ const ArticlePreview = ({ article }) => {
       </div>
     </div>
   );
-};
-
-ArticlePreview.propTypes = {
-  article: PropTypes.object,
 };
 
 export default ArticlePreview;

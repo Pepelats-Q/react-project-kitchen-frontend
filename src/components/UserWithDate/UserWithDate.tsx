@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import useSelector from '../../hooks/hooks';
+import { useSelector } from '../../hooks/hooks';
 import avatar from '../../images/avatarTemp.svg';
 import { TUserWIthDate } from '../../utils/typesTs';
 import styles from './userWithDate.module.scss';

@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import ArticleMeta from './ArticleMeta';
 import agent from '../../agent';
@@ -9,8 +8,9 @@ import { getProfile } from '../../services/reducers/profile-reducer';
 import CommentContainer from '../../components/Comment/CommentContainer';
 import { redirect } from '../../services/reducers/common-reducer';
 import useTranslate from '../../hooks/useTranslate';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
-const Article = () => {
+const Article: FC = () => {
   const { article, currentUser, redirectTo } = useSelector((store) => ({
     article: store.article.article,
     currentUser: store.common.currentUser,
@@ -19,10 +19,10 @@ const Article = () => {
 
   const localization = useTranslate();
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
   const history = useHistory();
 
-  const onLoad = (payload) => {
+  const onLoad = (payload: any) => {
     dispatch(articlePageLoad({ payload }));
     if (currentUser) {
       dispatch(getProfile({ payload: agent.Profile.get(currentUser.username) }));
@@ -32,7 +32,7 @@ const Article = () => {
 
   useEffect(() => {
     onLoad(Promise.all([agent.Articles.get(id), agent.Comments.forArticle(id)]));
-    return () => onUnload();
+    // return () => onUnload();
   }, [currentUser]);
 
   useEffect(() => {

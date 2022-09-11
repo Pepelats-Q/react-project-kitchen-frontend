@@ -1,6 +1,5 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import useTranslate from '../../hooks/useTranslate';
 import Tags from '../../pages/Home/Tags/Tags';
 import { applyTagFilter } from '../../services/reducers/articlelist-reducer';
@@ -10,7 +9,7 @@ import Tabs from '../Tabs/Tabs';
 import styles from './ArticlesWithTabs.module.scss';
 
 const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
   const tags = useSelector((store) => store.profile.tags);
 

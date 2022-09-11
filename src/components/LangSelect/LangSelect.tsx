@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import { changeLanguage } from '../../services/reducers/header-reducer';
 import Button from '../ui-library/Buttons/Button/Button';
 
 const LangSelect: FC = () => {
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const currentLang = useSelector((store) => store.header.currentLang);
 
   const handleChange = (e: React.MouseEvent<HTMLButtonElement>) => {

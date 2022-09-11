@@ -1,5 +1,4 @@
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import agent from '../../agent';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import { EditIcon, TrashIcon } from '../../components/ui-library/Icons';
@@ -7,8 +6,10 @@ import styles from './Article.module.scss';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { articleDelete } from '../../services/reducers/common-reducer';
 import useTranslate from '../../hooks/useTranslate';
+import { useDispatch } from '../../hooks/hooks';
+import { TArticle } from '../../utils/typesTs';
 
-const ArticleActions = ({ article, canModify }) => {
+const ArticleActions: FC<{article: TArticle; canModify: boolean}> = ({ article, canModify }) => {
   const localization = useTranslate();
   const dispatch = useDispatch();
 
@@ -39,11 +40,6 @@ const ArticleActions = ({ article, canModify }) => {
   }
 
   return <span />;
-};
-
-ArticleActions.propTypes = {
-  article: PropTypes.object.isRequired,
-  canModify: PropTypes.bool,
 };
 
 export default ArticleActions;

@@ -1,6 +1,5 @@
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import NotLoggedNav from './NotLoggedNav';
 import LoggedNav from './LoggedNav';
 import styles from './header.module.scss';
@@ -9,7 +8,7 @@ import LangSelect from '../LangSelect/LangSelect';
 import { toggleMobileMenuAction } from '../../services/reducers/header-reducer';
 import agent from '../../agent';
 import { getProfile } from '../../services/reducers/profile-reducer';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Header: FC = () => {
   const dispatch = useDispatch();

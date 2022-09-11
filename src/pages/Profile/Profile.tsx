@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FC, SyntheticEvent } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import agent from '../../agent';
 import styles from './profile.module.scss';
 import Button from '../../components/ui-library/Buttons/Button/Button';
@@ -22,7 +21,7 @@ import {
   profileClearArticlesPageUnloaded,
 } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Profile: FC = () => {
   // TODO: тут пока оставила store any, буду с типами статей чуть позже разбираться

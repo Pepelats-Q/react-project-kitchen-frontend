@@ -1,4 +1,4 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { TArticle, TComment, TtodoAny } from '../../utils/typesTs';
 
 type TArticleState = {
@@ -24,13 +24,13 @@ const articleReducer = createSlice({
     articlePageUnload() {
       return { ...initialState };
     },
-    addComment(state, action: AnyAction) {
+    addComment(state, action: TtodoAny) {
       state.commentErrors = action.error ? action.payload.errors : null;
       state.comments = action.error
         ? null
         : (state.comments || []).concat([action.payload.payload.comment]);
     },
-    deleteComment(state, action: AnyAction) {
+    deleteComment(state, action: TtodoAny) {
       state.comments = state.comments
         ? state.comments.filter((comment) => comment.id !== action.payload.commentId)
         : null;

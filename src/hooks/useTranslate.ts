@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
 import { TranslationContext } from '../contexts/context';
+import { useSelector } from './hooks';
 
 const useTranslate = () => {
   const context = useContext(TranslationContext);
-  const currentLanguage = useSelector((store) => store.header.currentLang);
+  const currentLanguage : any = useSelector((store) => store.header.currentLang);
 
-  return (key) => {
+  return (key: { key: string, page: string}) => {
     let translation = key.key;
     if (context[currentLanguage][key.page]) {
       translation = context[currentLanguage][key.page][key.key];

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
@@ -10,9 +9,13 @@ import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
 import { register, setApiMessage } from '../../services/reducers/auth-reducer';
 import TextField from '../../components/ui-library/TextField/TextField';
 import useTranslate from '../../hooks/useTranslate';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Register = () => {
-  const currentUser = useSelector((store) => store.header.currentUser);
+  const { currentUser, errorsStore } = useSelector((store) => ({
+    currentUser: store.common.currentUser,
+    errorsStore: store.auth.errors,
+  }));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const { values, handleChange, errors, isValid, validities } = useFormValidation({
@@ -49,12 +52,14 @@ const Register = () => {
 
   return (
     <AuthForm
+      apiErrors={errorsStore}
       btnText={localization({ page: 'authForm', key: 'registerText' })}
       crossLinkText={localization({ page: 'authForm', key: 'registerQuestion' })}
       formName='register'
       isFormValid={isValid}
       onSubmit={submitRegister}
       oppositeLink='/login'
+      title={localization({ page: 'authForm', key: 'registerText' })}
     >
       <TextField
         fieldValid={validities.name}

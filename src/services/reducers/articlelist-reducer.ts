@@ -32,7 +32,7 @@ const articleListReducer = createSlice({
   name: 'articleList',
   initialState,
   reducers: {
-    articleFavorite(state, action: AnyAction) {
+    articleFavorite(state, action: TtodoAny) {
       const updateAllLists = (articlesArray: Array<TArticle>) =>
         articlesArray.map((article) => {
           if (article.slug === action.payload.payload.article.slug) {
@@ -54,7 +54,7 @@ const articleListReducer = createSlice({
     loadAllArticles(state, action: AnyAction) {
       state.articles = [...action.payload.payload.articles];
     },
-    setPageAction(state, action: AnyAction) {
+    setPageAction(state, action: TtodoAny) {
       state.articles = [...action.payload.payload.articles];
       state.articlesCount = action.payload.payload.articlesCount;
       state.currentPage = action.page;
