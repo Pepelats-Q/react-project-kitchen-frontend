@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const HeartIconFilled = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const HeartIconFilled: FC<TPropsUIIcon> = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -24,13 +25,6 @@ const HeartIconFilled = ({ onClick, size = 'default', color = 'primary', classNa
       />
     </IconWrapper>
   );
-};
-
-HeartIconFilled.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default HeartIconFilled;

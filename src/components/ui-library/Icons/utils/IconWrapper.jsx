@@ -1,4 +1,6 @@
-import PropTypes from 'prop-types';
+/* type of wrapper import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs'; */
+
 import clsx from 'clsx';
 
 import styles from './IconWrapper.module.scss';
@@ -39,6 +41,7 @@ const IconWrapper = ({ children, color, handleClick, size, className }) =>
       {children}
     </svg>
   );
+  /* 
 
 IconWrapper.propTypes = {
   children: PropTypes.node,
@@ -47,5 +50,6 @@ IconWrapper.propTypes = {
   handleClick: PropTypes.func,
   size: PropTypes.string,
 };
+*/
 
 export default IconWrapper;

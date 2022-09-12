@@ -44,8 +44,7 @@ const commonReducer = createSlice({
     },
     // TODO: Почему редиректы вообще тут?
     articleDelete(state, action: TtodoAny) {
-      // TODO убрать удаление статьи из общего редьюсера. использовать этот экшен в редьюсере статьи
-      state.redirectTo = '/';
+      state.redirectTo = action.error ? null : '/';
     },
   },
   extraReducers: {

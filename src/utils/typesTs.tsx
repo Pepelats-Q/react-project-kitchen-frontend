@@ -116,3 +116,38 @@ export type TUserWIthDate = {
 export type TAppActions = any;
 
 export type TArticleAction = {};
+
+export type TPropsButton = {
+  children?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  icon?: any;
+  isSubmit?: boolean;
+  onClick?: (ev: React.SyntheticEvent) => void;
+  type?: string;
+  value?: string;
+};
+
+export type TPropsNavButton = {
+  children?: React.ReactNode;
+  className?: string;
+  icon?: any;
+  to: string;
+  exact?: boolean;
+  type?: string;
+};
+
+export type TPropsTextButton = {
+  children?: React.ReactNode;
+  className?: string;
+  color?: string;
+  value: string;
+  onClick?: (ev: React.SyntheticEvent) => void;
+};
+
+export type TPropsUIIcon = {
+  className: string;
+  color: string;
+  onClick?: (ev: React.SyntheticEvent) => void;
+  size: string;
+};

@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const DislikeIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const DislikeIcon: FC<TPropsUIIcon> = ({
+  onClick,
+  size = 'default',
+  color = 'primary',
+  className = '',
+}) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -26,13 +32,6 @@ const DislikeIcon = ({ onClick, size = 'default', color = 'primary', className =
       />
     </IconWrapper>
   );
-};
-
-DislikeIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default DislikeIcon;

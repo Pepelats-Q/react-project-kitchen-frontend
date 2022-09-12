@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const EditIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const EditIcon: FC<TPropsUIIcon> = ({
+  onClick,
+  size = 'default',
+  color = 'primary',
+  className = '',
+}) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -33,13 +39,6 @@ const EditIcon = ({ onClick, size = 'default', color = 'primary', className = ''
       />
     </IconWrapper>
   );
-};
-
-EditIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default EditIcon;

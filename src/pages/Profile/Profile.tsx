@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { FC, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import agent from '../../agent';
 import styles from './profile.module.scss';

@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const CloseIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const CheckIcon: FC<TPropsUIIcon> = ({
+  onClick,
+  size = 'default',
+  color = 'primary',
+  className = '',
+}) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -18,14 +24,7 @@ const CloseIcon = ({ onClick, size = 'default', color = 'primary', className = '
       size={icon.size}
     >
       <path
-        d='M18 6L6 18'
-        stroke={icon.color}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth='2'
-      />
-      <path
-        d='M6 6L18 18'
+        d='M20 6L9 17L4 12'
         stroke={icon.color}
         strokeLinecap='round'
         strokeLinejoin='round'
@@ -35,11 +34,4 @@ const CloseIcon = ({ onClick, size = 'default', color = 'primary', className = '
   );
 };
 
-CloseIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
-};
-
-export default CloseIcon;
+export default CheckIcon;

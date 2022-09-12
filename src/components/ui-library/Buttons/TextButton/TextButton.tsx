@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './TextButton.module.scss';
+import { TPropsTextButton } from '../../../../utils/typesTs';
 
-const TextButton = ({
+const TextButton: FC<TPropsTextButton> = ({
   onClick,
   children = 'Кнопка',
   className = '',
@@ -19,13 +20,5 @@ const TextButton = ({
     {children}
   </button>
 );
-
-TextButton.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  value: PropTypes.string,
-};
 
 export default TextButton;

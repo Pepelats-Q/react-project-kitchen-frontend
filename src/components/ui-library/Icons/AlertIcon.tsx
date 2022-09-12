@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const AlertIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const AlertIcon:FC<TPropsUIIcon> = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -42,11 +43,5 @@ const AlertIcon = ({ onClick, size = 'default', color = 'primary', className = '
   );
 };
 
-AlertIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
-};
 
 export default AlertIcon;

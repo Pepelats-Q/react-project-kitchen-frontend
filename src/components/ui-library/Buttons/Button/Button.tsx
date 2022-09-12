@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './Button.module.scss';
+import { TPropsButton } from '../../../../utils/typesTs';
 
-const Button = ({
+const Button: FC<TPropsButton> = ({
   icon,
   onClick,
   type = 'primary',
@@ -13,7 +14,7 @@ const Button = ({
   children = 'Кнопка',
   value = 'ru',
 }) => {
-  const types = {
+  const types: any = {
     primary: styles.primary,
     outline_alert: styles.outline_alert,
     lang: styles.lang,
@@ -37,17 +38,6 @@ const Button = ({
       )}
     </button>
   );
-};
-
-Button.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  icon: PropTypes.node,
-  isSubmit: PropTypes.bool,
-  onClick: PropTypes.func,
-  type: PropTypes.string,
-  value: PropTypes.string,
 };
 
 export default Button;

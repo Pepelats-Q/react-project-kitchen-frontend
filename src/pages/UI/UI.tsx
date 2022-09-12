@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import TabButton from '../../components/ui-library/Buttons/TabButton/TabButton';
@@ -32,7 +32,7 @@ import TextField from '../../components/ui-library/TextField/TextField';
 
 import styles from './UI.module.scss';
 
-const UI = () => {
+const UI: FC = () => {
   const [value, setValue] = useState('');
 
   return (
@@ -290,10 +290,10 @@ const UI = () => {
         </div>
         <div className={styles.group_layout}>
           <TextField
+            fieldValid={false}
             message='Error message'
             name='name3'
             onChange={setValue}
-            textfieldState='error'
             type='password'
             value={value}
           />
@@ -303,10 +303,10 @@ const UI = () => {
         </div>
         <div className={styles.group_layout}>
           <TextField
+            fieldValid
             message='Success message'
             name='name4'
             onChange={setValue}
-            textfieldState='success'
             type='password'
             value={value}
           />

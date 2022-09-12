@@ -7,7 +7,7 @@ const LangSelect: FC = () => {
   const dispatch = useDispatch();
   const currentLang = useSelector((store) => store.header.currentLang);
 
-  const handleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleChange = (e: React.SyntheticEvent) => {
     const { value } = e.target as HTMLButtonElement;
     dispatch(changeLanguage(value));
   };

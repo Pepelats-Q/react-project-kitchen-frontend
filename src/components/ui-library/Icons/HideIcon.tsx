@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesTs';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const HideIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const HideIcon: FC<TPropsUIIcon> = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -33,13 +34,6 @@ const HideIcon = ({ onClick, size = 'default', color = 'primary', className = ''
       />
     </IconWrapper>
   );
-};
-
-HideIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default HideIcon;

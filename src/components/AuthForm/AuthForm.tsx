@@ -1,4 +1,4 @@
-import { FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
@@ -19,7 +19,7 @@ const AuthForm: FC<TAuthForm> = ({
   apiErrors,
 }) => {
   // const apiErrors = useSelector((store) => store.auth.errors);
-  const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
     onSubmit();
   };

@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import styles from './NavButton.module.scss';
+import { TPropsNavButton } from '../../../../utils/typesTs';
 
-const NavButton = ({
+const NavButton: FC<TPropsNavButton> = ({
   icon,
   to = '/',
   exact = true,
@@ -12,7 +13,7 @@ const NavButton = ({
   children = 'Кнопка',
   type = 'navigation',
 }) => {
-  const types = {
+  const types: any = {
     primary: styles.primary,
     navigation: styles.navigation,
   };
@@ -28,15 +29,6 @@ const NavButton = ({
       <span>{children}</span>
     </NavLink>
   );
-};
-
-NavButton.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  exact: PropTypes.bool,
-  icon: PropTypes.node,
-  to: PropTypes.string,
-  type: PropTypes.string,
 };
 
 export default NavButton;

@@ -27,7 +27,7 @@ const CommentInput: FC<{ slug: string }> = ({ slug }) => {
     dispatch(addComment({ payload }));
   };
 
-  const createComment = (ev: React.FormEvent<HTMLFormElement>) => {
+  const createComment = (ev: React.SyntheticEvent) => {
     ev.preventDefault();
     const payload = agent.Comments.create(slug, { body: state.body });
     setState({ body: '' });
