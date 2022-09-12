@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FC, useState } from 'react';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
@@ -255,12 +254,12 @@ const UI: FC = () => {
           className={styles.props}
         >{`<TabButton name='Вкладка' onClick={() => console.log('кнопка вкладки')} isCurrent={false} />`}</p>
         <div className={styles.group_layout}>
-          <TabButton to='/' text='Вкладка' />
+          <TabButton text='Вкладка' to='/' />
           <h4 className={styles.h4}>{`<TabButton />`} неактивная вкладка</h4>
         </div>
 
         <div className={styles.group_layout}>
-          <TabButton to='/UI' text='Вкладка' />
+          <TabButton text='Вкладка' to='/UI' />
           <h4 className={styles.h4}>{`<TabButton />`} активная вкладка</h4>
         </div>
       </div>
@@ -321,7 +320,7 @@ const UI: FC = () => {
           {`<TextArea message  name  onChange  ref  value  className = ''  label = 'Название поля'  maxLength = 512  minLength = 0  placeholder = ''  required = false  rows = 5  textareaState = 'default'  type = 'text' />`}
         </p>
         <div className={styles.group_layout}>
-          <TextArea name='name5' />
+          <TextArea name='name5' placeholder='textarea' />
           <h4 className={styles.h4}>{`<TextArea name='name5' />`}</h4>
         </div>
       </div>

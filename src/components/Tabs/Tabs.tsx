@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TTabsProps } from '../../utils/typesTs';
+import { TTabsProps } from '../../utils/typesComponentProps';
 import TabButton from '../ui-library/Buttons/TabButton/TabButton';
 import styles from './Tabs.module.scss';
 

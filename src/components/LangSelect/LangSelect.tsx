@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-import { changeLanguage } from '../../services/reducers/header-reducer';
+import { changeLanguage } from '../../services/reducers/common-reducer';
 import Button from '../ui-library/Buttons/Button/Button';
 
 const LangSelect: FC = () => {
   const dispatch = useDispatch();
-  const currentLang = useSelector((store) => store.header.currentLang);
+  const currentLang = useSelector((store) => store.common.currentLang);
 
   const handleChange = (e: React.SyntheticEvent) => {
     const { value } = e.target as HTMLButtonElement;

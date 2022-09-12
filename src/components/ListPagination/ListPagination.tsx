@@ -2,12 +2,7 @@ import React, { FC } from 'react';
 import agent from '../../agent';
 import { setPageAction } from '../../services/reducers/articlelist-reducer';
 import { useDispatch } from '../../hooks/hooks';
-
-type TListPaginationProps = {
-  articlesCount: number;
-  pager: any;
-  currentPage: any;
-};
+import { TListPaginationProps } from '../../utils/typesComponentProps';
 
 const ListPagination: FC<TListPaginationProps> = ({ articlesCount, pager, currentPage }) => {
   const dispatch = useDispatch();
@@ -43,9 +38,9 @@ const ListPagination: FC<TListPaginationProps> = ({ articlesCount, pager, curren
           return (
             <li key={v.toString()}>
               <button
-                type='button'
                 className={isCurrent ? 'page-item active' : 'page-item'}
                 onClick={onClick}
+                type='button'
               >
                 {v + 1}
               </button>

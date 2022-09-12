@@ -5,8 +5,9 @@ import NavButton from '../ui-library/Buttons/NavButton/NavButton';
 import avatarTemp from '../../images/avatarTemp.svg';
 import useTranslate from '../../hooks/useTranslate';
 import styles from './header.module.scss';
+import { TNavHeader } from '../../utils/typesComponentProps';
 
-const LoggedNav: FC = () => {
+const LoggedNav: FC<TNavHeader> = ({ unFoldMobileMenu }) => {
   const [imgSrc, setImgSrc] = useState<string>(avatarTemp);
 
   const { currentUser, currentUserImg } = useSelector((store) => ({
@@ -24,16 +25,16 @@ const LoggedNav: FC = () => {
 
   return (
     <>
-      <NavButton icon={<HomeIcon size='small' />} to='/' type='navigation'>
+      <NavButton icon={<HomeIcon size='small' />} onClick={unFoldMobileMenu} to='/'>
         {localization({ page: 'header', key: 'mainPageText' })}
       </NavButton>
-      <NavButton icon={<EditIcon size='small' />} to='/editor' type='navigation'>
+      <NavButton icon={<EditIcon size='small' />} onClick={unFoldMobileMenu} to='/editor'>
         {localization({ page: 'header', key: 'newNoteText' })}
       </NavButton>
       <NavButton
         icon={<img alt='alt' className={styles.image} src={imgSrc} />}
+        onClick={unFoldMobileMenu}
         to={`/@${currentUser.username}`}
-        type='navigation'
       >
         {currentUser.username}
       </NavButton>

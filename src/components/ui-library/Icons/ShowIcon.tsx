@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesUI';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const LoginIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const ShowIcon: FC<TPropsUIIcon> = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -18,14 +19,14 @@ const LoginIcon = ({ onClick, size = 'default', color = 'primary', className = '
       size={icon.size}
     >
       <path
-        d='M15 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H15'
+        d='M1.31409 12C1.31409 12 5.31409 4 12.3141 4C19.3141 4 23.3141 12 23.3141 12C23.3141 12 19.3141 20 12.3141 20C5.31409 20 1.31409 12 1.31409 12Z'
         stroke={icon.color}
         strokeLinecap='round'
         strokeLinejoin='round'
         strokeWidth='2'
       />
       <path
-        d='M10 17L15 12M15 12L10 7M15 12H3'
+        d='M12.3141 15C13.9709 15 15.3141 13.6569 15.3141 12C15.3141 10.3431 13.9709 9 12.3141 9C10.6572 9 9.31409 10.3431 9.31409 12C9.31409 13.6569 10.6572 15 12.3141 15Z'
         stroke={icon.color}
         strokeLinecap='round'
         strokeLinejoin='round'
@@ -35,11 +36,5 @@ const LoginIcon = ({ onClick, size = 'default', color = 'primary', className = '
   );
 };
 
-LoginIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
-};
 
-export default LoginIcon;
+export default ShowIcon;

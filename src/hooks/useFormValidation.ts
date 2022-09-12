@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { TValidity, TValidityBoolean } from '../utils/typesTs';
+import { TValidity, TValidityBoolean } from '../utils/types';
 
-function useFormValidation(initialState: any) {
+const useFormValidation = (initialState: any) => {
   const [values, setValues] = useState<TValidity>(initialState);
   const [errors, setErrors] = useState<TValidity>({});
   const [validities, setValidities] = useState<TValidityBoolean>({});

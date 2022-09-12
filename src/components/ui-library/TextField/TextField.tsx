@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import { useState } from 'react';
+import { FC, useState } from 'react';
+import { TPropsUITextField } from '../../../utils/typesUI';
 import styles from './TextField.module.scss';
 
-const TextField = ({
+const TextField: FC<TPropsUITextField> = ({
   icon,
   message,
   name,
@@ -27,9 +27,10 @@ const TextField = ({
   return (
     <div className={clsx(className, styles.wrapper)}>
       <label className={styles.label} htmlFor={name}>
-        {label}<sup>{`${required ? '*' : '' }`}</sup>
+        {label}
+        <sup>{`${required ? '*' : ''}`}</sup>
       </label>
-      
+
       <div
         className={clsx(
           styles.textfield,
@@ -57,39 +58,10 @@ const TextField = ({
         {icon && icon}
       </div>
       {message && (
-        <p
-          className={clsx(
-            styles.text,
-            fieldValid ? '' : styles.text_error,
-          )}
-        >
-          {message}
-        </p>
+        <p className={clsx(styles.text, fieldValid ? '' : styles.text_error)}>{message}</p>
       )}
     </div>
   );
-};
-
-TextField.propTypes = {
-  autocomplete: PropTypes.string,
-  className: PropTypes.string,
-  icon: PropTypes.node,
-  label: PropTypes.string,
-  maxLength: PropTypes.number,
-  message: PropTypes.string,
-  minLength: PropTypes.number,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onKeyUp: PropTypes.func,
-  placeholder: PropTypes.string,
-  ref: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
-  ]),
-  required: PropTypes.bool,
-  fieldValid: PropTypes.bool,
-  type: PropTypes.string,
-  value: PropTypes.string,
 };
 
 export default TextField;

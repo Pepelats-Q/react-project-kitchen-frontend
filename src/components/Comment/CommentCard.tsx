@@ -5,20 +5,7 @@ import { TrashIcon } from '../ui-library/Icons';
 import { deleteComment } from '../../services/reducers/article-reducer';
 import agent from '../../agent';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-
-type TCommentCardProps = {
-  comment: {
-    author: {
-      username: string;
-      image: string;
-      following: boolean;
-    };
-    id: string;
-    body: string;
-    createdAt: string;
-  };
-  slug: string;
-};
+import { TCommentCardProps } from '../../utils/typesComponentProps';
 
 const Comment: FC<TCommentCardProps> = ({ comment, slug }) => {
   const currentUser = useSelector((state) => state.common.currentUser);

@@ -1,22 +1,33 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NotLoggedNav from './NotLoggedNav';
 import LoggedNav from './LoggedNav';
 import styles from './header.module.scss';
 import MenuIcon from '../ui-library/Icons/MenuIcon';
 import LangSelect from '../LangSelect/LangSelect';
-import { toggleMobileMenuAction } from '../../services/reducers/header-reducer';
 import agent from '../../agent';
 import { getProfile } from '../../services/reducers/profile-reducer';
 import { useDispatch, useSelector } from '../../hooks/hooks';
+import useResize from '../../hooks/useResize';
 
 const Header: FC = () => {
   const dispatch = useDispatch();
-  const { isMobileMenuOpen, appName, currentUser } = useSelector((store) => ({
-    isMobileMenuOpen: store.header.isMobileMenuOpen,
+  const size = useResize();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { appName, currentUser } = useSelector((store) => ({
     appName: store.common.appName,
     currentUser: store.common.currentUser,
   }));
+
+  const unFoldMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (size[0] > 768) {
+      unFoldMobileMenu();
+    }
+  }, [size]);
 
   useEffect(() => {
     if (currentUser) {
@@ -24,10 +35,14 @@ const Header: FC = () => {
     }
   }, [currentUser]);
 
-  const currentNav = currentUser ? <LoggedNav /> : <NotLoggedNav />;
+  const currentNav = currentUser ? (
+    <LoggedNav unFoldMobileMenu={unFoldMobileMenu} />
+  ) : (
+    <NotLoggedNav unFoldMobileMenu={unFoldMobileMenu} />
+  );
 
   const toggleMobileMenu = () => {
-    dispatch(toggleMobileMenuAction(!isMobileMenuOpen));
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './Button.module.scss';
-import { TPropsButton } from '../../../../utils/typesTs';
+import { TPropsButton } from '../../../../utils/typesUI';
 
 const Button: FC<TPropsButton> = ({
   icon,

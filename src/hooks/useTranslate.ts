@@ -4,7 +4,7 @@ import { useSelector } from './hooks';
 
 const useTranslate = () => {
   const context = useContext(TranslationContext);
-  const currentLanguage : any = useSelector((store) => store.header.currentLang);
+  const currentLanguage : any = useSelector((store) => store.common.currentLang);
 
   return (key: { key: string, page: string}) => {
     let translation = key.key;

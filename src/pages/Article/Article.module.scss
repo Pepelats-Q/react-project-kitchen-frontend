@@ -131,3 +131,32 @@
   margin: 0;
   padding: 0;
 }
+
+@media screen and (max-width: 1120px) {
+  .mainArticle {
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+  .actions {
+    flex-direction: column;
+    margin: 12px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mainArticle {
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .meta {
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+    margin: 12px 0;
+  }
+}

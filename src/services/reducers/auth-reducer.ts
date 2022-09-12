@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TtodoAny } from '../../utils/types';
+import { IAsyncStart, ILogin, IRegister, ISetApiMessage } from '../../utils/typesActions';
 
 type TAuthState = {
   errors: TtodoAny | null;
@@ -15,12 +16,12 @@ const authReducer = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(state, action: TtodoAny) {
+    login(state, action: ILogin) {
       state.inProgress = false;
       state.errors = action.error ? action.payload.errors : null;
     },
     loginPageUnload() {},
-    register(state, action: TtodoAny) {
+    register(state, action: IRegister) {
       state.inProgress = false;
       state.errors = action.error ? action.payload.errors : null;
     },
@@ -28,7 +29,7 @@ const authReducer = createSlice({
       return { ...initialState };
     },
     // Избавиться от UPDATE_FIELD_AUTH
-    asyncStart(state, action: TtodoAny) {
+    asyncStart(state, action: IAsyncStart) {
       if (
         action.payload === authReducer.actions.login.type ||
         action.payload === authReducer.actions.register.type
@@ -37,7 +38,7 @@ const authReducer = createSlice({
       }
     },
     asyncEnd() {},
-    setApiMessage(state, action: PayloadAction<TtodoAny>) {
+    setApiMessage(state, action: ISetApiMessage) {
       state.errors = action.payload;
     },
     clearApiMessage(state) {

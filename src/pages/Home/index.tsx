@@ -4,9 +4,11 @@ import Banner from './Banner/Banner';
 import agent from '../../agent';
 import styles from './home.module.scss';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
-import { loadAllTags } from '../../services/reducers/profile-reducer';
-import { homePageUnload } from '../../services/reducers/home-reducer';
-import { changeTab } from '../../services/reducers/articlelist-reducer';
+import {
+  changeTab,
+  homePageClearArticlesUnloaded,
+  loadAllTags,
+} from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 
@@ -27,7 +29,7 @@ const Home: FC = () => {
   const onLoad = () => {
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
-  const onUnload = () => dispatch(homePageUnload());
+  const onUnload = () => dispatch(homePageClearArticlesUnloaded());
 
   useEffect(() => {
     onLoad();

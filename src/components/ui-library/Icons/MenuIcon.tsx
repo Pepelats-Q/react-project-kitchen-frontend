@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesUI';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const MenuIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const MenuIcon: FC<TPropsUIIcon> = ({
+  onClick,
+  size = 'default',
+  color = 'primary',
+  className = '',
+}) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -40,13 +46,6 @@ const MenuIcon = ({ onClick, size = 'default', color = 'primary', className = ''
       />
     </IconWrapper>
   );
-};
-
-MenuIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default MenuIcon;

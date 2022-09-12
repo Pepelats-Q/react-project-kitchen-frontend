@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesUI';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const LikeIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const LikeIcon: FC<TPropsUIIcon> = ({
+  onClick,
+  size = 'default',
+  color = 'primary',
+  className = '',
+}) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -26,13 +32,6 @@ const LikeIcon = ({ onClick, size = 'default', color = 'primary', className = ''
       />
     </IconWrapper>
   );
-};
-
-LikeIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default LikeIcon;

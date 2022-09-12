@@ -1,17 +1,17 @@
-/* type of wrapper import { FC } from 'react';
-import { TPropsUIIcon } from '../../../utils/typesTs'; */
+import { FC } from 'react';
 
 import clsx from 'clsx';
 
 import styles from './IconWrapper.module.scss';
+import { TPropsUIIconWrapper } from '../../../../utils/typesUI';
 
-const IconWrapper = ({ children, color, handleClick, size, className }) =>
+const IconWrapper: FC<TPropsUIIconWrapper> = ({ children, color, handleClick, size, className }) =>
   handleClick ? (
     <button
       className={clsx(
         styles.button,
-        styles[color] ? styles[color] : 'not_supported_color',
-        handleClick ? styles.onclick : '',
+        color ? styles[color] : 'not_supported_color',
+        styles.onclick,
         className,
       )}
       onClick={handleClick}
@@ -30,7 +30,7 @@ const IconWrapper = ({ children, color, handleClick, size, className }) =>
     </button>
   ) : (
     <svg
-      className={clsx(styles[color] ? styles[color] : 'not_supported_color', className)}
+      className={clsx(color ? styles[color] : 'not_supported_color', className)}
       fill='none'
       height={size}
       style={{ minWidth: size }}
@@ -41,15 +41,5 @@ const IconWrapper = ({ children, color, handleClick, size, className }) =>
       {children}
     </svg>
   );
-  /* 
-
-IconWrapper.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  color: PropTypes.string,
-  handleClick: PropTypes.func,
-  size: PropTypes.string,
-};
-*/
 
 export default IconWrapper;

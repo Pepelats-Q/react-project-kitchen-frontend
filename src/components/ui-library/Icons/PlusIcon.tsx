@@ -1,8 +1,14 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesUI';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const MinusIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const PlusIcon: FC<TPropsUIIcon> = ({
+  onClick,
+  size = 'default',
+  color = 'primary',
+  className = '',
+}) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -18,6 +24,13 @@ const MinusIcon = ({ onClick, size = 'default', color = 'primary', className = '
       size={icon.size}
     >
       <path
+        d='M12 5V19'
+        stroke={icon.color}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        strokeWidth='2'
+      />
+      <path
         d='M5 12H19'
         stroke={icon.color}
         strokeLinecap='round'
@@ -28,11 +41,4 @@ const MinusIcon = ({ onClick, size = 'default', color = 'primary', className = '
   );
 };
 
-MinusIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
-};
-
-export default MinusIcon;
+export default PlusIcon;

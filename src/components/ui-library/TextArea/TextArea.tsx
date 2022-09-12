@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import { useState } from 'react';
+import { FC, useState } from 'react';
+import { TPropsUITextArea } from '../../../utils/typesUI';
 import styles from './TextArea.module.scss';
 
-const TextArea = ({
+const TextArea:FC<TPropsUITextArea> = ({
   message,
   name,
   onChange,
@@ -18,7 +18,6 @@ const TextArea = ({
   required = false,
   rows = 5,
   textareaState = 'default',
-  type = 'text',
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
@@ -45,7 +44,6 @@ const TextArea = ({
         placeholder={placeholder}
         required={required}
         rows={rows}
-        type={type}
         value={value}
       />
       {message && (
@@ -63,24 +61,6 @@ const TextArea = ({
   );
 };
 
-TextArea.propTypes = {
-  className: PropTypes.string,
-  label: PropTypes.string,
-  maxLength: PropTypes.number,
-  message: PropTypes.string,
-  minLength: PropTypes.number,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
-  placeholder: PropTypes.string,
-  ref: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.instanceOf(HTMLInputElement) }),
-  ]),
-  required: PropTypes.bool,
-  rows: PropTypes.number,
-  textareaState: PropTypes.string,
-  type: PropTypes.string,
-  value: PropTypes.string,
-};
+
 
 export default TextArea;

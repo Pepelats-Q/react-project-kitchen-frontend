@@ -6,24 +6,24 @@ import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
-import { TUsernameParams } from '../../utils/typesTs';
+import { TUsernameParams } from '../../utils/types';
 import {
   followUser,
   getProfile,
-  loadAllTags,
   profilePageUnload,
   unFollowUser,
 } from '../../services/reducers/profile-reducer';
 import { logout } from '../../services/reducers/common-reducer';
 import {
   changeTab,
+  loadAllTags,
   profileClearArticlesPageUnloaded,
 } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Profile: FC = () => {
-  // TODO: тут пока оставила store any, буду с типами статей чуть позже разбираться
+  // TODO осталось тут убрать any и в UseEffect От ошибки избавиться
   const { currentProfile, user, articlesUserPosts, articlesUserFavorites } = useSelector(
     (store: any) => ({
       currentProfile: store.profile.profile,
@@ -93,7 +93,7 @@ const Profile: FC = () => {
     } else {
       setCurrentArticles(articlesUserPosts);
     }
-  }, [articlesUserFavorites, articlesUserPosts]);
+  }, [articlesUserFavorites, articlesUserPosts, isFavorite]);
 
   const textPosts = isCurrentUserProfile
     ? localization({ page: 'profile', key: 'yourPosts' })

@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import agent from '../../../agent';
 import useTranslate from '../../../hooks/useTranslate';
+import { TPropsTags } from '../../../utils/typesPages';
 import styles from './tags.module.scss';
 
-const Tags: FC<{ tags: Array<string>; onClickTag: any }> = ({ tags, onClickTag }) => {
+const Tags: FC<TPropsTags> = ({ tags, onClickTag }) => {
   const localization = useTranslate();
 
   if (tags) {

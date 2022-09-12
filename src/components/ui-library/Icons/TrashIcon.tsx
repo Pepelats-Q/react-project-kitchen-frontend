@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { TPropsUIIcon } from '../../../utils/typesUI';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 
-const TrashIcon = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
+const TrashIcon: FC<TPropsUIIcon> = ({ onClick, size = 'default', color = 'primary', className = '' }) => {
   const icon = useIconParams({
     onClick,
     size,
@@ -47,13 +48,6 @@ const TrashIcon = ({ onClick, size = 'default', color = 'primary', className = '
       />
     </IconWrapper>
   );
-};
-
-TrashIcon.propTypes = {
-  className: PropTypes.string,
-  color: PropTypes.string,
-  onClick: PropTypes.func,
-  size: PropTypes.string,
 };
 
 export default TrashIcon;

@@ -4,8 +4,7 @@ import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
 import styles from './AuthForm.module.scss';
 import Button from '../ui-library/Buttons/Button/Button';
-import { TAuthForm } from '../../utils/typesTs';
-// import useSelector from '../../hooks/hooks';
+import { TAuthForm } from '../../utils/typesComponentProps';
 
 const AuthForm: FC<TAuthForm> = ({
   btnText,
@@ -18,7 +17,6 @@ const AuthForm: FC<TAuthForm> = ({
   children,
   apiErrors,
 }) => {
-  // const apiErrors = useSelector((store) => store.auth.errors);
   const handleSubmitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
     onSubmit();

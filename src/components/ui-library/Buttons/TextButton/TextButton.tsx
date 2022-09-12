@@ -2,7 +2,7 @@ import { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './TextButton.module.scss';
-import { TPropsTextButton } from '../../../../utils/typesTs';
+import { TPropsTextButton } from '../../../../utils/typesUI';
 
 const TextButton: FC<TPropsTextButton> = ({
   onClick,

@@ -117,17 +117,17 @@ const Editor: FC = () => {
       }
     >
       <TextField
+        fieldValid={validities.title}
         label={`${localization({ page: 'editor', key: 'header' })}`}
+        maxLength={25}
+        message={errors.title}
+        minLength={2}
         name='title'
         onChange={handleChange}
         placeholder={localization({ page: 'editor', key: 'articleName' })}
+        required
         type='text'
         value={values.title}
-        maxLength={25}
-        minLength={2}
-        required
-        message={errors.title}
-        fieldValid={validities.title}
       />
 
       <TextField
@@ -156,13 +156,12 @@ const Editor: FC = () => {
       />
       <TextArea
         label={localization({ page: 'editor', key: 'content' })}
+        message={errors.body}
         name='body'
         onChange={handleChange}
         placeholder={localization({ page: 'editor', key: 'articleText' })}
         rows={8}
-        type='text'
         value={values.body}
-        message={errors.body}
       />
 
       <div>

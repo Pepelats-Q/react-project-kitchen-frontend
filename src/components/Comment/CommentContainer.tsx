@@ -5,8 +5,8 @@ import styles from './Comment.module.scss';
 import Comment from './CommentCard';
 import useTranslate from '../../hooks/useTranslate';
 import { useSelector } from '../../hooks/hooks';
-import { TPropsWithSlug } from '../../utils/typesTs';
 import ListErrors from '../ListErrors/ListErrors';
+import { TPropsWithSlug } from '../../utils/typesComponentProps';
 
 const CommentContainer: FC<TPropsWithSlug> = ({ slug }) => {
   const { currentUser, comments, errorsStore } = useSelector((store) => ({

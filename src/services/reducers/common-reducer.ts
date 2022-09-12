@@ -1,5 +1,14 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TtodoAny } from '../../utils/types';
+import {
+  IArticleDelete,
+  IArticleSubmitType,
+  IChangeLang,
+  ICommonAppLoad,
+  ILoginType,
+  IRegisterType,
+  ISettingsSavedType,
+} from '../../utils/typesActions';
 import { login, register, registerPageUnload } from './auth-reducer';
 import { articleSubmit } from './editor-reducer';
 import { settingsSaved } from './settings-reducer';
@@ -13,6 +22,7 @@ type TCommonState = {
   redirectTo: string | null;
   token: string | null;
   viewChangeCounter: number;
+  currentLang: string;
 };
 
 const initialState: TCommonState = {
@@ -22,13 +32,14 @@ const initialState: TCommonState = {
   redirectTo: null,
   token: null,
   viewChangeCounter: 0,
+  currentLang: 'ru',
 };
 
 const commonReducer = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    appLoad(state, action: TtodoAny) {
+    appLoad(state, action: ICommonAppLoad) {
       const token = window.localStorage.getItem('jwt');
       state.token = token || null;
       state.appLoaded = true;
@@ -43,24 +54,27 @@ const commonReducer = createSlice({
       state.redirectTo = null;
     },
     // TODO: Почему редиректы вообще тут?
-    articleDelete(state, action: TtodoAny) {
+    articleDelete(state, action: IArticleDelete) {
       state.redirectTo = action.error ? null : '/';
+    },
+    changeLanguage(state, action: IChangeLang) {
+      state.currentLang = action.payload;
     },
   },
   extraReducers: {
-    [articleSubmit.type]: (state, action: PayloadAction<TtodoAny>) => {
+    [articleSubmit.type]: (state, action: IArticleSubmitType) => {
       state.redirectTo = `/article/${action.payload.payload.article.slug}`;
     },
-    [settingsSaved.type]: (state, action: AnyAction) => {
+    [settingsSaved.type]: (state, action: ISettingsSavedType) => {
       state.redirectTo = action.error ? null : '/';
       state.currentUser = action.error ? null : action.payload.payload.user;
     },
-    [register.type]: (state, action: AnyAction) => {
+    [register.type]: (state, action: IRegisterType) => {
       state.redirectTo = action.error ? null : '/';
       state.token = action.error ? null : action.payload.payload.user.token;
       state.currentUser = action.error ? null : action.payload.payload.user;
     },
-    [login.type]: (state, action: AnyAction) => {
+    [login.type]: (state, action: ILoginType) => {
       state.redirectTo = action.error ? null : '/';
       state.token = action.error ? null : action.payload.payload.user.token;
       state.currentUser = action.error ? null : action.payload.payload.user;
@@ -71,6 +85,6 @@ const commonReducer = createSlice({
   },
 });
 
-export const { appLoad, logout, redirect, articleDelete } = commonReducer.actions;
+export const { appLoad, logout, redirect, articleDelete, changeLanguage } = commonReducer.actions;
 
 export default commonReducer.reducer;

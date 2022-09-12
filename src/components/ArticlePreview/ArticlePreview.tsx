@@ -7,20 +7,21 @@ import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
 import { articleFavorite } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-import { TArticle } from '../../utils/typesTs';
+import { TArticlePreviewProps } from '../../utils/typesComponentProps';
 
-const ArticlePreview: FC<{article: TArticle}> = ({ article }) => {
+const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((store) => store.common.currentUser);
   const areAllHeartsDisabled = !currentUser;
   const localization = useTranslate();
 
-  const favorite = (slug: string) => dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
+  const favorite = (slug: string) =>
+    dispatch(articleFavorite({ payload: agent.Articles.favorite(slug) }));
 
   const unfavorite = (slug: string) =>
     dispatch(articleFavorite({ payload: agent.Articles.unfavorite(slug) }));
 
-  const handleClickToFavorite = (ev:  React.FormEvent<HTMLButtonElement>) => {
+  const handleClickToFavorite = (ev: React.FormEvent<HTMLButtonElement>) => {
     ev.preventDefault();
     if (article.favorited) {
       unfavorite(article.slug);

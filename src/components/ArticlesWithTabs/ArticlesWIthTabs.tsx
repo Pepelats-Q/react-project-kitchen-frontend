@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from '../../hooks/hooks';
 import useTranslate from '../../hooks/useTranslate';
 import Tags from '../../pages/Home/Tags/Tags';
 import { applyTagFilter } from '../../services/reducers/articlelist-reducer';
-import { TArticlesWithTabsProps } from '../../utils/typesTs';
+import { TArticlesWithTabsProps } from '../../utils/typesComponentProps';
 import ArticleList from '../ArticleList/ArticleList';
 import Tabs from '../Tabs/Tabs';
 import styles from './ArticlesWithTabs.module.scss';
@@ -11,7 +11,7 @@ import styles from './ArticlesWithTabs.module.scss';
 const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
   const dispatch = useDispatch();
 
-  const tags = useSelector((store) => store.profile.tags);
+  const tags = useSelector((store) => store.articleList.tags);
 
   const onClickTag = (tag: string, pager: any, payload: any) => {
     dispatch(applyTagFilter({ tag, pager, payload }));

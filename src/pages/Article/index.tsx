@@ -19,7 +19,7 @@ const Article: FC = () => {
 
   const localization = useTranslate();
   const dispatch = useDispatch();
-  const { id } = useParams<{id: string}>();
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
 
   const onLoad = (payload: any) => {
@@ -32,7 +32,9 @@ const Article: FC = () => {
 
   useEffect(() => {
     onLoad(Promise.all([agent.Articles.get(id), agent.Comments.forArticle(id)]));
-    // return () => onUnload();
+    return () => {
+      onUnload();
+    };
   }, [currentUser]);
 
   useEffect(() => {
@@ -65,7 +67,7 @@ const Article: FC = () => {
           <div className={styles.tagsContainer}>
             <p> {localization({ page: 'articlesLang', key: 'tags' })}</p>
             <ul className={styles.tag_list}>
-              {article.tagList.map((tag) => (
+              {article.tagList.map((tag: string) => (
                 <li key={tag} className={styles.tag_default}>
                   {tag}
                 </li>

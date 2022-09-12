@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TArticle, TComment, TtodoAny } from '../../utils/typesTs';
+import { TtodoAny } from '../../utils/types';
+import { IAddComment, IArticlePageLoad, IDeleteComment } from '../../utils/typesActions';
+import { TArticle, TComment } from '../../utils/typesComponentProps';
 
 type TArticleState = {
   article: TArticle | null;
@@ -17,20 +19,20 @@ const articleReducer = createSlice({
   name: 'article',
   initialState,
   reducers: {
-    articlePageLoad(state, action: TtodoAny) {
+    articlePageLoad(state, action: IArticlePageLoad) {
       state.article = action.payload.payload[0].article;
       state.comments = action.payload.payload[1].comments;
     },
     articlePageUnload() {
       return { ...initialState };
     },
-    addComment(state, action: TtodoAny) {
+    addComment(state, action: IAddComment) {
       state.commentErrors = action.error ? action.payload.errors : null;
       state.comments = action.error
         ? null
         : (state.comments || []).concat([action.payload.payload.comment]);
     },
-    deleteComment(state, action: TtodoAny) {
+    deleteComment(state, action: IDeleteComment) {
       state.comments = state.comments
         ? state.comments.filter((comment) => comment.id !== action.payload.commentId)
         : null;

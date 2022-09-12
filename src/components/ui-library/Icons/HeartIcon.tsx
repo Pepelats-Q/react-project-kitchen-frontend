@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { TPropsUIIcon } from '../../../utils/typesTs';
+import { TPropsUIIcon } from '../../../utils/typesUI';
 import useIconParams from './utils/hook';
 import IconWrapper from './utils/IconWrapper';
 

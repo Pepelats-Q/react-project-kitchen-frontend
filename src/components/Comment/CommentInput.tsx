@@ -7,8 +7,9 @@ import styles from './Comment.module.scss';
 import { addComment } from '../../services/reducers/article-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useSelector } from '../../hooks/hooks';
+import { TPropsWithSlug } from '../../utils/typesComponentProps';
 
-const CommentInput: FC<{ slug: string }> = ({ slug }) => {
+const CommentInput: FC<TPropsWithSlug> = ({ slug }) => {
   const { currentUser, currentProfile } = useSelector((state) => ({
     currentUser: state.common.currentUser,
     currentProfile: state.profile.profile,
@@ -36,7 +37,7 @@ const CommentInput: FC<{ slug: string }> = ({ slug }) => {
 
   return (
     <form className={styles.commentForm} onSubmit={createComment}>
-      {/* TODO: Надо добавить кастомный скролл в проект */}
+      {/* TODO: Надо добавить кастомный скролл в проект  - добавлено. удаляю коммент? */}
       <textarea
         className={styles.textarea}
         onChange={setBody}
@@ -52,7 +53,8 @@ const CommentInput: FC<{ slug: string }> = ({ slug }) => {
           </div>
         </div>
         {/* TODO: У кнопки свойство cursor после обновления слетает на default  */}
-        {/* у кнопки Button в ховере прописала cursor: pointer, теперь не слетает. Надо еще протестировать  */}
+        {/* у кнопки Button в ховере прописала cursor: pointer, теперь не слетает. Надо еще протестировать 
+        удаляю коммент?  */}
         <Button onClick={createComment}>{localization({ page: 'comments', key: 'post' })}</Button>
       </div>
     </form>

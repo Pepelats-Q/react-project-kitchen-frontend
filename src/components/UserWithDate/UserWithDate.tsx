@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from '../../hooks/hooks';
 import avatar from '../../images/avatarTemp.svg';
-import { TUserWIthDate } from '../../utils/typesTs';
+import { TUserWIthDate } from '../../utils/typesComponentProps';
 import styles from './userWithDate.module.scss';
 
 const UserWithDate: FC<TUserWIthDate> = ({ author, date }) => {
   const defaultAvatar = 'https://static.productionready.io/images/smiley-cyrus.jpg';
 
-  const currentLang = useSelector((state) => state.header.currentLang);
+  const currentLang = useSelector((state) => state.common.currentLang);
 
   return (
     <div className={styles.container}>
