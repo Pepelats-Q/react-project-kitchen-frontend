@@ -100,7 +100,7 @@ type Ttranslations = {
 const translations: Ttranslations | any = {
   en: {
     articlesLang: {
-      noArticlesMessage: "There's no articles...",
+      noArticlesMessage: "There're no articles...",
       readMore: 'Read more...',
       tags: 'Tags: ',
       edit: ' Edit Article',
