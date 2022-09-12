@@ -25,9 +25,10 @@ const NavButton: FC<TPropsNavButton & { onClick?: () => void }> = ({
       className={clsx(styles.button, types[type] ? types[type] : styles.navigation, className)}
       exact={exact}
       onClick={onClick}
-      to={to} 
+      to={to}
     >
-      {icon && <icon.type props={icon.props} />}
+      {/* TODO: убрать warn линтера на спред. Со спредом тут - самая краткая запись. Надо подумать, как еще можно сделать */}
+      {icon && <icon.type {...icon.props} />}
       <span>{children}</span>
     </NavLink>
   );
