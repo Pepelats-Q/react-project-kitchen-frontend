@@ -1,9 +1,15 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
-import { TTabButtonProps } from '../../../../utils/typesTs';
 
 import styles from './TabButton.module.scss';
+
+type TTabButtonProps = {
+  to: string;
+  exact?: boolean;
+  className?: string;
+  text: string;
+};
 
 const TabButton: FC<TTabButtonProps> = ({
   to = '/',

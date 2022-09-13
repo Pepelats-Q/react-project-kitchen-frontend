@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TtodoAny } from '../../utils/types';
 import { asyncStart } from './auth-reducer';
 
 type TEditorState = {
@@ -24,30 +24,34 @@ const initialState: TEditorState = {
   tagList: [],
 };
 
+interface IEditorArticleSubmit {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload?: any;
+  };
+}
+
+interface IEditorAsyncStart {
+  readonly type: string;
+  readonly subtype?: any;
+}
+
+export type TEditorActions = IEditorArticleSubmit | IEditorAsyncStart;
+
+// TODO: думаю, вообще избавиться от целого редьюсера, а articleSubmit перенести в article или common
 const editorReducer = createSlice({
   name: 'editor',
   initialState,
   reducers: {
-    // TODO этот экшен вообще нигде не используется. Я его удалил, когда переписывал редактор статей. Может обратно на стор переделать?
-    editorPageLoad(state, action: PayloadAction<TtodoAny>) {
-      const { payload } = action;
-      state.articleSlug = payload ? payload.article.slug : '';
-      state.title = payload ? payload.article.title : '';
-      state.description = payload ? payload.article.description : '';
-      state.body = payload ? payload.article.body : '';
-      state.tagInput = '';
-      state.tagList = payload ? payload.article.tagList : [];
-    },
-    editorPageUnload() {
-      return { ...initialState };
-    },
-    articleSubmit(state, action: AnyAction) {
+    articleSubmit(state, action: IEditorArticleSubmit) {
       state.errors = action.error ? action.payload.errors : null;
       state.inProgress = false;
     },
   },
   extraReducers: {
-    [asyncStart.type]: (state, action: AnyAction) => {
+    [asyncStart.type]: (state, action: IEditorAsyncStart) => {
       if (action.subtype === editorReducer.actions.articleSubmit.type) {
         state.inProgress = true;
       }
@@ -55,6 +59,6 @@ const editorReducer = createSlice({
   },
 });
 
-export const { editorPageLoad, editorPageUnload, articleSubmit } = editorReducer.actions;
+export const { articleSubmit } = editorReducer.actions;
 
 export default editorReducer.reducer;

@@ -1,9 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TtodoAny, TUser } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TUser } from '../../utils/types';
 
 type TProfileState = {
   profile: TUser;
-  tags: Array<string>;
 };
 
 const initialState: TProfileState = {
@@ -13,29 +12,50 @@ const initialState: TProfileState = {
     image: '',
     username: '',
   },
-  tags: [],
 };
+
+interface IFollowUser {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      profile: TUser;
+    };
+  };
+}
+interface IUnFollowUser {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      profile: TUser;
+    };
+  };
+}
+
+interface IGetProfile {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      profile: TUser;
+    };
+  };
+}
+
+export type TProfileActions = IFollowUser | IUnFollowUser | IGetProfile;
 
 const profileReducer = createSlice({
   name: 'profile',
   initialState,
   reducers: {
     // TODO: решить что делать с экшенами PROFILE_PAGE_UNLOADED и PROFILE_PAGE_LOADED
-    followUser(state, action: PayloadAction<TtodoAny>) {
-      console.log(state, action);
+    // загрузку профиля - удалила, а разгрузку профиля оставила, используется. Удалять коммент?
+    followUser(state, action: IFollowUser) {
+      console.log(state, action.payload);
     },
-    unFollowUser(state, action: PayloadAction<TtodoAny>) {
+    unFollowUser(state, action: IUnFollowUser) {
       state.profile = { ...action.payload.payload.profile };
     },
-    getProfile(state, action: PayloadAction<TtodoAny>) {
+    getProfile(state, action: IGetProfile) {
       state.profile = { ...action.payload.payload.profile };
-    },
-    // TODO: Что тут делают теги?!
-    loadAllTags(state, action: PayloadAction<TtodoAny>) {
-      state.tags = [...action.payload.payload.tags];
-    },
-    profilePageLoad(state, action: PayloadAction<TtodoAny>) {
-      state.profile = action.payload[0].profile;
     },
     profilePageUnload() {
       return { ...initialState };
@@ -43,13 +63,6 @@ const profileReducer = createSlice({
   },
 });
 
-export const {
-  followUser,
-  unFollowUser,
-  getProfile,
-  loadAllTags,
-  profilePageLoad,
-  profilePageUnload,
-} = profileReducer.actions;
+export const { followUser, unFollowUser, getProfile, profilePageUnload } = profileReducer.actions;
 
 export default profileReducer.reducer;

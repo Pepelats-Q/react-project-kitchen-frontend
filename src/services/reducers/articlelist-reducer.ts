@@ -1,6 +1,5 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
-import { TtodoAny, TArticle } from '../../utils/typesTs';
-import { homePageLoad, homePageUnload } from './home-reducer';
+import { createSlice } from '@reduxjs/toolkit';
+import { TArticle, TtodoAny } from '../../utils/types';
 
 type TArticleListState = {
   articles: Array<TArticle>;
@@ -28,11 +27,86 @@ const initialState: TArticleListState = {
   tags: [],
 };
 
+interface IArticleFavorite {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      article: TArticle;
+    };
+  };
+}
+
+interface ILoadAllArticles {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      articles: Array<TArticle>;
+    };
+  };
+}
+
+interface ISetPageAction {
+  readonly type: string;
+  readonly page?: any;
+  readonly payload: {
+    readonly page?: any;
+    payload: {
+      articles: Array<TArticle>;
+      articlesCount: number;
+    };
+  };
+}
+
+interface ILoadAllTags {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      tags: Array<string>;
+    };
+  };
+}
+
+interface IApplyTagFilter {
+  readonly type: string;
+  readonly tag?: string;
+  readonly pager?: any;
+  readonly payload: {
+    tag?: string;
+    pager?: any;
+    payload: {
+      articles: Array<TArticle>;
+      articlesCount: number;
+    };
+  };
+}
+
+interface IChangeTab {
+  readonly type: string;
+  readonly tab?: string;
+  readonly pager?: any;
+  readonly payload: {
+    tab: string;
+    pager?: any;
+    payload: {
+      articles: Array<TArticle>;
+      articlesCount: number;
+    };
+  };
+}
+
+export type TArticleListActions =
+  | IArticleFavorite
+  | ILoadAllArticles
+  | ISetPageAction
+  | ILoadAllTags
+  | IApplyTagFilter
+  | IChangeTab;
+
 const articleListReducer = createSlice({
   name: 'articleList',
   initialState,
   reducers: {
-    articleFavorite(state, action: AnyAction) {
+    articleFavorite(state, action: IArticleFavorite) {
       const updateAllLists = (articlesArray: Array<TArticle>) =>
         articlesArray.map((article) => {
           if (article.slug === action.payload.payload.article.slug) {
@@ -51,23 +125,26 @@ const articleListReducer = createSlice({
       const updatedFavs = updateAllLists(state.articlesProfileFavorites);
       state.articlesProfileFavorites = updatedFavs.filter((article) => article.favorited);
     },
-    loadAllArticles(state, action: AnyAction) {
+    loadAllArticles(state, action: ILoadAllArticles) {
       state.articles = [...action.payload.payload.articles];
     },
-    setPageAction(state, action: AnyAction) {
+    setPageAction(state, action: ISetPageAction) {
       state.articles = [...action.payload.payload.articles];
       state.articlesCount = action.payload.payload.articlesCount;
       state.currentPage = action.page;
     },
-    applyTagFilter(state, action: TtodoAny) {
+    loadAllTags(state, action: ILoadAllTags) {
+      state.tags = [...action.payload.payload.tags];
+    },
+    applyTagFilter(state, action: IApplyTagFilter) {
       state.articles = action.payload.payload.articles;
       state.articlesCount = action.payload.payload.articlesCount;
       state.currentPage = 0;
       state.pager = action.pager;
       state.tab = null;
-      state.tag = action.tag;
+      state.tag = action.tag ? action.tag : null;
     },
-    changeTab(state, action: TtodoAny) {
+    changeTab(state, action: IChangeTab) {
       state.pager = action.pager;
       if (action.payload.tab === 'feed') {
         state.articlesYourFeed = action.payload.payload.articles;
@@ -79,34 +156,27 @@ const articleListReducer = createSlice({
         state.articles = action.payload.payload.articles;
       }
       state.articlesCount = action.payload.payload.articlesCount;
-      state.tab = action.tab;
+      state.tab = action.tab ? action.tab : null;
       state.currentPage = 0;
       state.tag = null;
     },
-
     profileClearArticlesPageUnloaded() {
       return { ...initialState };
     },
-  },
-  extraReducers: {
-    [homePageLoad.type]: (state, action: AnyAction) => {
-      state.pager = action.pager;
-      state.tags = action.payload.payload[0].tags;
-      state.articles = action.payload.payload[1].articles;
-      state.articlesCount = action.payload.payload[1].articlesCount;
-      state.currentPage = 0;
-      state.tab = action.tab;
+    homePageClearArticlesUnloaded() {
+      return { ...initialState };
     },
-    [homePageUnload.type]: () => ({ ...initialState }),
   },
 });
 
 export const {
   articleFavorite,
   setPageAction,
+  loadAllTags,
   applyTagFilter,
   changeTab,
   profileClearArticlesPageUnloaded,
+  homePageClearArticlesUnloaded,
 } = articleListReducer.actions;
 
 export default articleListReducer.reducer;

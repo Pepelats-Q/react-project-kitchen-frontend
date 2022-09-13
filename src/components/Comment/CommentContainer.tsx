@@ -4,13 +4,15 @@ import CommentInput from './CommentInput';
 import styles from './Comment.module.scss';
 import Comment from './CommentCard';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
-import { TPropsWithSlug } from '../../utils/typesTs';
+import { useSelector } from '../../hooks/hooks';
+import ListErrors from '../ListErrors/ListErrors';
+import { TPropsWithSlug } from '../../utils/types';
 
 const CommentContainer: FC<TPropsWithSlug> = ({ slug }) => {
-  const { currentUser, comments } = useSelector((store) => ({
+  const { currentUser, comments, errorsStore } = useSelector((store) => ({
     currentUser: store.common.currentUser,
     comments: store.article.comments || [],
+    errorsStore: store.auth.errors,
   }));
   const localization = useTranslate();
 
@@ -21,7 +23,7 @@ const CommentContainer: FC<TPropsWithSlug> = ({ slug }) => {
       </h2>
       {currentUser ? (
         <div className={`${styles.comment} ${styles.comment_input}`}>
-          {/* TODO: разобраться с массивом ошибок при комментировании  <ListErrors errors={errors} /> */}
+          <ListErrors errors={errorsStore} />
           <CommentInput slug={slug} />
         </div>
       ) : (

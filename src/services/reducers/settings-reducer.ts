@@ -1,5 +1,5 @@
-import { createSlice, AnyAction } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TtodoAny, TUserWithToken } from '../../utils/types';
 import { asyncEnd, asyncStart } from './auth-reducer';
 
 type TSettingsState = {
@@ -12,11 +12,24 @@ const initialState: TSettingsState = {
   inProgress: false,
 };
 
+interface ISettingsSaved {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: {
+      user?: TUserWithToken;
+    };
+  };
+}
+
+export type TSettingsActions = ISettingsSaved;
+
 const settingsReducer = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    settingsSaved(state, action: AnyAction) {
+    settingsSaved(state, action: ISettingsSaved) {
       state.errors = action.error ? action.payload.errors : null;
       state.inProgress = false;
     },

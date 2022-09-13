@@ -1,11 +1,23 @@
-import { FC, FormEvent } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
 import styles from './AuthForm.module.scss';
 import Button from '../ui-library/Buttons/Button/Button';
-import { TAuthForm } from '../../utils/typesTs';
-import useSelector from '../../hooks/hooks';
+import { TValidity } from '../../utils/types';
+
+type TAuthForm = {
+  btnText: string;
+  children: React.ReactNode;
+  crossLinkText?: string;
+  formName: string;
+  isFormValid: boolean;
+  title: string;
+  onSubmit: () => void;
+  onSubmitBlur?: (e: any) => void;
+  oppositeLink?: string;
+  apiErrors: TValidity | null;
+};
 
 const AuthForm: FC<TAuthForm> = ({
   btnText,
@@ -14,38 +26,47 @@ const AuthForm: FC<TAuthForm> = ({
   formName,
   onSubmit,
   isFormValid,
+  onSubmitBlur,
+  title,
   children,
+  apiErrors,
 }) => {
-  const apiErrors = useSelector((store) => store.auth.errors);
-
-  const handleSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    onSubmit();
+    if (!isFormValid) {
+      if (onSubmitBlur) {
+        onSubmitBlur(event);
+      }
+    } else {
+      onSubmit();
+    }
   };
 
   return (
     <div className={styles.page}>
       <div className={styles.container}>
         <div className={styles.formBox}>
-          <h1 className={clsx(styles.title, 'header-h2')}>{btnText}</h1>
-          <div className={styles.oppositeLink}>
-            <Link className={clsx(styles.link, 'text-default')} to={oppositeLink}>
-              {crossLinkText}
-            </Link>
-          </div>
+          <h1 className={clsx(styles.title, 'header-h2')}>{title}</h1>
+          {oppositeLink ? (
+            <div className={styles.oppositeLink}>
+              <Link className={clsx(styles.link, 'text-default')} to={oppositeLink}>
+                {crossLinkText}
+              </Link>
+            </div>
+          ) : (
+            ''
+          )}
 
           <ListErrors errors={apiErrors} />
 
           <form className={styles.form} name={formName} noValidate onSubmit={handleSubmitForm}>
             {children}
-            <div className={styles.submit}>
-              <Button
-                className={styles.submit_button}
-                disabled={!isFormValid}
-                onClick={handleSubmitForm}
-              >
-                {btnText}
-              </Button>
+            <div className={styles.submit_container}>
+              <div className={styles.submit}>
+                <Button className={styles.submit_button} isSubmit>
+                  {btnText}
+                </Button>
+              </div>
             </div>
           </form>
         </div>

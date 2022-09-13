@@ -1,5 +1,5 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
-import { TArticle, TComment, TtodoAny } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TArticle, TComment, TtodoAny } from '../../utils/types';
 
 type TArticleState = {
   article: TArticle | null;
@@ -13,24 +13,52 @@ const initialState: TArticleState = {
   commentErrors: null,
 };
 
+interface IArticlePageLoad {
+  readonly type: string;
+  readonly payload: {
+    payload: [{ article: TArticle }, { comments: Array<TComment> }];
+  };
+}
+
+interface IAddComment {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: {
+      comment: TComment;
+    };
+  };
+}
+
+interface IDeleteComment {
+  readonly type: string;
+  readonly payload: {
+    commentId: string;
+    payload: any;
+  };
+}
+
+export type TArticleActions = IArticlePageLoad | IAddComment | IDeleteComment;
+
 const articleReducer = createSlice({
   name: 'article',
   initialState,
   reducers: {
-    articlePageLoad(state, action: TtodoAny) {
+    articlePageLoad(state, action: IArticlePageLoad) {
       state.article = action.payload.payload[0].article;
       state.comments = action.payload.payload[1].comments;
     },
     articlePageUnload() {
       return { ...initialState };
     },
-    addComment(state, action: AnyAction) {
+    addComment(state, action: IAddComment) {
       state.commentErrors = action.error ? action.payload.errors : null;
       state.comments = action.error
         ? null
         : (state.comments || []).concat([action.payload.payload.comment]);
     },
-    deleteComment(state, action: AnyAction) {
+    deleteComment(state, action: IDeleteComment) {
       state.comments = state.comments
         ? state.comments.filter((comment) => comment.id !== action.payload.commentId)
         : null;

@@ -6,8 +6,6 @@ import articlelistReducer from './articlelist-reducer';
 import authReducer from './auth-reducer';
 import commonReducer from './common-reducer';
 import editorReducer from './editor-reducer';
-import headerReducer from './header-reducer';
-import homeReducer from './home-reducer';
 import profileReducer from './profile-reducer';
 import settingsReducer from './settings-reducer';
 
@@ -17,8 +15,6 @@ const rootReducer = combineReducers({
   auth: authReducer,
   common: commonReducer,
   editor: editorReducer,
-  header: headerReducer,
-  home: homeReducer,
   profile: profileReducer,
   settings: settingsReducer,
   router: connectRouter(history),

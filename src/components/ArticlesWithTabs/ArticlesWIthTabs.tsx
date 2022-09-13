@@ -1,18 +1,23 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 import useTranslate from '../../hooks/useTranslate';
 import Tags from '../../pages/Home/Tags/Tags';
 import { applyTagFilter } from '../../services/reducers/articlelist-reducer';
-import { TArticlesWithTabsProps } from '../../utils/typesTs';
+import { TArticle, TNames } from '../../utils/types';
 import ArticleList from '../ArticleList/ArticleList';
 import Tabs from '../Tabs/Tabs';
 import styles from './ArticlesWithTabs.module.scss';
 
-const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
-  const dispatch = useDispatch<any>();
+type TArticlesWithTabsProps = {
+  tabsNames: Array<TNames>;
+  articles: Array<TArticle>;
+  articlesCount: number;
+};
 
-  const tags = useSelector((store) => store.profile.tags);
+const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
+  const dispatch = useDispatch();
+
+  const tags = useSelector((store) => store.articleList.tags);
 
   const onClickTag = (tag: string, pager: any, payload: any) => {
     dispatch(applyTagFilter({ tag, pager, payload }));

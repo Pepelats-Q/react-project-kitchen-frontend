@@ -1,8 +1,16 @@
 @import '../ui-library/ui-style/ui-style.scss';
 
+.box {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
 .article_preview {
   border-top: 1px solid $color-input;
-  padding: 1.5rem 0;
+  padding: 20px 0;
+  box-sizing: border-box;
   font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 400;

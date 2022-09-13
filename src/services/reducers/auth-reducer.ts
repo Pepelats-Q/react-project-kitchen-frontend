@@ -1,7 +1,8 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/typesTs';
+import { createSlice } from '@reduxjs/toolkit';
+import { TtodoAny } from '../../utils/types';
 
 type TAuthState = {
+  /* TODO: пока оставлю типизацию ошибок, позже сделаем */
   errors: TtodoAny | null;
   inProgress: boolean;
 };
@@ -11,16 +12,46 @@ const initialState: TAuthState = {
   inProgress: false,
 };
 
+interface ILogin {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: any;
+  };
+}
+
+interface IRegister {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: any;
+  };
+}
+
+interface IAsyncStart {
+  readonly type: string;
+  readonly payload: string;
+}
+
+interface ISetApiMessage {
+  readonly type: string;
+  readonly payload: any;
+}
+
+export type TAuthActions = ILogin | IRegister | IAsyncStart | ISetApiMessage;
+
 const authReducer = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login(state, action: TtodoAny) {
+    login(state, action: ILogin) {
       state.inProgress = false;
       state.errors = action.error ? action.payload.errors : null;
     },
     loginPageUnload() {},
-    register(state, action: AnyAction) {
+    register(state, action: IRegister) {
       state.inProgress = false;
       state.errors = action.error ? action.payload.errors : null;
     },
@@ -28,7 +59,7 @@ const authReducer = createSlice({
       return { ...initialState };
     },
     // Избавиться от UPDATE_FIELD_AUTH
-    asyncStart(state, action: AnyAction) {
+    asyncStart(state, action: IAsyncStart) {
       if (
         action.payload === authReducer.actions.login.type ||
         action.payload === authReducer.actions.register.type
@@ -37,8 +68,11 @@ const authReducer = createSlice({
       }
     },
     asyncEnd() {},
-    setApiMessage(state, action: PayloadAction<TtodoAny>) {
+    setApiMessage(state, action: ISetApiMessage) {
       state.errors = action.payload;
+    },
+    clearApiMessage(state) {
+      state.errors = null;
     },
   },
 });
@@ -51,6 +85,7 @@ export const {
   asyncStart,
   asyncEnd,
   setApiMessage,
+  clearApiMessage,
 } = authReducer.actions;
 
 export default authReducer.reducer;

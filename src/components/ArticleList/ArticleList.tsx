@@ -1,18 +1,18 @@
 import { FC } from 'react';
 import useTranslate from '../../hooks/useTranslate';
-import { TArticle } from '../../utils/typesTs';
+import { TArticle } from '../../utils/types';
 import ArticlePreview from '../ArticlePreview/ArticlePreview';
 import ListPagination from '../ListPagination/ListPagination';
 import styles from './articleList.module.scss';
 
-type TArticleList = {
+type TArticleListProps = {
   articles: Array<TArticle>;
   articlesCount: number;
   pager?: () => void;
   currentPage?: number;
 };
 
-const ArticleList: FC<TArticleList> = ({ articles, articlesCount, pager, currentPage }) => {
+const ArticleList: FC<TArticleListProps> = ({ articles, articlesCount, pager, currentPage }) => {
   const localization = useTranslate();
 
   if (!articles) {
@@ -32,7 +32,7 @@ const ArticleList: FC<TArticleList> = ({ articles, articlesCount, pager, current
   }
 
   return (
-    <div>
+    <div className={styles.box}>
       {articles.map((article) => (
         <ArticlePreview key={article.slug} article={article} />
       ))}

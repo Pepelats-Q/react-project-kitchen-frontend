@@ -1,9 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
-import styles from '../../components/AuthForm/AuthForm.module.scss';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
@@ -12,19 +10,23 @@ import { login, setApiMessage } from '../../services/reducers/auth-reducer';
 import { redirect } from '../../services/reducers/common-reducer';
 import TextField from '../../components/ui-library/TextField/TextField';
 import useTranslate from '../../hooks/useTranslate';
-import useSelector from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Login: FC = () => {
-  const currentUser = useSelector((store) => store.common.currentUser);
+  const { currentUser, errorsStore } = useSelector((store) => ({
+    currentUser: store.common.currentUser,
+    errorsStore: store.auth.errors,
+  }));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();
   const localization = useTranslate();
   const history = useHistory();
-  const { values, handleChange, errors, isValid } = useFormValidation({
-    email: '',
-    password: '',
-  });
+  const { values, handleChange, errors, isValid, validities, handleBlur, handleSubmitBlur } =
+    useFormValidation({
+      email: '',
+      password: '',
+    });
 
   const submitLogin = () => {
     if (isValid) {
@@ -49,44 +51,46 @@ const Login: FC = () => {
 
   return (
     <AuthForm
+      apiErrors={errorsStore}
       btnText={localization({ page: 'authForm', key: 'loginText' })}
       crossLinkText={localization({ page: 'authForm', key: 'loginQuestion' })}
       formName='login'
       isFormValid={isValid}
       onSubmit={submitLogin}
+      onSubmitBlur={handleSubmitBlur}
       oppositeLink='/register'
+      title={localization({ page: 'authForm', key: 'loginText' })}
     >
-      <div className={styles.fieldset}>
-        <TextField
-          icon={errors.password ? <AlertIcon color='alert' /> : null}
-          label={localization({ page: 'authForm', key: 'placeholderEmail' })}
-          maxLength={30}
-          minLength={2}
-          name='email'
-          onChange={handleChange}
-          placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
-          required
-          type='email'
-          value={values.email}
-        />
-        <p className={styles.error}>{errors.email}</p>
-      </div>
-
-      <div className={styles.fieldset}>
-        <TextField
-          icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
-          label={localization({ page: 'authForm', key: 'placeholderPass' })}
-          maxLength={25}
-          minLength={2}
-          name='password'
-          onChange={handleChange}
-          placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
-          required
-          type={isPasswordVisible ? 'text' : 'password'}
-          value={values.password}
-        />
-        <p className={styles.error}>{errors.password}</p>
-      </div>
+      <TextField
+        fieldValid={validities.email}
+        icon={errors.email ? <AlertIcon color='alert' /> : null}
+        label={localization({ page: 'authForm', key: 'placeholderEmail' })}
+        maxLength={30}
+        message={errors.email}
+        minLength={3}
+        name='email'
+        onBlur={handleBlur}
+        onChange={handleChange}
+        placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
+        required
+        type='email'
+        value={values.email}
+      />
+      <TextField
+        fieldValid={validities.password}
+        icon={errors.password ? <AlertIcon color='alert' /> : showPasswordIcon}
+        label={localization({ page: 'authForm', key: 'placeholderPass' })}
+        maxLength={25}
+        message={errors.password}
+        minLength={2}
+        name='password'
+        onBlur={handleBlur}
+        onChange={handleChange}
+        placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
+        required
+        type={isPasswordVisible ? 'text' : 'password'}
+        value={values.password}
+      />
     </AuthForm>
   );
 };

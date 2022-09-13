@@ -1,5 +1,11 @@
 import agent from './agent';
-import { asyncEnd, asyncStart, login, register } from './services/reducers/auth-reducer';
+import {
+  asyncEnd,
+  asyncStart,
+  login,
+  register,
+  setApiMessage,
+} from './services/reducers/auth-reducer';
 import { appLoad, logout } from './services/reducers/common-reducer';
 
 function isPromise(v) {
@@ -33,12 +39,13 @@ const promiseMiddleware = (store) => (next) => (action) => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
         }
-        console.log('ERROR', error);
+
         action.error = true;
         action.payload = error.response.body;
         if (!skipTracking) {
           // TODO: передается payload, а в редьюсере не используется
           store.dispatch(asyncEnd(action.payload));
+          store.dispatch(setApiMessage(action.payload));
         }
         store.dispatch(action);
       },

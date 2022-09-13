@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import style from './banner.module.scss';
 import useTranslate from '../../../hooks/useTranslate';
-import useSelector from '../../../hooks/hooks';
+import { useSelector } from '../../../hooks/hooks';
 
 const Banner: FC = () => {
   const localization = useTranslate();
