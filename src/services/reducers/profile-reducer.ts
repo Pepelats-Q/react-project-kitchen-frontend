@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IFollowUser, IGetProfile, IUnFollowUser } from '../../utils/typesActions';
-import { TUser } from '../../utils/typesComponentProps';
+import { TUser } from '../../utils/types';
 
 type TProfileState = {
   profile: TUser;

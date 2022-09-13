@@ -31,7 +31,7 @@ const Editor: FC = () => {
     }
   }, []);
 
-  const { values, handleChange, setValues, errors, isValid, validities } = useFormValidation({
+  const { values, handleChange, setValues, errors, isValid, validities, handleBlur, handleSubmitBlur } = useFormValidation({
     title: '',
     description: '',
     link: '',
@@ -47,7 +47,7 @@ const Editor: FC = () => {
   };
 
   const watchForEnter = (ev: React.KeyboardEvent) => {
-    if (ev.keyCode === 13) {
+    if (ev.key === 'Enter') {
       ev.preventDefault();
       if (values.tag) {
         if (!tagList.find((element) => element === values.tag)) {
@@ -110,6 +110,7 @@ const Editor: FC = () => {
       formName='editor'
       isFormValid={isValid}
       onSubmit={submitForm}
+      onSubmitBlur={handleSubmitBlur}
       title={
         urlParams.slug
           ? localization({ page: 'editor', key: 'editing' })
@@ -118,11 +119,12 @@ const Editor: FC = () => {
     >
       <TextField
         fieldValid={validities.title}
-        label={`${localization({ page: 'editor', key: 'header' })}`}
+        label={localization({ page: 'editor', key: 'header' })}
         maxLength={25}
         message={errors.title}
         minLength={2}
         name='title'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'editor', key: 'articleName' })}
         required
@@ -148,6 +150,7 @@ const Editor: FC = () => {
         message={errors.link}
         minLength={6}
         name='link'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'editor', key: 'imageLink' })}
         required
@@ -178,14 +181,14 @@ const Editor: FC = () => {
           value={values.tag}
         />
 
-        <div className={styles.tag_list}>
+        <ul className={styles.tag_list}>
           {(tagList || []).map((tag) => (
-            <div key={tag} className={styles.tag}>
+            <li key={tag} className={styles.tag}>
               <span>{tag}</span>
               <CloseIcon onClick={removeTagHandler(tag)} size='small' />
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </AuthForm>
   );

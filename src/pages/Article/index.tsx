@@ -74,6 +74,10 @@ const Article: FC = () => {
               ))}
             </ul>
           </div>
+          <div className={styles.text}>
+            <h2 className={styles.description}>{article.description}</h2>
+            <div dangerouslySetInnerHTML={{__html: article.body}} />
+          </div>
           <div className={styles.comments}>
             <CommentContainer slug={id} />
           </div>

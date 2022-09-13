@@ -5,7 +5,7 @@ import NavButton from '../ui-library/Buttons/NavButton/NavButton';
 import avatarTemp from '../../images/avatarTemp.svg';
 import useTranslate from '../../hooks/useTranslate';
 import styles from './header.module.scss';
-import { TNavHeader } from '../../utils/typesComponentProps';
+import { TNavHeader } from '../../utils/types';
 
 const LoggedNav: FC<TNavHeader> = ({ unFoldMobileMenu }) => {
   const [imgSrc, setImgSrc] = useState<string>(avatarTemp);

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/types';
 import {
   IApplyTagFilter,
   IArticleFavorite,
@@ -8,7 +7,7 @@ import {
   ILoadAllTags,
   ISetPageAction,
 } from '../../utils/typesActions';
-import { TArticle } from '../../utils/typesComponentProps';
+import { TArticle, TtodoAny } from '../../utils/types';
 
 type TArticleListState = {
   articles: Array<TArticle>;

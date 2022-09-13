@@ -1,10 +1,25 @@
 import clsx from 'clsx';
 
 import { FC, useState } from 'react';
-import { TPropsUITextArea } from '../../../utils/typesUI';
 import styles from './TextArea.module.scss';
 
-const TextArea:FC<TPropsUITextArea> = ({
+type TUITextAreaProps = {
+  className?: string;
+  label?: string;
+  maxLength?: number;
+  message?: string;
+  minLength?: number;
+  name: string;
+  onChange?: (e: any) => void;
+  placeholder: string;
+  ref?: () => void | { current: HTMLInputElement };
+  required?: boolean;
+  rows?: number;
+  textareaState?: string;
+  value?: string;
+};
+
+const TextArea: FC<TUITextAreaProps> = ({
   message,
   name,
   onChange,
@@ -60,7 +75,5 @@ const TextArea:FC<TPropsUITextArea> = ({
     </div>
   );
 };
-
-
 
 export default TextArea;

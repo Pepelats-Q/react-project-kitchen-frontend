@@ -1,5 +1,4 @@
-import { TUserWithToken } from './types';
-import { TArticle, TComment, TUser } from './typesComponentProps';
+import { TArticle, TComment, TUser, TUserWithToken } from './types';
 
 // article reducer actions
 export interface IArticlePageLoad {

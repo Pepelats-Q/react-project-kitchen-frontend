@@ -18,7 +18,7 @@ const Register = () => {
   }));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { values, handleChange, errors, isValid, validities } = useFormValidation({
+  const { values, handleChange, errors, isValid, validities, handleBlur, handleSubmitBlur } = useFormValidation({
     name: '',
     email: '',
     password: '',
@@ -49,6 +49,7 @@ const Register = () => {
   ) : (
     <ShowIcon onClick={() => setIsPasswordVisible(true)} />
   );
+  console.log('isval:', isValid);
 
   return (
     <AuthForm
@@ -58,6 +59,7 @@ const Register = () => {
       formName='register'
       isFormValid={isValid}
       onSubmit={submitRegister}
+      onSubmitBlur={handleSubmitBlur}
       oppositeLink='/login'
       title={localization({ page: 'authForm', key: 'registerText' })}
     >
@@ -69,6 +71,7 @@ const Register = () => {
         message={errors.name}
         minLength={2}
         name='name'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'authForm', key: 'placeholderName' })}
         required
@@ -99,6 +102,7 @@ const Register = () => {
         message={errors.password}
         minLength={2}
         name='password'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
         required

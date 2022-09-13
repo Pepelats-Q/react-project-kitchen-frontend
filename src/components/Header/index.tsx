@@ -19,6 +19,8 @@ const Header: FC = () => {
     currentUser: store.common.currentUser,
   }));
 
+  const appLoaded = useSelector((store) => store.common.appLoaded);
+
   const unFoldMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
@@ -40,6 +42,12 @@ const Header: FC = () => {
   ) : (
     <NotLoggedNav unFoldMobileMenu={unFoldMobileMenu} />
   );
+  const langSelect = (
+    <li className={styles.navItem}>
+      <LangSelect />
+    </li>
+  );
+  const currentHeader = appLoaded ? currentNav : '';
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -54,10 +62,8 @@ const Header: FC = () => {
           </Link>
 
           <ul className={`nav navbar-nav pull-xs-right ${styles.nav}`}>
-            {currentNav}
-            <li className={styles.navItem}>
-              <LangSelect />
-            </li>
+            {currentHeader}
+            {langSelect}
           </ul>
           <button className={styles.button_type_mobile} onClick={toggleMobileMenu} type='button'>
             <MenuIcon />
@@ -69,10 +75,8 @@ const Header: FC = () => {
         className={`${styles.header__mobile} ${isMobileMenuOpen ? styles.mobileNav_opened : ''}`}
       >
         <ul className={styles.mobileNav}>
-          {currentNav}
-          <li className={styles.navItem}>
-            <LangSelect />
-          </li>
+          {currentHeader}
+          {langSelect}
         </ul>
       </div>
     </>

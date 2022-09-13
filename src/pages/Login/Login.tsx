@@ -22,10 +22,13 @@ const Login: FC = () => {
   const dispatch = useDispatch();
   const localization = useTranslate();
   const history = useHistory();
-  const { values, handleChange, errors, isValid, validities } = useFormValidation({
-    email: '',
-    password: '',
-  });
+  const { values, handleChange, errors, isValid, validities, handleBlur, handleSubmitBlur } =
+    useFormValidation({
+      email: '',
+      password: '',
+    });
+
+    console.log('val:', values, ' err: ', errors, ' isValid?', isValid);
 
   const submitLogin = () => {
     if (isValid) {
@@ -48,6 +51,7 @@ const Login: FC = () => {
     <ShowIcon onClick={() => setIsPasswordVisible(true)} />
   );
 
+
   return (
     <AuthForm
       apiErrors={errorsStore}
@@ -56,6 +60,7 @@ const Login: FC = () => {
       formName='login'
       isFormValid={isValid}
       onSubmit={submitLogin}
+      onSubmitBlur={handleSubmitBlur}
       oppositeLink='/register'
       title={localization({ page: 'authForm', key: 'loginText' })}
     >
@@ -67,6 +72,7 @@ const Login: FC = () => {
         message={errors.email}
         minLength={3}
         name='email'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'authForm', key: 'placeholderEmail' })}
         required
@@ -81,6 +87,7 @@ const Login: FC = () => {
         message={errors.password}
         minLength={2}
         name='password'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'authForm', key: 'placeholderPass' })}
         required

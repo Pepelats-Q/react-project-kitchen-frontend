@@ -4,7 +4,21 @@ import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
 import styles from './AuthForm.module.scss';
 import Button from '../ui-library/Buttons/Button/Button';
-import { TAuthForm } from '../../utils/typesComponentProps';
+import { TValidity } from '../../utils/types';
+import useTranslate from '../../hooks/useTranslate';
+
+type TAuthForm = {
+  btnText: string;
+  children: React.ReactNode;
+  crossLinkText?: string;
+  formName: string;
+  isFormValid: boolean;
+  title: string;
+  onSubmit: () => void;
+  onSubmitBlur?: (e: any) => void;
+  oppositeLink?: string;
+  apiErrors: TValidity;
+};
 
 const AuthForm: FC<TAuthForm> = ({
   btnText,
@@ -13,14 +27,22 @@ const AuthForm: FC<TAuthForm> = ({
   formName,
   onSubmit,
   isFormValid,
+  onSubmitBlur,
   title,
   children,
   apiErrors,
 }) => {
   const handleSubmitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    onSubmit();
+    if (!isFormValid) {
+      if (onSubmitBlur) {
+        onSubmitBlur(event);
+      }
+    } else {
+      onSubmit();
+    }
   };
+  const localization = useTranslate();
 
   return (
     <div className={styles.page}>
@@ -41,14 +63,15 @@ const AuthForm: FC<TAuthForm> = ({
 
           <form className={styles.form} name={formName} noValidate onSubmit={handleSubmitForm}>
             {children}
-            <div className={styles.submit}>
-              <Button
-                className={styles.submit_button}
-                disabled={!isFormValid}
-                onClick={handleSubmitForm}
-              >
-                {btnText}
-              </Button>
+            <div className={styles.submit_container}>
+              <p className={styles.text}>
+                <sup>*</sup> {localization({ page: 'authForm', key: 'requiredField' })}
+              </p>
+              <div className={styles.submit}>
+                <Button className={styles.submit_button} isSubmit>
+                  {btnText}
+                </Button>
+              </div>
             </div>
           </form>
         </div>

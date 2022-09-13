@@ -1,7 +1,11 @@
 import { FC } from 'react';
-import { TTabsProps } from '../../utils/typesComponentProps';
+import { TNames } from '../../utils/types';
 import TabButton from '../ui-library/Buttons/TabButton/TabButton';
 import styles from './Tabs.module.scss';
+
+type TTabsProps = {
+  tabsNames: Array<TNames>;
+};
 
 const Tabs: FC<TTabsProps> = ({ tabsNames }) => (
   <div className='articles-toggle'>

@@ -1,8 +1,12 @@
 import { FC } from 'react';
-import { TErrorsList } from '../../utils/typesComponentProps';
 import styles from './listErrors.module.scss';
 
 const { messages } = styles;
+
+type TErrorsList = {
+  errors: any;
+};
+
 const ListErrors: FC<TErrorsList> = ({ errors }) => {
   if (errors) {
     const errorsKeys = Object.keys(errors);

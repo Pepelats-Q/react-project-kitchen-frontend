@@ -1,4 +1,3 @@
-// import { createSlice, PayloadAction, AnyAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/types';
 import { IEditorArticleSubmit, IEditorAsyncStart } from '../../utils/typesActions';

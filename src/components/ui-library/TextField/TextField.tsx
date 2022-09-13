@@ -1,16 +1,35 @@
+import React, { FC, useState } from 'react';
 import clsx from 'clsx';
-
-import { FC, useState } from 'react';
-import { TPropsUITextField } from '../../../utils/typesUI';
 import styles from './TextField.module.scss';
 
-const TextField: FC<TPropsUITextField> = ({
+type TUITextFieldProps = {
+  autocomplete?: string;
+  className?: string;
+  icon?: React.ReactNode;
+  label?: string;
+  maxLength?: number;
+  message?: string;
+  minLength?: number;
+  name: string;
+  onChange: (e: any) => void;
+  onKeyUp?: (e: any) => void;
+  onBlur?: (e: any) => void;
+  placeholder?: string;
+  ref?: () => void | { current: HTMLInputElement };
+  required?: boolean;
+  fieldValid?: boolean;
+  type?: string;
+  value?: string;
+};
+
+const TextField: FC<TUITextFieldProps> = ({
   icon,
   message,
   name,
   onChange,
   onKeyUp,
-  ref,
+  onBlur,
+  ref,  
   className = '',
   label = 'Название поля',
   maxLength = 128,
@@ -22,7 +41,19 @@ const TextField: FC<TPropsUITextField> = ({
   value = '',
   autocomplete = 'off',
 }) => {
+  // COMMENT TO DEL: состояние textfieldState  предлагаю не использовать совсем. Мы используем fieldValid из хука useFormValidation
+  // это поле показывает булевое значение - валидно ли поле или нет, нежели использовать стринговое 'success'
+
   const [isFocus, setIsFocus] = useState(false);
+
+  const onBlurInput = (e: any) => {
+    if (onBlur) {
+      onBlur(e);
+    }
+
+    setIsFocus(false);
+    
+  }
 
   return (
     <div className={clsx(className, styles.wrapper)}>
@@ -46,9 +77,9 @@ const TextField: FC<TPropsUITextField> = ({
           maxLength={maxLength}
           minLength={minLength}
           name={name}
-          onBlur={() => setIsFocus(false)}
+          onBlur={onBlur}
           onChange={onChange}
-          onFocus={() => setIsFocus(true)}
+          onFocus={onBlurInput}
           onKeyUp={onKeyUp}
           placeholder={placeholder}
           required={required}

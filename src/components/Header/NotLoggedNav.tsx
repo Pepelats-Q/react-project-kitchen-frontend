@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { HomeIcon, LoginIcon, EditIcon } from '../ui-library/Icons';
 import NavButton from '../ui-library/Buttons/NavButton/NavButton';
 import useTranslate from '../../hooks/useTranslate';
-import { TNavHeader } from '../../utils/typesComponentProps';
+import { TNavHeader } from '../../utils/types';
 
 const NotLoggedNav: FC<TNavHeader> = ({ unFoldMobileMenu }) => {
   const localization = useTranslate();

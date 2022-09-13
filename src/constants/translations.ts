@@ -18,6 +18,7 @@ type TCommon = {
   loading: string;
   tagsTitle: string;
   tagsLoading: string;
+  appNotLoaded: string;
 };
 type THomePageTexts = {
   bannerText: string;
@@ -49,6 +50,7 @@ type TAuthForm = {
   placeholderPass: string;
   loginText: string;
   loginQuestion: string;
+  requiredField: string;
 };
 
 type TEditor = {
@@ -110,6 +112,7 @@ const translations: Ttranslations | any = {
       loading: 'Loading...',
       tagsTitle: 'Popular tags',
       tagsLoading: 'Tags loading...',
+      appNotLoaded: 'App couldnt load. Try again later',
     },
     header: {
       mainPageText: 'Homepage',
@@ -138,6 +141,7 @@ const translations: Ttranslations | any = {
       placeholderPass: 'Password',
       loginText: 'Log in',
       loginQuestion: 'Do you need to register?',
+      requiredField: 'This is a required field.'
     },
     editor: {
       editing: 'Edit entry',
@@ -188,6 +192,7 @@ const translations: Ttranslations | any = {
       loading: 'Загрузка...',
       tagsTitle: 'Популярные теги',
       tagsLoading: 'Загрузка тегов...',
+      appNotLoaded: 'Приложение не может быть загружено. Попробуйте снова позднее.',
     },
     header: {
       mainPageText: 'Главная',
@@ -216,6 +221,7 @@ const translations: Ttranslations | any = {
       placeholderPass: 'Пароль',
       loginText: 'Войти',
       loginQuestion: 'Нужно зарегистрироваться?',
+      requiredField: 'Поле обязательно для заполнения'
     },
 
     editor: {

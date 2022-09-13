@@ -7,9 +7,11 @@ import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { articleDelete } from '../../services/reducers/common-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch } from '../../hooks/hooks';
-import { TPropsArticle } from '../../utils/typesPages';
+import { TArticle } from '../../utils/types';
 
-const ArticleActions: FC<TPropsArticle> = ({ article, canModify }) => {
+type TArticleProps = { article: TArticle; canModify: boolean };
+
+const ArticleActions: FC<TArticleProps> = ({ article, canModify }) => {
   const localization = useTranslate();
   const dispatch = useDispatch();
 

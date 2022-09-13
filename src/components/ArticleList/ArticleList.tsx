@@ -1,11 +1,18 @@
 import { FC } from 'react';
 import useTranslate from '../../hooks/useTranslate';
-import { TArticleList } from '../../utils/typesComponentProps';
+import { TArticle } from '../../utils/types';
 import ArticlePreview from '../ArticlePreview/ArticlePreview';
 import ListPagination from '../ListPagination/ListPagination';
 import styles from './articleList.module.scss';
 
-const ArticleList: FC<TArticleList> = ({ articles, articlesCount, pager, currentPage }) => {
+type TArticleListProps = {
+  articles: Array<TArticle>;
+  articlesCount: number;
+  pager?: () => void;
+  currentPage?: number;
+};
+
+const ArticleList: FC<TArticleListProps> = ({ articles, articlesCount, pager, currentPage }) => {
   const localization = useTranslate();
 
   if (!articles) {

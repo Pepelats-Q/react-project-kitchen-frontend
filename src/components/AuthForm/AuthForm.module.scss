@@ -47,11 +47,29 @@
   transition: color 0.4s ease;
 }
 
+.submit_container {
+  margin-top: 28px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 28px;
+}
+
+.text {
+  font-size: 13px;
+  line-height: 16px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: $color-secondary;
+  width: 100%;
+  max-width: 700px;
+}
+
 .submit {
   display: flex;
   width: 100%;
+  max-width: 200px;
   justify-content: flex-end;
-  margin-top: 28px;
+
 }
 
 .submit_button {

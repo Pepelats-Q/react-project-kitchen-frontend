@@ -28,7 +28,16 @@ const Settings: FC = () => {
     }
   }, [token]);
 
-  const { values, handleChange, setValues, validities, isValid, errors } = useFormValidation({
+  const {
+    values,
+    handleChange,
+    setValues,
+    validities,
+    isValid,
+    errors,
+    handleBlur,
+    handleSubmitBlur,
+  } = useFormValidation({
     image: '',
     username: '',
     bio: '',
@@ -67,6 +76,7 @@ const Settings: FC = () => {
       formName='editor'
       isFormValid={isValid}
       onSubmit={submitFormHandler}
+      onSubmitBlur={handleSubmitBlur}
       title={localization({ page: 'settings', key: 'yourSettings' })}
     >
       <TextField
@@ -87,6 +97,7 @@ const Settings: FC = () => {
         message={errors.username}
         minLength={2}
         name='username'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'settings', key: 'placeholderName' })}
         required
@@ -110,6 +121,7 @@ const Settings: FC = () => {
         message={errors.email}
         minLength={2}
         name='email'
+        onBlur={handleBlur}
         onChange={handleChange}
         placeholder={localization({ page: 'settings', key: 'placeholderEmail' })}
         required

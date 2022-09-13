@@ -7,7 +7,11 @@ import { HeartIcon, HeartIconFilled } from '../ui-library/Icons';
 import { articleFavorite } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-import { TArticlePreviewProps } from '../../utils/typesComponentProps';
+import { TArticle } from '../../utils/types';
+
+type TArticlePreviewProps = {
+  article: TArticle;
+};
 
 const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
   const dispatch = useDispatch();
@@ -30,6 +34,8 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
     }
   };
 
+  const excerpt = article.body.substring(0,250);
+
   return (
     <div className={styles.article_preview}>
       <div className={styles.row}>
@@ -37,7 +43,7 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
           <div className={styles.image} style={{ backgroundImage: `url(${article.link})` }} />
         </div>
         <div className={`${styles.colArticle} ${styles.w100}`}>
-          <div className={styles.article_meta}>
+          <div className={styles.meta}>
             <UserWithDate author={article.author} date={article.createdAt} />
 
             <div className={styles.pull_xs_right}>
@@ -65,7 +71,7 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
 
           <Link className={styles.link} to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
-            <p className={styles.text}>{article.description}</p>
+            <div dangerouslySetInnerHTML={{ __html: excerpt }} className={styles.text} />
             <span className={styles.continue}>
               {localization({ page: 'articlesLang', key: 'readMore' })}
             </span>

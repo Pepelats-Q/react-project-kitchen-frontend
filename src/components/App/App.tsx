@@ -59,9 +59,12 @@ const App: FC = () => {
     );
   }
   return (
-    <div>
-      <NotLoadedApp />
-    </div>
+    <TranslationProvider>
+      <main className={styles.main}>
+        <Header />
+        <NotLoadedApp />
+      </main>
+    </TranslationProvider>
   );
 };
 

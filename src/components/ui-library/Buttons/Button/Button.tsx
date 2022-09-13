@@ -1,8 +1,18 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './Button.module.scss';
-import { TPropsButton } from '../../../../utils/typesUI';
+
+type TPropsButton = {
+  children?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
+  icon?: any;
+  isSubmit?: boolean;
+  onClick?: (ev: React.SyntheticEvent) => void;
+  type?: string;
+  value?: string;
+};
 
 const Button: FC<TPropsButton> = ({
   icon,
@@ -14,7 +24,7 @@ const Button: FC<TPropsButton> = ({
   children = 'Кнопка',
   value = 'ru',
 }) => {
-  const types: any = {
+  const types: {[key: string]: string} = {
     primary: styles.primary,
     outline_alert: styles.outline_alert,
     lang: styles.lang,

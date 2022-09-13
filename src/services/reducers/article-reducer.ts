@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/types';
 import { IAddComment, IArticlePageLoad, IDeleteComment } from '../../utils/typesActions';
-import { TArticle, TComment } from '../../utils/typesComponentProps';
+import { TArticle, TComment, TtodoAny } from '../../utils/types';
 
 type TArticleState = {
   article: TArticle | null;

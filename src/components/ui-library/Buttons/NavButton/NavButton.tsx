@@ -1,11 +1,20 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 
 import styles from './NavButton.module.scss';
-import { TPropsNavButton } from '../../../../utils/typesUI';
 
-const NavButton: FC<TPropsNavButton & { onClick?: () => void }> = ({
+type TPropsNavButton = {
+  children?: React.ReactNode;
+  className?: string;
+  icon?: any;
+  to: string;
+  exact?: boolean;
+  type?: string;
+  onClick?: () => void;
+};
+
+const NavButton: FC<TPropsNavButton> = ({
   icon,
   to = '/',
   exact = true,
@@ -14,7 +23,7 @@ const NavButton: FC<TPropsNavButton & { onClick?: () => void }> = ({
   type = 'navigation',
   onClick = () => {},
 }) => {
-  const types: any = {
+  const types: { [key: string]: string } = {
     primary: styles.primary,
     navigation: styles.navigation,
   };

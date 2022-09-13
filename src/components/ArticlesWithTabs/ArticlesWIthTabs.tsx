@@ -3,10 +3,16 @@ import { useDispatch, useSelector } from '../../hooks/hooks';
 import useTranslate from '../../hooks/useTranslate';
 import Tags from '../../pages/Home/Tags/Tags';
 import { applyTagFilter } from '../../services/reducers/articlelist-reducer';
-import { TArticlesWithTabsProps } from '../../utils/typesComponentProps';
+import { TArticle, TNames } from '../../utils/types';
 import ArticleList from '../ArticleList/ArticleList';
 import Tabs from '../Tabs/Tabs';
 import styles from './ArticlesWithTabs.module.scss';
+
+type TArticlesWithTabsProps = {
+  tabsNames: Array<TNames>;
+  articles: Array<TArticle>;
+  articlesCount: number;
+};
 
 const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
   const dispatch = useDispatch();

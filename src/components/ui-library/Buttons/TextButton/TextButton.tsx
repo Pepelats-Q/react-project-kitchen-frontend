@@ -1,8 +1,15 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './TextButton.module.scss';
-import { TPropsTextButton } from '../../../../utils/typesUI';
+
+type TPropsTextButton = {
+  children?: React.ReactNode;
+  className?: string;
+  color?: string;
+  value?: string;
+  onClick?: (ev: React.SyntheticEvent) => void;
+};
 
 const TextButton: FC<TPropsTextButton> = ({
   onClick,

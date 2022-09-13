@@ -1,11 +1,18 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import clsx from 'clsx';
 
 import styles from './IconWrapper.module.scss';
-import { TPropsUIIconWrapper } from '../../../../utils/typesUI';
 
-const IconWrapper: FC<TPropsUIIconWrapper> = ({ children, color, handleClick, size, className }) =>
+export type TUIIconWrapperProps = {
+  children?: React.ReactNode;
+  className?: string;
+  color?: string;
+  handleClick?: () => void;
+  size?: string;
+};
+
+const IconWrapper: FC<TUIIconWrapperProps> = ({ children, color, handleClick, size, className }) =>
   handleClick ? (
     <button
       className={clsx(
