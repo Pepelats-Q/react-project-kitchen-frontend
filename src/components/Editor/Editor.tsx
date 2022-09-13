@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import agent from '../../agent';
 import TextField from '../ui-library/TextField/TextField';
@@ -55,7 +55,8 @@ const Editor: FC = () => {
     dispatch(articleSubmit({ payload }));
   };
 
-  const watchForEnter = (ev: React.KeyboardEvent) => {
+  const watchForEnter = (ev: any) => {    
+    // TODO статья отправляется в публикацию при нажатии Enter. Исправить это 
     if (ev.key === 'Enter') {
       ev.preventDefault();
       if (values.tag) {
@@ -64,6 +65,7 @@ const Editor: FC = () => {
           setValues({ ...values, tag: '' });
         }
       }
+      return false;
     }
   };
 

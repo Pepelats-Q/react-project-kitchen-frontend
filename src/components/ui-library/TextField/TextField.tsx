@@ -27,7 +27,7 @@ const TextField: FC<TUITextFieldProps> = ({
   message,
   name,
   onChange,
-  onKeyUp,
+  onKeyUp = () => {},
   onBlur,
   ref,
   className = '',
