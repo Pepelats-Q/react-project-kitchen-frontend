@@ -24,7 +24,7 @@ const Button: FC<TPropsButton> = ({
   children = 'Кнопка',
   value = 'ru',
 }) => {
-  const types: {[key: string]: string} = {
+  const types: { [key: string]: string } = {
     primary: styles.primary,
     outline_alert: styles.outline_alert,
     lang: styles.lang,

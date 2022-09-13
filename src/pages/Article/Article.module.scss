@@ -99,10 +99,21 @@
   color: $color-primary;
 }
 
+.tagsTitle {
+  font-size: 16px;
+  line-height: 20px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 .tagsContainer {
   display: flex;
   min-height: 30px;
   align-items: center;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 30px 0 0 0;
 }
 
 .tag_list {
@@ -121,6 +132,7 @@
   font-size: 12px;
   padding: 4px 8px;
   border-radius: 100px;
+  margin: 0 8px 0 0;
 }
 
 .date {
@@ -130,6 +142,13 @@
   font-family: 'JetBrains Mono', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+.text {
+  width: 100%;
+  margin: 30px 0 48px 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 1120px) {

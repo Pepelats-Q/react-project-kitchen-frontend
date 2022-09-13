@@ -51,6 +51,7 @@ type TAuthForm = {
   loginText: string;
   loginQuestion: string;
   requiredField: string;
+  apiCorrectMessage: string;
 };
 
 type TEditor = {
@@ -141,7 +142,8 @@ const translations: Ttranslations | any = {
       placeholderPass: 'Password',
       loginText: 'Log in',
       loginQuestion: 'Do you need to register?',
-      requiredField: 'This is a required field.'
+      requiredField: 'This is a required field.',
+      apiCorrectMessage: 'Fill in all fields correctly',
     },
     editor: {
       editing: 'Edit entry',
@@ -221,7 +223,8 @@ const translations: Ttranslations | any = {
       placeholderPass: 'Пароль',
       loginText: 'Войти',
       loginQuestion: 'Нужно зарегистрироваться?',
-      requiredField: 'Поле обязательно для заполнения'
+      requiredField: 'Поле обязательно для заполнения',
+      apiCorrectMessage: 'Заполните все поля формы верно',
     },
 
     editor: {

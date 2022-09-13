@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/types';
-import { IEditorArticleSubmit, IEditorAsyncStart } from '../../utils/typesActions';
 import { asyncStart } from './auth-reducer';
 
 type TEditorState = {
@@ -24,6 +23,22 @@ const initialState: TEditorState = {
   tagInput: '',
   tagList: [],
 };
+
+interface IEditorArticleSubmit {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload?: any;
+  };
+}
+
+interface IEditorAsyncStart {
+  readonly type: string;
+  readonly subtype?: any;
+}
+
+export type TEditorActions = IEditorArticleSubmit | IEditorAsyncStart;
 
 // TODO: думаю, вообще избавиться от целого редьюсера, а articleSubmit перенести в article или common
 const editorReducer = createSlice({

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IFollowUser, IGetProfile, IUnFollowUser } from '../../utils/typesActions';
 import { TUser } from '../../utils/types';
 
 type TProfileState = {
@@ -14,6 +13,34 @@ const initialState: TProfileState = {
     username: '',
   },
 };
+
+interface IFollowUser {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      profile: TUser;
+    };
+  };
+}
+interface IUnFollowUser {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      profile: TUser;
+    };
+  };
+}
+
+interface IGetProfile {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      profile: TUser;
+    };
+  };
+}
+
+export type TProfileActions = IFollowUser | IUnFollowUser | IGetProfile;
 
 const profileReducer = createSlice({
   name: 'profile',

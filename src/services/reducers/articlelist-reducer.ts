@@ -1,12 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  IApplyTagFilter,
-  IArticleFavorite,
-  IChangeTab,
-  ILoadAllArticles,
-  ILoadAllTags,
-  ISetPageAction,
-} from '../../utils/typesActions';
 import { TArticle, TtodoAny } from '../../utils/types';
 
 type TArticleListState = {
@@ -34,6 +26,81 @@ const initialState: TArticleListState = {
   tag: null,
   tags: [],
 };
+
+interface IArticleFavorite {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      article: TArticle;
+    };
+  };
+}
+
+interface ILoadAllArticles {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      articles: Array<TArticle>;
+    };
+  };
+}
+
+interface ISetPageAction {
+  readonly type: string;
+  readonly page?: any;
+  readonly payload: {
+    readonly page?: any;
+    payload: {
+      articles: Array<TArticle>;
+      articlesCount: number;
+    };
+  };
+}
+
+interface ILoadAllTags {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      tags: Array<string>;
+    };
+  };
+}
+
+interface IApplyTagFilter {
+  readonly type: string;
+  readonly tag?: string;
+  readonly pager?: any;
+  readonly payload: {
+    tag?: string;
+    pager?: any;
+    payload: {
+      articles: Array<TArticle>;
+      articlesCount: number;
+    };
+  };
+}
+
+interface IChangeTab {
+  readonly type: string;
+  readonly tab?: string;
+  readonly pager?: any;
+  readonly payload: {
+    tab: string;
+    pager?: any;
+    payload: {
+      articles: Array<TArticle>;
+      articlesCount: number;
+    };
+  };
+}
+
+export type TArticleListActions =
+  | IArticleFavorite
+  | ILoadAllArticles
+  | ISetPageAction
+  | ILoadAllTags
+  | IApplyTagFilter
+  | IChangeTab;
 
 const articleListReducer = createSlice({
   name: 'articleList',

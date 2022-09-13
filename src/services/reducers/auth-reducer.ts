@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/types';
-import { IAsyncStart, ILogin, IRegister, ISetApiMessage } from '../../utils/typesActions';
 
 type TAuthState = {
+  /* TODO: пока оставлю типизацию ошибок, позже сделаем */
   errors: TtodoAny | null;
   inProgress: boolean;
 };
@@ -11,6 +11,36 @@ const initialState: TAuthState = {
   errors: null,
   inProgress: false,
 };
+
+interface ILogin {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: any;
+  };
+}
+
+interface IRegister {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: any;
+  };
+}
+
+interface IAsyncStart {
+  readonly type: string;
+  readonly payload: string;
+}
+
+interface ISetApiMessage {
+  readonly type: string;
+  readonly payload: any;
+}
+
+export type TAuthActions = ILogin | IRegister | IAsyncStart | ISetApiMessage;
 
 const authReducer = createSlice({
   name: 'auth',

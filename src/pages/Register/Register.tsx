@@ -18,11 +18,12 @@ const Register = () => {
   }));
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const { values, handleChange, errors, isValid, validities, handleBlur, handleSubmitBlur } = useFormValidation({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const { values, handleChange, errors, isValid, validities, handleBlur, handleSubmitBlur } =
+    useFormValidation({
+      name: '',
+      email: '',
+      password: '',
+    });
 
   const dispatch = useDispatch();
   const localization = useTranslate();
@@ -34,7 +35,7 @@ const Register = () => {
         register({ payload: agent.Auth.register(values.name, values.email, values.password) }),
       );
     } else {
-      dispatch(setApiMessage(['Заполните все поля формы верно']));
+      dispatch(setApiMessage([localization({ page: 'authForm', key: 'apiCorrectMessage' })]));
     }
   };
 
@@ -49,7 +50,6 @@ const Register = () => {
   ) : (
     <ShowIcon onClick={() => setIsPasswordVisible(true)} />
   );
-  console.log('isval:', isValid);
 
   return (
     <AuthForm

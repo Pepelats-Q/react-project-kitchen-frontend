@@ -14,9 +14,7 @@ const ListErrors: FC<TErrorsList> = ({ errors }) => {
     return (
       <ul className={messages}>
         {errorsKeys.map((objKey, index) => (
-          <li key={objKey}>
-            {`${objKey} ${errorsValues[index]}`}
-          </li>
+          <li key={objKey}>{`${objKey} ${errorsValues[index]}`}</li>
         ))}
       </ul>
     );

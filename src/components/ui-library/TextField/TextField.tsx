@@ -29,7 +29,7 @@ const TextField: FC<TUITextFieldProps> = ({
   onChange,
   onKeyUp,
   onBlur,
-  ref,  
+  ref,
   className = '',
   label = 'Название поля',
   maxLength = 128,
@@ -52,14 +52,12 @@ const TextField: FC<TUITextFieldProps> = ({
     }
 
     setIsFocus(false);
-    
-  }
+  };
 
   return (
     <div className={clsx(className, styles.wrapper)}>
       <label className={styles.label} htmlFor={name}>
         {label}
-        <sup>{`${required ? '*' : ''}`}</sup>
       </label>
 
       <div

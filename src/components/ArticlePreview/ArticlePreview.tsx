@@ -34,7 +34,7 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
     }
   };
 
-  const excerpt = article.body.substring(0,250);
+  const excerpt = article.body.substring(0, 250);
 
   return (
     <div className={styles.article_preview}>
@@ -71,7 +71,7 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
 
           <Link className={styles.link} to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
-            <div dangerouslySetInnerHTML={{ __html: excerpt }} className={styles.text} />
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: excerpt }}  />
             <span className={styles.continue}>
               {localization({ page: 'articlesLang', key: 'readMore' })}
             </span>

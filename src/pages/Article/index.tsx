@@ -64,19 +64,26 @@ const Article: FC = () => {
           ) : (
             ''
           )}
-          <div className={styles.tagsContainer}>
-            <p> {localization({ page: 'articlesLang', key: 'tags' })}</p>
-            <ul className={styles.tag_list}>
-              {article.tagList.map((tag: string) => (
-                <li key={tag} className={styles.tag_default}>
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {article.tagList.length > 0 ? (
+            <div className={styles.tagsContainer}>
+              <p className={styles.tagsTitle}>
+                {' '}
+                {localization({ page: 'articlesLang', key: 'tags' })}
+              </p>
+              <ul className={styles.tag_list}>
+                {article.tagList.map((tag: string) => (
+                  <li key={tag} className={styles.tag_default}>
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            ''
+          )}
           <div className={styles.text}>
             <h2 className={styles.description}>{article.description}</h2>
-            <div dangerouslySetInnerHTML={{__html: article.body}} />
+            <div dangerouslySetInnerHTML={{ __html: article.body }} />
           </div>
           <div className={styles.comments}>
             <CommentContainer slug={id} />

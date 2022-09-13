@@ -5,7 +5,6 @@ import ListErrors from '../ListErrors/ListErrors';
 import styles from './AuthForm.module.scss';
 import Button from '../ui-library/Buttons/Button/Button';
 import { TValidity } from '../../utils/types';
-import useTranslate from '../../hooks/useTranslate';
 
 type TAuthForm = {
   btnText: string;
@@ -17,7 +16,7 @@ type TAuthForm = {
   onSubmit: () => void;
   onSubmitBlur?: (e: any) => void;
   oppositeLink?: string;
-  apiErrors: TValidity;
+  apiErrors: TValidity | null;
 };
 
 const AuthForm: FC<TAuthForm> = ({
@@ -42,7 +41,6 @@ const AuthForm: FC<TAuthForm> = ({
       onSubmit();
     }
   };
-  const localization = useTranslate();
 
   return (
     <div className={styles.page}>
@@ -64,9 +62,6 @@ const AuthForm: FC<TAuthForm> = ({
           <form className={styles.form} name={formName} noValidate onSubmit={handleSubmitForm}>
             {children}
             <div className={styles.submit_container}>
-              <p className={styles.text}>
-                <sup>*</sup> {localization({ page: 'authForm', key: 'requiredField' })}
-              </p>
               <div className={styles.submit}>
                 <Button className={styles.submit_button} isSubmit>
                   {btnText}

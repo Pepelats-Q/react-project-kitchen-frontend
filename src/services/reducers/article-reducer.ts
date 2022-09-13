@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IAddComment, IArticlePageLoad, IDeleteComment } from '../../utils/typesActions';
 import { TArticle, TComment, TtodoAny } from '../../utils/types';
 
 type TArticleState = {
@@ -13,6 +12,34 @@ const initialState: TArticleState = {
   comments: null,
   commentErrors: null,
 };
+
+interface IArticlePageLoad {
+  readonly type: string;
+  readonly payload: {
+    payload: [{ article: TArticle }, { comments: Array<TComment> }];
+  };
+}
+
+interface IAddComment {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    errors?: any;
+    payload: {
+      comment: TComment;
+    };
+  };
+}
+
+interface IDeleteComment {
+  readonly type: string;
+  readonly payload: {
+    commentId: string;
+    payload: any;
+  };
+}
+
+export type TArticleActions = IArticlePageLoad | IAddComment | IDeleteComment;
 
 const articleReducer = createSlice({
   name: 'article',

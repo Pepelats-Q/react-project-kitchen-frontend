@@ -1,14 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TtodoAny } from '../../utils/types';
-import {
-  IArticleDelete,
-  IArticleSubmitType,
-  IChangeLang,
-  ICommonAppLoad,
-  ILoginType,
-  IRegisterType,
-  ISettingsSavedType,
-} from '../../utils/typesActions';
+import { TArticle, TtodoAny, TUserWithToken } from '../../utils/types';
 import { login, register, registerPageUnload } from './auth-reducer';
 import { articleSubmit } from './editor-reducer';
 import { settingsSaved } from './settings-reducer';
@@ -34,6 +25,78 @@ const initialState: TCommonState = {
   viewChangeCounter: 0,
   currentLang: 'ru',
 };
+
+interface ICommonAppLoad {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      user: TUserWithToken | null;
+    };
+  };
+}
+
+interface IArticleDelete {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    payload: {
+      article: TArticle;
+    };
+  };
+}
+
+interface IChangeLang {
+  readonly type: string;
+  readonly payload: string;
+}
+
+interface IArticleSubmitType {
+  readonly type: string;
+  readonly payload: {
+    payload: {
+      article: TArticle;
+    };
+  };
+}
+
+interface ISettingsSavedType {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    payload: {
+      user?: TUserWithToken;
+    };
+  };
+}
+
+interface IRegisterType {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    payload: {
+      user: TUserWithToken;
+    };
+  };
+}
+
+interface ILoginType {
+  readonly type: string;
+  readonly error?: any;
+  readonly payload: {
+    payload: {
+      user: TUserWithToken;
+    };
+  };
+}
+
+export type TCommonActions =
+  | ICommonAppLoad
+  | IChangeLang
+  | IArticleDelete
+  | IArticleSubmitType
+  | ISettingsSavedType
+  | IRegisterType
+  | ILoginType;
 
 const commonReducer = createSlice({
   name: 'common',

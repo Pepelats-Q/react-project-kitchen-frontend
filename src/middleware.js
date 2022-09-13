@@ -1,5 +1,11 @@
 import agent from './agent';
-import { asyncEnd, asyncStart, login, register, setApiMessage } from './services/reducers/auth-reducer';
+import {
+  asyncEnd,
+  asyncStart,
+  login,
+  register,
+  setApiMessage,
+} from './services/reducers/auth-reducer';
 import { appLoad, logout } from './services/reducers/common-reducer';
 
 function isPromise(v) {
@@ -33,7 +39,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
           return;
         }
-        console.log('ERRORs in middleware: ', error);
+
         action.error = true;
         action.payload = error.response.body;
         if (!skipTracking) {

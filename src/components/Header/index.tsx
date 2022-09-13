@@ -56,7 +56,7 @@ const Header: FC = () => {
   return (
     <>
       <nav className={`navbar navbar-light ${styles.container}`}>
-        <div className={`container ${styles.header}`}>
+        <div className={styles.header}>
           <Link className={styles.navLogo} to='/'>
             {appName}
           </Link>

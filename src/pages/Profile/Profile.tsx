@@ -6,7 +6,7 @@ import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';
 import { MinusIcon, PlusIcon, GearIcon } from '../../components/ui-library/Icons';
 import ArticlesWithTabs from '../../components/ArticlesWithTabs/ArticlesWIthTabs';
-import { TUsernameParams } from '../../utils/types';
+import { TArticle, TUsernameParams } from '../../utils/types';
 import {
   followUser,
   getProfile,
@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from '../../hooks/hooks';
 const Profile: FC = () => {
   // TODO осталось тут убрать any и в UseEffect От ошибки избавиться
   const { currentProfile, user, articlesUserPosts, articlesUserFavorites } = useSelector(
-    (store: any) => ({
+    (store) => ({
       currentProfile: store.profile.profile,
       user: store.common.currentUser,
       articlesUserPosts: store.articleList.articlesProfileYourPosts,
@@ -40,7 +40,7 @@ const Profile: FC = () => {
   const articlesCount = 0;
   const isCurrentUserProfile = user?.username === currentProfile?.username;
   const isFavorite = location.pathname.includes('favorite');
-  const [currentArticles, setCurrentArticles] = useState([]);
+  const [currentArticles, setCurrentArticles] = useState<Array<TArticle>>([]);
 
   const onLoad = (): void => {
     dispatch(getProfile({ payload: agent.Profile.get(username) }));

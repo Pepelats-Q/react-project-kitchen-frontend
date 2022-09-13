@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { TValidity } from '../utils/types';
 import useTranslate from './useTranslate';
 
-const useFormValidation = (initialState: any) => {
+const useFormValidation = (initialState: { [key: string]: string }) => {
   const [values, setValues] = useState<TValidity>(initialState);
   const [errors, setErrors] = useState<any>({});
   const [validities, setValidities] = useState<any>({});
@@ -17,7 +17,7 @@ const useFormValidation = (initialState: any) => {
     setIsValid(e.target.closest('form').checkValidity());
   };
 
-  const handleBlur = (e: any) => {
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name } = e.target;
     if (!errors[name] && !validities[name]) {
       setErrors({ ...errors, [name]: localization({ page: 'authForm', key: 'requiredField' }) });
@@ -27,7 +27,8 @@ const useFormValidation = (initialState: any) => {
 
   const handleSubmitBlur = (e: any) => {
     const requiredFieldText = localization({ page: 'authForm', key: 'requiredField' });
-    const allRequiredInputs: Array<any> = Array.from(e.target.getElementsByTagName('input'));
+    const allInputs: Array<any> = Array.from(e.target.getElementsByTagName('input'));
+    const allRequiredInputs = allInputs.filter((item) => item.required);
     let addToErrors = {};
     let addToValidities: any = {};
 

@@ -31,7 +31,16 @@ const Editor: FC = () => {
     }
   }, []);
 
-  const { values, handleChange, setValues, errors, isValid, validities, handleBlur, handleSubmitBlur } = useFormValidation({
+  const {
+    values,
+    handleChange,
+    setValues,
+    errors,
+    isValid,
+    validities,
+    handleBlur,
+    handleSubmitBlur,
+  } = useFormValidation({
     title: '',
     description: '',
     link: '',

@@ -32,7 +32,6 @@ export type TComment = {
   };
 };
 
-
 export type TValidity = {
   email?: string;
   name?: string;
@@ -42,7 +41,6 @@ export type TValidity = {
   link?: string;
   body?: string;
   tag?: string;
-
   image?: string;
   username?: string;
   bio?: string;

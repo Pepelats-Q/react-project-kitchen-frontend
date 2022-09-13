@@ -28,8 +28,6 @@ const Login: FC = () => {
       password: '',
     });
 
-    console.log('val:', values, ' err: ', errors, ' isValid?', isValid);
-
   const submitLogin = () => {
     if (isValid) {
       dispatch(login({ payload: agent.Auth.login(values.email, values.password) }));
@@ -50,7 +48,6 @@ const Login: FC = () => {
   ) : (
     <ShowIcon onClick={() => setIsPasswordVisible(true)} />
   );
-
 
   return (
     <AuthForm

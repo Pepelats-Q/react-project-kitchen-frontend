@@ -39,8 +39,8 @@ const App: FC = () => {
   if (appLoaded) {
     return (
       <TranslationProvider>
-        <Header />
         <main className={styles.main}>
+          <Header />
           <Switch>
             <Route component={Home} exact path='/' />
             <Route component={Home} exact path='/your-feed' />
