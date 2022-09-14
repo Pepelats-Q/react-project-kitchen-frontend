@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, SyntheticEvent, useState } from 'react';
 import clsx from 'clsx';
 import styles from './TextField.module.scss';
 
@@ -43,10 +43,12 @@ const TextField: FC<TUITextFieldProps> = ({
 }) => {
   // COMMENT TO DEL: состояние textfieldState  предлагаю не использовать совсем. Мы используем fieldValid из хука useFormValidation
   // это поле показывает булевое значение - валидно ли поле или нет, нежели использовать стринговое 'success'
+  // COMMENT TO DEL: Если что-то менять, то либо всё заменять либо всё удалять. А то получается, что состояние success убрали, а стили остались.
+  // Кстати состояние ошибки может возникать не только из-за валидации поля, а название переменной fieldValid.
 
   const [isFocus, setIsFocus] = useState(false);
 
-  const onBlurInput = (e: any) => {
+  const onBlurHandler = (e: SyntheticEvent) => {
     if (onBlur) {
       onBlur(e);
     }
@@ -75,9 +77,9 @@ const TextField: FC<TUITextFieldProps> = ({
           maxLength={maxLength}
           minLength={minLength}
           name={name}
-          onBlur={onBlur}
+          onBlur={onBlurHandler}
           onChange={onChange}
-          onFocus={onBlurInput}
+          onFocus={() => setIsFocus(true)}
           onKeyUp={onKeyUp}
           placeholder={placeholder}
           required={required}

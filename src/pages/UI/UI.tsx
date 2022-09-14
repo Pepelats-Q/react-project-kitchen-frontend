@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { FC, useState } from 'react';
 import Button from '../../components/ui-library/Buttons/Button/Button';
 import NavButton from '../../components/ui-library/Buttons/NavButton/NavButton';

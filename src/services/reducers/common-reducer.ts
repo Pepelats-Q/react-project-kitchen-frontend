@@ -4,12 +4,12 @@ import { login, register, registerPageUnload } from './auth-reducer';
 import { articleSubmit } from './editor-reducer';
 import { settingsSaved } from './settings-reducer';
 
-type TUser = TtodoAny;
+type TCurrentUser = TtodoAny;
 
 type TCommonState = {
   appName: string;
   appLoaded: boolean;
-  currentUser: TUser | null;
+  currentUser: TCurrentUser | null;
   redirectTo: string | null;
   token: string | null;
   viewChangeCounter: number;

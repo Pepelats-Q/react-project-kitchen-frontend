@@ -17,26 +17,20 @@ const initialState: TProfileState = {
 interface IFollowUser {
   readonly type: string;
   readonly payload: {
-    payload: {
-      profile: TUser;
-    };
+    payload: TProfileState;
   };
 }
 interface IUnFollowUser {
   readonly type: string;
   readonly payload: {
-    payload: {
-      profile: TUser;
-    };
+    payload: TProfileState;
   };
 }
 
 interface IGetProfile {
   readonly type: string;
   readonly payload: {
-    payload: {
-      profile: TUser;
-    };
+    payload: TProfileState;
   };
 }
 
@@ -46,10 +40,8 @@ const profileReducer = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    // TODO: решить что делать с экшенами PROFILE_PAGE_UNLOADED и PROFILE_PAGE_LOADED
-    // загрузку профиля - удалила, а разгрузку профиля оставила, используется. Удалять коммент?
     followUser(state, action: IFollowUser) {
-      console.log(state, action.payload);
+      state.profile = { ...action.payload.payload.profile };
     },
     unFollowUser(state, action: IUnFollowUser) {
       state.profile = { ...action.payload.payload.profile };

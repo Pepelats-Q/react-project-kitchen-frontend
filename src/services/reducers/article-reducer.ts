@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TArticle, TComment, TtodoAny } from '../../utils/types';
+import { TArticle, TComment } from '../../utils/types';
 
 type TArticleState = {
   article: TArticle | null;
   comments: Array<TComment> | null;
-  commentErrors: TtodoAny;
+  commentErrors: { [key: string]: string } | null;
 };
 
 const initialState: TArticleState = {

@@ -80,9 +80,8 @@ $animation_time: 0.5s;
 }
 
 .lang {
-  border: 2px solid $color-secondary;
   color: $color-secondary;
-  background-color: transparent;
+  background-color: $color-bg;
   transition: background-color $animation_time, color $animation_time;
   &:hover {
     cursor: pointer;
