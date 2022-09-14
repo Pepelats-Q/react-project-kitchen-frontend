@@ -15,6 +15,7 @@ const CommentContainer: FC<TPropsWithSlug> = ({ slug }) => {
     errorsStore: store.auth.errors,
   }));
   const localization = useTranslate();
+  // console.log('comments:', comments);
 
   return (
     <div className={styles.commentsContainer}>

@@ -129,8 +129,9 @@ const commonReducer = createSlice({
       state.redirectTo = `/article/${action.payload.payload.article.slug}`;
     },
     [settingsSaved.type]: (state, action: ISettingsSavedType) => {
-      state.redirectTo = action.error ? null : '/';
-      state.currentUser = action.error ? null : action.payload.payload.user;
+      const { user } = action.payload.payload;
+      state.redirectTo = action.error ? null : `/@user`;
+      state.currentUser = action.error ? null : user;
     },
     [register.type]: (state, action: IRegisterType) => {
       state.redirectTo = action.error ? null : '/';

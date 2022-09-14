@@ -43,7 +43,6 @@ const Profile: FC = () => {
   const [currentArticles, setCurrentArticles] = useState<Array<TArticle>>([]);
 
   const onLoad = (): void => {
-    dispatch(getProfile({ payload: agent.Profile.get(username) }));
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
 
@@ -57,6 +56,12 @@ const Profile: FC = () => {
     return () => {
       onUnload();
     };
+  }, []);
+
+  useEffect(() => {
+    if (username !== 'user') {
+      dispatch(getProfile({ payload: agent.Profile.get(username) }));
+    }
   }, [username]);
 
   const loadFavorites = () => {

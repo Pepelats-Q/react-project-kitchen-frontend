@@ -156,16 +156,37 @@
     padding: 0 24px;
     box-sizing: border-box;
   }
+
+  .header {
+    padding: 32px 24px;
+    box-sizing: border-box;
+  }
+}
+
+
+@media screen and (max-width: 960px) {
+ 
   .actions {
     flex-direction: column;
     margin: 12px 0;
   }
+
+.action {
+  margin: 0 0 16px 0;
+}
+.action_last {
+  margin: 0;
+}
 }
 
 @media screen and (max-width: 768px) {
   .mainArticle {
     padding: 0 12px;
     box-sizing: border-box;
+  }
+
+  .header {
+    padding: 28px 24px;
   }
 }
 
@@ -177,5 +198,13 @@
   .actions {
     flex-direction: column;
     margin: 12px 0;
+  }
+
+  .action {
+    margin: 24px 0;
+  }
+
+  .action_last {
+    margin: 0;
   }
 }

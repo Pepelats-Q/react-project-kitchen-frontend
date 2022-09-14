@@ -40,7 +40,9 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
     <div className={styles.article_preview}>
       <div className={styles.row}>
         <div className={styles.col}>
-          <div className={styles.image} style={{ backgroundImage: `url(${article.link})` }} />
+          <Link className={styles.link} to={`/article/${article.slug}`}>
+            <div className={styles.image} style={{ backgroundImage: `url(${article.link})` }} />
+          </Link>
         </div>
         <div className={`${styles.colArticle} ${styles.w100}`}>
           <div className={styles.meta}>
@@ -71,7 +73,7 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
 
           <Link className={styles.link} to={`/article/${article.slug}`}>
             <h1 className={styles.title}>{article.title}</h1>
-            <div className={styles.text} dangerouslySetInnerHTML={{ __html: excerpt }}  />
+            <div className={styles.text} dangerouslySetInnerHTML={{ __html: excerpt }} />
             <span className={styles.continue}>
               {localization({ page: 'articlesLang', key: 'readMore' })}
             </span>

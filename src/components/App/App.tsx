@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import agent from '../../agent';
 import Header from '../Header';
@@ -16,6 +16,7 @@ import Profile from '../../pages/Profile/Profile';
 import { TranslationProvider } from '../../contexts/context';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import { clearApiMessage } from '../../services/reducers/auth-reducer';
+import ScrollTop from '../ScrollTop/ScrollTop';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -35,11 +36,19 @@ const App: FC = () => {
   }, [location]);
 
   const appLoaded = useSelector((store) => store.common.appLoaded);
+  const mainRef = useRef<HTMLDivElement>(null);
+  const curRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  function scroll() {
+    setScrollPosition((mainRef as React.MutableRefObject<HTMLDivElement>).current?.scrollTop);
+  }
 
   if (appLoaded) {
     return (
       <TranslationProvider>
-        <main className={styles.main}>
+        <main ref={mainRef} className={styles.main} onScroll={scroll}>
+          <div ref={curRef} />
           <Header />
           <Switch>
             <Route component={Home} exact path='/' />
@@ -54,6 +63,7 @@ const App: FC = () => {
             <Route component={Profile} path='/@:username/favorites' />
             <Route component={UI} path='/ui' />
           </Switch>
+          <ScrollTop curRef={curRef} scrollPosition={scrollPosition} />
         </main>
       </TranslationProvider>
     );

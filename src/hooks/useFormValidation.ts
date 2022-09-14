@@ -27,7 +27,9 @@ const useFormValidation = (initialState: { [key: string]: string }) => {
 
   const handleSubmitBlur = (e: any) => {
     const requiredFieldText = localization({ page: 'authForm', key: 'requiredField' });
-    const allInputs: Array<any> = Array.from(e.target.getElementsByTagName('input'));
+    const allInputs: Array<any> = Array.from(
+      e.target.closest('form').getElementsByTagName('input'),
+    );
     const allRequiredInputs = allInputs.filter((item) => item.required);
     let addToErrors = {};
     let addToValidities: any = {};
@@ -35,6 +37,7 @@ const useFormValidation = (initialState: { [key: string]: string }) => {
     allRequiredInputs.forEach((requiredInput) => {
       const errorName: any = errors[requiredInput.name];
       const validitiesName: any = validities[requiredInput.name];
+
       if (!errorName && !validitiesName) {
         addToErrors = {
           ...addToErrors,
@@ -69,6 +72,7 @@ const useFormValidation = (initialState: { [key: string]: string }) => {
     isValid,
     resetForm,
     setValues,
+    setValidities,
     setIsValid,
     handleSubmitBlur,
   };

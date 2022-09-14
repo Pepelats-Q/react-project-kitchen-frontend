@@ -35,6 +35,7 @@ const Editor: FC = () => {
     values,
     handleChange,
     setValues,
+    setValidities,
     errors,
     isValid,
     validities,
@@ -55,8 +56,7 @@ const Editor: FC = () => {
     dispatch(articleSubmit({ payload }));
   };
 
-  const watchForEnter = (ev: any) => {    
-    // TODO статья отправляется в публикацию при нажатии Enter. Исправить это 
+  const watchForEnter = (ev: any) => {
     if (ev.key === 'Enter') {
       ev.preventDefault();
       if (values.tag) {
@@ -73,7 +73,8 @@ const Editor: FC = () => {
     setTagList(tagList.filter((element) => element !== tag));
   };
 
-  const submitForm = () => {
+  const submitForm = (ev: any) => {
+    ev.preventDefault();
     const article = {
       title: values.title,
       description: values.description,
@@ -101,6 +102,12 @@ const Editor: FC = () => {
             link: res.article.link,
             body: res.article.body,
           });
+          setValidities({
+            title: true,
+            description: true,
+            link: true,
+            body: true,
+          });
           setTagList(res.article.tagList);
         }
       });
@@ -120,6 +127,7 @@ const Editor: FC = () => {
       btnText={localization({ page: 'editor', key: 'btnText' })}
       formName='editor'
       isFormValid={isValid}
+      isSubmit={false}
       onSubmit={submitForm}
       onSubmitBlur={handleSubmitBlur}
       title={

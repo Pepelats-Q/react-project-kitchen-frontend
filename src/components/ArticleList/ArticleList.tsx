@@ -17,16 +17,19 @@ const ArticleList: FC<TArticleListProps> = ({ articles, articlesCount, pager, cu
 
   if (!articles) {
     return (
-      <div className={styles.article_preview}>
-        {localization({ page: 'common', key: 'loading' })}
+      <div className={styles.box}>
+        <div className={styles.article_preview}>
+          {localization({ page: 'common', key: 'loading' })}
+        </div>
       </div>
     );
   }
-
   if (articles.length === 0) {
     return (
-      <div className={styles.article_preview}>
-        {localization({ page: 'articlesLang', key: 'noArticlesMessage' })}
+      <div className={styles.box}>
+        <div className={styles.article_preview}>
+          {localization({ page: 'articlesLang', key: 'noArticlesMessage' })}
+        </div>
       </div>
     );
   }

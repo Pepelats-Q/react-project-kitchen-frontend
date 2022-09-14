@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import agent from '../../../agent';
 import useTranslate from '../../../hooks/useTranslate';
 import styles from './tags.module.scss';
@@ -10,6 +10,7 @@ export type TTagsProps = {
 
 const Tags: FC<TTagsProps> = ({ tags, onClickTag }) => {
   const localization = useTranslate();
+  const [currentTag, setCurrentTag] = useState('');
 
   if (tags) {
     return (
@@ -17,11 +18,16 @@ const Tags: FC<TTagsProps> = ({ tags, onClickTag }) => {
         {tags.map((tag) => {
           const handleClick = (ev: React.SyntheticEvent) => {
             ev.preventDefault();
-            onClickTag(
-              tag,
-              (page: any) => agent.Articles.byTag(tag, page),
-              agent.Articles.byTag(tag),
-            );
+            if (tag === currentTag) {
+              console.log('unmake tag: ');
+            } else {
+              setCurrentTag(tag);
+              onClickTag(
+                tag,
+                (page: any) => agent.Articles.byTag(tag, page),
+                agent.Articles.byTag(tag),
+              );
+            }
           };
 
           return (

@@ -28,15 +28,23 @@ const CommentInput: FC<TPropsWithSlug> = ({ slug }) => {
     dispatch(addComment({ payload }));
   };
 
+  const [errorText, setErrorText] = useState('');
+
   const createComment = (ev: React.SyntheticEvent) => {
     ev.preventDefault();
+    if (state.body !== '') {
     const payload = agent.Comments.create(slug, { body: state.body });
     setState({ body: '' });
     onSubmit(payload);
+    } else {
+      setErrorText('Ваш комментарий пуст. Напишите что-нибудь');
+    }
   };
 
   return (
+    
     <form className={styles.commentForm} onSubmit={createComment}>
+      <p>{errorText}</p>
       <textarea
         className={styles.textarea}
         onChange={setBody}

@@ -30,7 +30,7 @@ const ArticleActions: FC<TArticleProps> = ({ article, canModify }) => {
           {localization({ page: 'articlesLang', key: 'edit' })}
         </NavButton>
         <Button
-          className={styles.action}
+          className={`${styles.action} ${styles.action_last}`}
           icon={<TrashIcon />}
           onClick={onDeleteHandler}
           type='outline_alert'

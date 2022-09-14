@@ -9,13 +9,15 @@ import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import useFormValidation from '../../hooks/useFormValidation';
 import AuthForm from '../AuthForm/AuthForm';
+import { redirect } from '../../services/reducers/common-reducer';
 
 const Settings: FC = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { currentUser, token, errorsStore } = useSelector((store) => ({
+  const { currentUser, token, errorsStore, redirectTo } = useSelector((store) => ({
     currentUser: store.common.currentUser,
     token: store.common.token,
     errorsStore: store.auth.errors,
+    redirectTo: store.common.redirectTo,
   }));
 
   const dispatch = useDispatch();
@@ -32,6 +34,7 @@ const Settings: FC = () => {
     values,
     handleChange,
     setValues,
+    setValidities,
     validities,
     isValid,
     errors,
@@ -47,12 +50,20 @@ const Settings: FC = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setValues({
+      const valuesSet = {
         image: currentUser.image || '',
         username: currentUser.username || '',
         bio: currentUser.bio || '',
         email: currentUser.email || '',
-      });
+      };
+      const validitiesSet = {
+        image: currentUser.image || false,
+        username: currentUser.username || false,
+        bio: currentUser.bio || false,
+        email: currentUser.email || false,
+      };
+      setValues(valuesSet);
+      setValidities(validitiesSet);
     }
   }, [currentUser]);
 
@@ -68,6 +79,13 @@ const Settings: FC = () => {
 
     onSubmitForm(user);
   };
+
+  useEffect(() => {
+    if (!errorsStore&& redirectTo) {
+      history.push(redirectTo);
+      dispatch(redirect());
+    }
+  }, [errorsStore, redirectTo]);
 
   return (
     <AuthForm
