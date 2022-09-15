@@ -34,7 +34,6 @@ const LoggedNav: FC<TNavHeader> = ({ unFoldMobileMenu }) => {
 
   return (
     <>
-      {' '}
       <li className={styles.navItem}>
         <NavButton
           className={homeButtonClass}
@@ -44,12 +43,12 @@ const LoggedNav: FC<TNavHeader> = ({ unFoldMobileMenu }) => {
         >
           {localization({ page: 'header', key: 'mainPageText' })}
         </NavButton>
-      </li>{' '}
+      </li>
       <li className={styles.navItem}>
         <NavButton icon={<EditIcon size='small' />} onClick={unFoldMobileMenu} to='/editor'>
           {localization({ page: 'header', key: 'newNoteText' })}
         </NavButton>
-      </li>{' '}
+      </li>
       <li className={styles.navItem}>
         <NavButton
           className={profileButtonClass}

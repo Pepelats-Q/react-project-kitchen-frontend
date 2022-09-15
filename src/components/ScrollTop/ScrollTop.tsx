@@ -35,7 +35,7 @@ const ScrollTop: FC<TScrollTopProps> = ({ curRef, scrollPosition }) => {
       onClick={handleScrollUp}
       type='lang'
     >
-      &#129045;
+      &#8657;
     </Button>
   );
 };

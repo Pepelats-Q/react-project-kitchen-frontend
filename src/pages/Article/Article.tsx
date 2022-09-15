@@ -8,8 +8,8 @@ import { articlePageLoad, articlePageUnload } from '../../services/reducers/arti
 import { getProfile } from '../../services/reducers/profile-reducer';
 import CommentContainer from '../../components/Comment/CommentContainer';
 import { redirect } from '../../services/reducers/common-reducer';
-import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
+import Tags from '../../components/Tags/Tags';
 
 const Article: FC = () => {
   const { article, currentUser, redirectTo } = useSelector((store) => ({
@@ -18,7 +18,6 @@ const Article: FC = () => {
     redirectTo: store.common.redirectTo,
   }));
 
-  const localization = useTranslate();
   const dispatch = useDispatch();
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
@@ -67,16 +66,7 @@ const Article: FC = () => {
           )}
           {article.tagList.length > 0 ? (
             <div className={styles.tagsContainer}>
-              <p className={styles.tagsTitle}>
-                {localization({ page: 'articlesLang', key: 'tags' })}
-              </p>
-              <ul className={styles.tag_list}>
-                {article.tagList.map((tag: string) => (
-                  <li key={tag} className={styles.tag_default}>
-                    {tag}
-                  </li>
-                ))}
-              </ul>
+              <Tags place='article' tags={article.tagList} />
             </div>
           ) : (
             ''

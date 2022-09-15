@@ -75,6 +75,7 @@ const ArticlePreview: FC<TArticlePreviewProps> = ({ article }) => {
             <p className={clsx(styles.description, 'text-default')} title={article.description}>
               {article.description}
             </p>
+
             <div className={styles.preview_footer}>
               <span className={clsx(styles.readmore, 'text-default')}>
                 {localization({ page: 'articlesLang', key: 'readMore' })}

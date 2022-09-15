@@ -35,7 +35,7 @@ const ArticleList: FC<TArticleListProps> = ({ articles, pager }) => {
         <ArticlePreview key={article.slug} article={article} />
       ))}
 
-      {articles.length > 7 ? <ListPagination pager={pager} /> : ''}
+      {articles.length > 9 ? <ListPagination pager={pager} /> : ''}
     </div>
   );
 };

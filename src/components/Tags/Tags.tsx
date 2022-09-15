@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from '../../hooks/hooks';
-// import useTranslate from '../../hooks/useTranslate';
+import useTranslate from '../../hooks/useTranslate';
 import {
   setFilteredArticles,
   setTagActive,
@@ -12,7 +12,7 @@ import styles from './Tags.module.scss';
 const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => {
   const dispatch = useDispatch();
   const [currentArticlesToFilter, setCurrentArticlesToFilter] = useState<Array<any>>([]);
-  // const [currentArticlesFilteredOrNot, setcurrentArticlesFilteredOrNot] = useState<Array<any>>([]);
+  const localization = useTranslate();
 
   const {
     articlesYourPosts,
@@ -60,7 +60,14 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
     dispatch(setFilteredArticles({ tab: currentTab, articles: filtered }));
   };
 
-  const currentTags = place === 'sidebar' ? tabTags : tags;
+  const isSidebar = place === 'sidebar';
+  const currentTags = isSidebar ? tabTags : tags;
+
+  const noTags = isSidebar ? (
+    <div className={styles.message}>{localization({ page: 'articleLang', key: 'noTags' })}</div>
+  ) : (
+    <div />
+  );
 
   if (currentTags && currentTags.length > 0) {
     return (
@@ -73,12 +80,16 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
               activateTag(tag);
             }
           };
-          return <Tag key={tag} handleClick={handleClick} tag={tag} />;
+          return (place !== 'article') ? (
+            <Tag key={tag} handleClick={handleClick} tag={tag} />
+          ) : (
+            <Tag key={tag} tag={tag} />
+          );
         })}
       </div>
     );
   }
-  return <div className={styles.message}>Пока у этих статей нет тегов</div>;
+  return noTags;
 };
 
 export default Tags;

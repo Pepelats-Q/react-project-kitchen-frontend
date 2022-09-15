@@ -56,9 +56,8 @@ const Editor: FC = () => {
   };
 
   const watchForEnter = (ev: any) => {
-    // TODO статья отправляется в публикацию при нажатии Enter. Исправить это - СДЕЛАНО удаляю?
+    ev.preventDefault();
     if (ev.key === 'Enter') {
-      ev.preventDefault();
       if (values.tag) {
         if (!tagList.find((element) => element === values.tag)) {
           setTagList([...tagList, values.tag]);

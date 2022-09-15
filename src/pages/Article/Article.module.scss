@@ -139,22 +139,6 @@
   box-sizing: border-box;
 }
 
-.tag_default {
-  color: $color-primary;
-  background-color: $color-input;
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  padding: 4px 8px;
-  border-radius: 100px;
-  text-decoration: none !important;
-  border: none;
-  margin: 0 16px 0 0;
-  transition: background-color 0.5s;
-}
-
 @media screen and (max-width: 1120px) {
   .mainArticle {
     padding: 0 16px;
