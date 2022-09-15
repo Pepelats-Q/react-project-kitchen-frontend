@@ -62,7 +62,7 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
 
   const currentTags = place === 'sidebar' ? tabTags : tags;
 
-  if (currentTags) {
+  if (currentTags && currentTags.length > 0) {
     return (
       <div className={styles.tag_list}>
         {currentTags.map((tag) => {
@@ -78,8 +78,7 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
       </div>
     );
   }
-
-  return <div>Пока у этих статей нет тегов</div>;
+  return <div className={styles.message}>Пока у этих статей нет тегов</div>;
 };
 
 export default Tags;
