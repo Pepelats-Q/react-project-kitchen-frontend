@@ -14,6 +14,9 @@
   cursor: pointer;
   border: none;
   transition: background-color 0.5s;
+  &_active {
+    background-color: $color-accent;
+  }
 }
 
 .tag_default:hover {
@@ -29,4 +32,19 @@
 .tag_default:focus-visible {
   outline: 1px solid $color-secondary;
   transition: outline 0.5s;
+}
+
+.tag_default_nolink {
+  color: $color-primary;
+  background-color: $color-input;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 4px 8px;
+  border-radius: 100px;
+  text-decoration: none !important;
+  border: none;
+  transition: background-color 0.5s;
 }

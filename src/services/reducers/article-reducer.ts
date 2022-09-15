@@ -56,7 +56,7 @@ const articleReducer = createSlice({
       state.commentErrors = action.error ? action.payload.errors : null;
       state.comments = action.error
         ? null
-        : (state.comments || []).concat([action.payload.payload.comment]);
+        : [action.payload.payload.comment].concat(state.comments || []);
     },
     deleteComment(state, action: IDeleteComment) {
       state.comments = state.comments

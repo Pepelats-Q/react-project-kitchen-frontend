@@ -2,35 +2,40 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import ListErrors from '../ListErrors/ListErrors';
-import styles from './AuthForm.module.scss';
+import styles from './Form.module.scss';
 import Button from '../ui-library/Buttons/Button/Button';
 import { TValidity } from '../../utils/types';
+import { useDispatch } from '../../hooks/hooks';
+import { clearApiMessage } from '../../services/reducers/auth-reducer';
 
-type TAuthForm = {
+type TForm = {
   btnText: string;
   children: React.ReactNode;
   crossLinkText?: string;
   formName: string;
   isFormValid: boolean;
+  isSubmit?: boolean;
   title: string;
-  onSubmit: () => void;
+  onSubmit: (e: any) => void;
   onSubmitBlur?: (e: any) => void;
   oppositeLink?: string;
   apiErrors: TValidity | null;
 };
 
-const AuthForm: FC<TAuthForm> = ({
+const Form: FC<TForm> = ({
   btnText,
   oppositeLink,
   crossLinkText,
   formName,
   onSubmit,
   isFormValid,
+  isSubmit = true,
   onSubmitBlur,
   title,
   children,
   apiErrors,
 }) => {
+  const dispatch = useDispatch();
   const handleSubmitForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (!isFormValid) {
@@ -38,10 +43,10 @@ const AuthForm: FC<TAuthForm> = ({
         onSubmitBlur(event);
       }
     } else {
-      onSubmit();
+      dispatch(clearApiMessage());
+      onSubmit(event);
     }
   };
-
   return (
     <div className={styles.page}>
       <div className={styles.container}>
@@ -63,7 +68,11 @@ const AuthForm: FC<TAuthForm> = ({
             {children}
             <div className={styles.submit_container}>
               <div className={styles.submit}>
-                <Button className={styles.submit_button} isSubmit>
+                <Button
+                  className={styles.submit_button}
+                  isSubmit={isSubmit}
+                  onClick={handleSubmitForm}
+                >
                   {btnText}
                 </Button>
               </div>
@@ -75,4 +84,4 @@ const AuthForm: FC<TAuthForm> = ({
   );
 };
 
-export default AuthForm;
+export default Form;

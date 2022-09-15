@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
-import AuthForm from '../../components/AuthForm/AuthForm';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
@@ -11,6 +10,7 @@ import { redirect } from '../../services/reducers/common-reducer';
 import TextField from '../../components/ui-library/TextField/TextField';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
+import Form from '../../components/Form/Form';
 
 const Login: FC = () => {
   const { currentUser, errorsStore } = useSelector((store) => ({
@@ -50,7 +50,7 @@ const Login: FC = () => {
   );
 
   return (
-    <AuthForm
+    <Form
       apiErrors={errorsStore}
       btnText={localization({ page: 'authForm', key: 'loginText' })}
       crossLinkText={localization({ page: 'authForm', key: 'loginQuestion' })}
@@ -91,7 +91,7 @@ const Login: FC = () => {
         type={isPasswordVisible ? 'text' : 'password'}
         value={values.password}
       />
-    </AuthForm>
+    </Form>
   );
 };
 

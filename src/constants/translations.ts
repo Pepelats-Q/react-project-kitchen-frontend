@@ -7,12 +7,15 @@ type TComments = {
     writeComment: string;
     comments: string;
     post: string;
+    emptyAlert: string;
   };
 };
 type TArticles = {
   noArticlesMessage: string;
   readMore: string;
   tags: string;
+  filterreset: string;
+  noTags: string;
 };
 type TCommon = {
   loading: string;
@@ -108,6 +111,8 @@ const translations: Ttranslations | any = {
       tags: 'Tags: ',
       edit: ' Edit Article',
       delete: 'Delete Article',
+      filterreset: 'Erase filter',
+      noTags: "There're no tags for these articles",
     },
     common: {
       loading: 'Loading...',
@@ -180,6 +185,7 @@ const translations: Ttranslations | any = {
       writeComment: 'Write a comment...',
       comments: 'Comments',
       post: 'Post Comment',
+      emptyAlert: 'Your comment is empty. Please write something',
     },
   },
   ru: {
@@ -189,6 +195,8 @@ const translations: Ttranslations | any = {
       tags: 'Теги: ',
       edit: 'Редактировать статью',
       delete: 'Удалить статью',
+      filterreset: 'Сбросить фильтр',
+      noTags: 'Пока у этих статей нет тегов',
     },
     common: {
       loading: 'Загрузка...',
@@ -261,6 +269,7 @@ const translations: Ttranslations | any = {
       writeComment: 'Напишите комментарий...',
       comments: 'Комментарии',
       post: 'Опубликовать комментарий',
+      emptyAlert: 'Ваш комментарий пуст. Напишите что-нибудь',
     },
   },
 };

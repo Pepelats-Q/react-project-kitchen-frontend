@@ -33,6 +33,26 @@
   flex-direction: column;
   box-sizing: border-box;
 }
+.errors_container {
+  padding: 0;
+  margin: 0;
+  box-shadow: border-box;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  position: absolute;
+  top: 8px;
+  left: 4px;
+}
+
+.comment_error {
+  color: $color-alert;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0;
+  margin: 0;
+  box-shadow: border-box;
+}
 
 .textarea {
   @include custom-scroll;
@@ -57,6 +77,12 @@
   font-size: 16px;
   line-height: 24px;
   font-family: 'JetBrains Mono', sans-serif;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .comment_input {

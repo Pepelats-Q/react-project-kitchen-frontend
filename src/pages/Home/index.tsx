@@ -8,16 +8,28 @@ import {
   changeTab,
   homePageClearArticlesUnloaded,
   loadAllTags,
+  setCurrentTabTags,
+  setTagDeactive,
 } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Home: FC = () => {
   const dispatch = useDispatch();
-  const { token, articlesAll, articlesYourFeed } = useSelector((store) => ({
+  const {
+    token,
+    articlesAll,
+    articlesYourFeed,
+    filterActivated,
+    articlesAllFiltered,
+    articlesYourFeedFiltered,
+  } = useSelector((store) => ({
     token: store.common.token,
     articlesAll: store.articleList.articles,
     articlesYourFeed: store.articleList.articlesYourFeed,
+    filterActivated: store.articleList.filterActivated,
+    articlesAllFiltered: store.articleList.articlesFiltered,
+    articlesYourFeedFiltered: store.articleList.articlesYourFeedFiltered,
   }));
 
   const location = useLocation();
@@ -36,6 +48,18 @@ const Home: FC = () => {
       onUnload();
     };
   }, []);
+
+  const defineThisTabTags = (givenArticles: Array<any>) => {
+    // собирает теги с одной страницы
+    let allTagsOfThisTab: Array<any> = [];
+    givenArticles.forEach((article) => {
+      allTagsOfThisTab = allTagsOfThisTab.concat(article.tagList);
+    });
+    const uniqueArray = allTagsOfThisTab.filter(
+      (item, pos) => allTagsOfThisTab.indexOf(item) === pos,
+    );
+    return uniqueArray;
+  };
 
   const loadYourFeed = () => {
     dispatch(
@@ -56,12 +80,31 @@ const Home: FC = () => {
   }, [isFeed]);
 
   useEffect(() => {
+    dispatch(setTagDeactive());
+  }, [location]);
+
+  useEffect(() => {
     if (isFeed) {
-      setCurrentArticles(articlesYourFeed);
+      const articles = filterActivated ? articlesYourFeedFiltered : articlesYourFeed;
+      setCurrentArticles(articles);
+      if (!filterActivated) {
+        dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesYourFeed) }));
+      }
     } else {
-      setCurrentArticles(articlesAll);
+      const articles = filterActivated ? articlesAllFiltered : articlesAll;
+      setCurrentArticles(articles);
+      if (!filterActivated) {
+        dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesAll) }));
+      }
     }
-  }, [articlesYourFeed, articlesAll, isFeed]);
+  }, [
+    articlesYourFeed,
+    articlesAll,
+    isFeed,
+    filterActivated,
+    articlesYourFeedFiltered,
+    articlesAllFiltered,
+  ]);
 
   const tabsNames = [
     { name: localization({ page: 'homePage', key: 'tab2Text' }), path: '/' },
@@ -76,15 +119,9 @@ const Home: FC = () => {
     <div className={styles.home_page}>
       <Banner />
       {token ? (
-        <ArticlesWithTabs
-          articles={currentArticles}
-          tabsNames={tabsNames}
-        />
+        <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNames} />
       ) : (
-        <ArticlesWithTabs
-          articles={articlesAll}
-          tabsNames={tabsNamesNoAuth}
-        />
+        <ArticlesWithTabs articles={articlesAll} tabsNames={tabsNamesNoAuth} />
       )}
     </div>
   );

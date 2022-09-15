@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import agent from '../../agent';
 import useFormValidation from '../../hooks/useFormValidation';
-import AuthForm from '../../components/AuthForm/AuthForm';
+import Form from '../../components/Form/Form';
 import HideIcon from '../../components/ui-library/Icons/HideIcon';
 import ShowIcon from '../../components/ui-library/Icons/ShowIcon';
 import AlertIcon from '../../components/ui-library/Icons/AlertIcon';
@@ -52,7 +52,7 @@ const Register = () => {
   );
 
   return (
-    <AuthForm
+    <Form
       apiErrors={errorsStore}
       btnText={localization({ page: 'authForm', key: 'registerText' })}
       crossLinkText={localization({ page: 'authForm', key: 'registerQuestion' })}
@@ -109,7 +109,7 @@ const Register = () => {
         type={isPasswordVisible ? 'text' : 'password'}
         value={values.password}
       />
-    </AuthForm>
+    </Form>
   );
 };
 

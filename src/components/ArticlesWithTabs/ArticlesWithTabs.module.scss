@@ -58,17 +58,17 @@
 
 @media screen and (max-width: 768px) {
   .container {
-    padding: 0 12px;
+    padding: 0 16px;
   }
   .box {
     flex-direction: column-reverse;
   }
   .tags {
-    max-width: 680px;
+    max-width: 750px;
   }
 
   .children {
     margin: 0;
-    padding: 0 20px;
+    padding: 0 16px;
   }
 }

@@ -1,5 +1,7 @@
 @import '../ui-library/ui-style/ui-style.scss';
 
+$animation_time: 0.5s;
+
 .container {
   width: 100%;
   display: flex;
@@ -164,6 +166,14 @@
 
 .mobileNav_opened {
   display: flex;
+}
+
+.navBtn_active {
+  color: $color-primary;
+  & svg > path {
+    stroke: $color-primary;
+    transition: stroke $animation_time;
+  }
 }
 
 @media screen and (max-width: 1140px) {

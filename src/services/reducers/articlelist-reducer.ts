@@ -6,12 +6,18 @@ type TArticleListState = {
   articlesYourFeed: Array<TArticle>;
   articlesProfileYourPosts: Array<TArticle>;
   articlesProfileFavorites: Array<TArticle>;
+  articlesFiltered: Array<TArticle>;
+  articlesYourFeedFiltered: Array<TArticle>;
+  articlesProfileYourPostsFiltered: Array<TArticle>;
+  articlesProfileFavoritesFiltered: Array<TArticle>;
   articlesCount: number;
   currentPage: number;
   pager: TtodoAny;
   tab: string | null;
   tag: string | null;
   tags: Array<string>;
+  currentTags: Array<string>;
+  filterActivated: boolean;
 };
 
 interface IArticleFavorite {
@@ -95,12 +101,18 @@ const initialState: TArticleListState = {
   articlesYourFeed: [],
   articlesProfileYourPosts: [],
   articlesProfileFavorites: [],
+  articlesFiltered: [],
+  articlesYourFeedFiltered: [],
+  articlesProfileYourPostsFiltered: [],
+  articlesProfileFavoritesFiltered: [],
   articlesCount: 0,
   currentPage: 1,
   pager: null,
   tab: null,
   tag: null,
   tags: [],
+  currentTags: [],
+  filterActivated: false,
 };
 
 const articleListReducer = createSlice({
@@ -148,6 +160,17 @@ const articleListReducer = createSlice({
       state.tab = null;
       state.tag = action.payload.tag ? action.payload.tag : null;
     },
+    setTagActive(state, action: any) {
+      state.tag = action.payload.tag ? action.payload.tag : null;
+      state.filterActivated = true;
+    },
+    setTagDeactive(state) {
+      state.tag = '';
+      state.filterActivated = false;
+    },
+    setCurrentTabTags(state, action: any) {
+      state.currentTags = action.payload.payload ? action.payload.payload : null;
+    },
     changeTab(state, action: IChangeTab) {
       state.pager = action.payload.pager;
       if (action.payload.tab === 'feed') {
@@ -164,6 +187,17 @@ const articleListReducer = createSlice({
       state.currentPage = 0;
       state.tag = null;
     },
+    setFilteredArticles(state, action: any) {
+      if (action.payload.tab === 'feed') {
+        state.articlesYourFeedFiltered = action.payload.articles;
+      } else if (action.payload.tab === 'your-posts') {
+        state.articlesProfileYourPostsFiltered = action.payload.articles;
+      } else if (action.payload.tab === 'favorites') {
+        state.articlesProfileFavoritesFiltered = action.payload.articles;
+      } else {
+        state.articlesFiltered = action.payload.articles;
+      }
+    },
     profileClearArticlesPageUnloaded() {
       return { ...initialState };
     },
@@ -179,7 +213,11 @@ export const {
   setPageAction,
   loadAllTags,
   applyTagFilter,
+  setTagActive,
+  setTagDeactive,
+  setCurrentTabTags,
   changeTab,
+  setFilteredArticles,
   profileClearArticlesPageUnloaded,
   homePageClearArticlesUnloaded,
 } = articleListReducer.actions;

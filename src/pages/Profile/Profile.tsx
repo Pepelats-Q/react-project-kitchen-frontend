@@ -18,20 +18,31 @@ import {
   changeTab,
   loadAllTags,
   profileClearArticlesPageUnloaded,
+  setCurrentTabTags,
+  setTagDeactive,
 } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Profile: FC = () => {
   // TODO осталось тут убрать any и в UseEffect От ошибки избавиться
-  const { currentProfile, user, articlesUserPosts, articlesUserFavorites } = useSelector(
-    (store) => ({
-      currentProfile: store.profile.profile,
-      user: store.common.currentUser,
-      articlesUserPosts: store.articleList.articlesProfileYourPosts,
-      articlesUserFavorites: store.articleList.articlesProfileFavorites,
-    }),
-  );
+  const {
+    currentProfile,
+    user,
+    articlesUserPosts,
+    articlesUserFavorites,
+    filterActivated,
+    articlesYourPostsFiltered,
+    articlesUserFavoritesFiltered,
+  } = useSelector((store) => ({
+    currentProfile: store.profile.profile,
+    user: store.common.currentUser,
+    articlesUserPosts: store.articleList.articlesProfileYourPosts,
+    articlesUserFavorites: store.articleList.articlesProfileFavorites,
+    filterActivated: store.articleList.filterActivated,
+    articlesYourPostsFiltered: store.articleList.articlesProfileYourPostsFiltered,
+    articlesUserFavoritesFiltered: store.articleList.articlesProfileFavoritesFiltered,
+  }));
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -42,7 +53,6 @@ const Profile: FC = () => {
   const [currentArticles, setCurrentArticles] = useState<Array<TArticle>>([]);
 
   const onLoad = (): void => {
-    dispatch(getProfile({ payload: agent.Profile.get(username) }));
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
 
@@ -56,6 +66,26 @@ const Profile: FC = () => {
     return () => {
       onUnload();
     };
+  }, []);
+
+  useEffect(() => {
+    dispatch(setTagDeactive());
+  }, [location]);
+
+  const defineThisTabTags = (givenArticles: Array<any>) => {
+    let allTagsOfThisTab: Array<any> = [];
+    givenArticles.forEach((article) => {
+      allTagsOfThisTab = allTagsOfThisTab.concat(article.tagList);
+    });
+    return allTagsOfThisTab.filter(
+      (item, pos) => allTagsOfThisTab.indexOf(item) === pos,
+    );
+  };
+
+  useEffect(() => {
+    if (username !== 'user') {
+      dispatch(getProfile({ payload: agent.Profile.get(username) }));
+    }
   }, [username]);
 
   const loadFavorites = () => {
@@ -88,11 +118,26 @@ const Profile: FC = () => {
 
   useEffect(() => {
     if (isFavorite) {
-      setCurrentArticles(articlesUserFavorites);
+      const articles = filterActivated ? articlesUserFavoritesFiltered : articlesUserFavorites;
+      setCurrentArticles(articles);
+      if (!filterActivated) {
+        dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesUserFavorites) }));
+      }
     } else {
-      setCurrentArticles(articlesUserPosts);
+      const articles = filterActivated ? articlesYourPostsFiltered : articlesUserPosts;
+      setCurrentArticles(articles);
+      if (!filterActivated) {
+        dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesUserPosts) }));
+      }
     }
-  }, [articlesUserFavorites, articlesUserPosts, isFavorite]);
+  }, [
+    articlesUserFavorites,
+    articlesUserPosts,
+    isFavorite,
+    filterActivated,
+    articlesUserFavoritesFiltered,
+    articlesYourPostsFiltered,
+  ]);
 
   const textPosts = isCurrentUserProfile
     ? localization({ page: 'profile', key: 'yourPosts' })
@@ -126,7 +171,6 @@ const Profile: FC = () => {
     dispatch(logout());
     history.push('/login');
   };
-
   return (
     <div className={styles.page}>
       <div className={styles.userinfo}>
@@ -172,10 +216,7 @@ const Profile: FC = () => {
           </div>
         </div>
       </div>
-      <ArticlesWithTabs
-        articles={currentArticles}
-        tabsNames={tabsNames}
-      />
+      <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNames} />
     </div>
   );
 };
