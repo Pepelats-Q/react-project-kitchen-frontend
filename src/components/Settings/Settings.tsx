@@ -72,7 +72,7 @@ const Settings: FC = () => {
   };
 
   useEffect(() => {
-    if (!errorsStore&& redirectTo) {
+    if (!errorsStore && redirectTo) {
       history.push(redirectTo);
       dispatch(redirect());
     }

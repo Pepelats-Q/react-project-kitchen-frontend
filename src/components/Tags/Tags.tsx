@@ -22,8 +22,6 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
     activeTag,
     currentTab,
     tabTags,
-
-
   } = useSelector((store) => ({
     articlesYourPosts: store.articleList.articlesProfileYourPosts,
     articlesUserFavorites: store.articleList.articlesProfileFavorites,
@@ -34,8 +32,6 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
     tabTags: store.articleList.currentTags,
     currentProfile: store.profile.profile,
     filterActivated: store.articleList.filterActivated,
-
-
   }));
 
   const filterGivenArticlesByClick = (tag: any) =>

@@ -14,6 +14,7 @@ type TArticles = {
   noArticlesMessage: string;
   readMore: string;
   tags: string;
+  filterreset: string;
 };
 type TCommon = {
   loading: string;
@@ -109,6 +110,7 @@ const translations: Ttranslations | any = {
       tags: 'Tags: ',
       edit: ' Edit Article',
       delete: 'Delete Article',
+      filterreset: 'Erase filter',
     },
     common: {
       loading: 'Loading...',
@@ -191,6 +193,7 @@ const translations: Ttranslations | any = {
       tags: 'Теги: ',
       edit: 'Редактировать статью',
       delete: 'Удалить статью',
+      filterreset: 'Сбросить фильтр',
     },
     common: {
       loading: 'Загрузка...',

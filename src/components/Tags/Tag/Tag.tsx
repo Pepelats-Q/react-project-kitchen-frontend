@@ -9,13 +9,12 @@ export type TTagProps = {
 
 const Tag: FC<TTagProps> = ({ handleClick, tag }) => {
   const activeTag = useSelector((store) => store.articleList.tag);
-  // console.log('active tag:', activeTag);
 
   const tagClickHandler = (ev: SyntheticEvent) => {
     ev.preventDefault();
     ev.stopPropagation();
     handleClick();
-    // history.push('/'); из-за этого был редирект, коммент можно удалять 
+    // history.push('/'); из-за этого был редирект, коммент можно удалять ?
   };
   return (
     <button

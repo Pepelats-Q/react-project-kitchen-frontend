@@ -55,7 +55,7 @@ const Editor: FC = () => {
     dispatch(articleSubmit({ payload }));
   };
 
-  const watchForEnter = (ev: any) => {    
+  const watchForEnter = (ev: any) => {
     // TODO статья отправляется в публикацию при нажатии Enter. Исправить это - СДЕЛАНО удаляю?
     if (ev.key === 'Enter') {
       ev.preventDefault();
