@@ -37,7 +37,6 @@ const Profile: FC = () => {
   const location = useLocation();
   const localization = useTranslate();
   const { username } = useParams<TUsernameParams>();
-  const articlesCount = 0;
   const isCurrentUserProfile = user?.username === currentProfile?.username;
   const isFavorite = location.pathname.includes('favorite');
   const [currentArticles, setCurrentArticles] = useState<Array<TArticle>>([]);
@@ -175,7 +174,6 @@ const Profile: FC = () => {
       </div>
       <ArticlesWithTabs
         articles={currentArticles}
-        articlesCount={articlesCount}
         tabsNames={tabsNames}
       />
     </div>

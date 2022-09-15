@@ -48,7 +48,7 @@ const Article: FC = () => {
   if (!article) {
     return null;
   }
-  const canModify = (currentUser !== null) && currentUser?.username === article?.author?.username;
+  const canModify = currentUser && currentUser?.username === article?.author?.username;
 
   return (
     <div className={styles.page}>

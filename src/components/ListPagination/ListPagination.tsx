@@ -1,16 +1,20 @@
 import React, { FC } from 'react';
+import clsx from 'clsx';
 import agent from '../../agent';
 import { setPageAction } from '../../services/reducers/articlelist-reducer';
-import { useDispatch } from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
+import styles from './ListPagination.module.scss';
 
 type TListPaginationProps = {
-  articlesCount: number;
   pager: any;
-  currentPage: any;
 };
 
-const ListPagination: FC<TListPaginationProps> = ({ articlesCount, pager, currentPage }) => {
+const ListPagination: FC<TListPaginationProps> = ({ pager }) => {
   const dispatch = useDispatch();
+  const { articlesCount, currentPage } = useSelector((store) => ({
+    articlesCount: store.articleList.articlesCount,
+    currentPage: store.articleList.currentPage,
+  }));
 
   const onSetPage = (page: any, payload: any) => dispatch(setPageAction({ page, payload }));
 
@@ -32,8 +36,8 @@ const ListPagination: FC<TListPaginationProps> = ({ articlesCount, pager, curren
   };
 
   return (
-    <nav>
-      <ul className='pagination'>
+    <nav className={styles.wrapper}>
+      <div className={styles.pagination}>
         {range.map((v) => {
           const isCurrent = v === currentPage;
           const onClick = (ev: React.SyntheticEvent) => {
@@ -41,18 +45,17 @@ const ListPagination: FC<TListPaginationProps> = ({ articlesCount, pager, curren
             setPage(v);
           };
           return (
-            <li key={v.toString()}>
-              <button
-                className={isCurrent ? 'page-item active' : 'page-item'}
-                onClick={onClick}
-                type='button'
-              >
-                {v + 1}
-              </button>
-            </li>
+            <button
+              key={v.toString()}
+              className={clsx(styles.page_button, 'text-default', isCurrent ? styles.active : '')}
+              onClick={onClick}
+              type='button'
+            >
+              {v + 1}
+            </button>
           );
         })}
-      </ul>
+      </div>
     </nav>
   );
 };

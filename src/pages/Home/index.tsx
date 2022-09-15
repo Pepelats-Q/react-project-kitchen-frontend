@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Home: FC = () => {
   const dispatch = useDispatch();
-  const { token, articlesAll, articlesYourFeed } = useSelector((store: any) => ({
+  const { token, articlesAll, articlesYourFeed } = useSelector((store) => ({
     token: store.common.token,
     articlesAll: store.articleList.articles,
     articlesYourFeed: store.articleList.articlesYourFeed,
@@ -23,8 +23,7 @@ const Home: FC = () => {
   const location = useLocation();
   const localization = useTranslate();
   const isFeed = location.pathname.includes('your-feed');
-  const [currentArticles, setCurrentArticles] = useState<any>(articlesAll);
-  const articlesCount = currentArticles ? currentArticles.length : 0;
+  const [currentArticles, setCurrentArticles] = useState(articlesAll);
 
   const onLoad = () => {
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
@@ -79,13 +78,11 @@ const Home: FC = () => {
       {token ? (
         <ArticlesWithTabs
           articles={currentArticles}
-          articlesCount={articlesCount}
           tabsNames={tabsNames}
         />
       ) : (
         <ArticlesWithTabs
           articles={articlesAll}
-          articlesCount={articlesCount}
           tabsNames={tabsNamesNoAuth}
         />
       )}

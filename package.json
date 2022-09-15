@@ -56,7 +56,8 @@
     "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "npx eslint .",
-    "lint-errors": "npx eslint . --quiet"
+    "lint-errors": "npx eslint . --quiet",
+    "deploy-script": "npm run build && scp -r ./build/* admin@62.84.127.197:/home/admin/pepelats-q" 
   },
   "eslintConfig": {
     "extends": [

@@ -14,19 +14,6 @@ type TArticleListState = {
   tags: Array<string>;
 };
 
-const initialState: TArticleListState = {
-  articles: [],
-  articlesYourFeed: [],
-  articlesProfileYourPosts: [],
-  articlesProfileFavorites: [],
-  articlesCount: 0,
-  currentPage: 1,
-  pager: null,
-  tab: null,
-  tag: null,
-  tags: [],
-};
-
 interface IArticleFavorite {
   readonly type: string;
   readonly payload: {
@@ -41,6 +28,7 @@ interface ILoadAllArticles {
   readonly payload: {
     payload: {
       articles: Array<TArticle>;
+      articlesCount: number;
     };
   };
 }
@@ -102,6 +90,19 @@ export type TArticleListActions =
   | IApplyTagFilter
   | IChangeTab;
 
+const initialState: TArticleListState = {
+  articles: [],
+  articlesYourFeed: [],
+  articlesProfileYourPosts: [],
+  articlesProfileFavorites: [],
+  articlesCount: 0,
+  currentPage: 1,
+  pager: null,
+  tab: null,
+  tag: null,
+  tags: [],
+};
+
 const articleListReducer = createSlice({
   name: 'articleList',
   initialState,
@@ -127,11 +128,14 @@ const articleListReducer = createSlice({
     },
     loadAllArticles(state, action: ILoadAllArticles) {
       state.articles = [...action.payload.payload.articles];
+      state.tag = null;
+      state.tab = null;
+      state.articlesCount = action.payload.payload.articlesCount;
     },
     setPageAction(state, action: ISetPageAction) {
       state.articles = [...action.payload.payload.articles];
       state.articlesCount = action.payload.payload.articlesCount;
-      state.currentPage = action.page;
+      state.currentPage = action.payload.page;
     },
     loadAllTags(state, action: ILoadAllTags) {
       state.tags = [...action.payload.payload.tags];
@@ -140,12 +144,12 @@ const articleListReducer = createSlice({
       state.articles = action.payload.payload.articles;
       state.articlesCount = action.payload.payload.articlesCount;
       state.currentPage = 0;
-      state.pager = action.pager;
+      state.pager = action.payload.pager;
       state.tab = null;
-      state.tag = action.tag ? action.tag : null;
+      state.tag = action.payload.tag ? action.payload.tag : null;
     },
     changeTab(state, action: IChangeTab) {
-      state.pager = action.pager;
+      state.pager = action.payload.pager;
       if (action.payload.tab === 'feed') {
         state.articlesYourFeed = action.payload.payload.articles;
       } else if (action.payload.tab === 'your-posts') {
@@ -156,7 +160,7 @@ const articleListReducer = createSlice({
         state.articles = action.payload.payload.articles;
       }
       state.articlesCount = action.payload.payload.articlesCount;
-      state.tab = action.tab ? action.tab : null;
+      state.tab = action.payload.tab ? action.payload.tab : null;
       state.currentPage = 0;
       state.tag = null;
     },
@@ -171,6 +175,7 @@ const articleListReducer = createSlice({
 
 export const {
   articleFavorite,
+  loadAllArticles,
   setPageAction,
   loadAllTags,
   applyTagFilter,
