@@ -1,23 +1,21 @@
-import { FC, useEffect, useState } from "react";
-import agent from "../../agent";
-import { useDispatch, useSelector } from "../../hooks/hooks";
+import { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import agent from '../../agent';
+import { useDispatch, useSelector } from '../../hooks/hooks';
 // import useTranslate from '../../hooks/useTranslate';
 import {
-  loadAllArticles,
+  changeTab,
   setFilteredArticles,
   setTagActive,
-} from "../../services/reducers/articlelist-reducer";
-import Tag from "./Tag/Tag";
-import styles from "./Tags.module.scss";
+  setTagDeactive,
+} from '../../services/reducers/articlelist-reducer';
+import { TUsernameParams } from '../../utils/types';
+import Tag from './Tag/Tag';
+import styles from './Tags.module.scss';
 
-const Tags: FC<{ tags?: Array<string>; place?: string }> = ({
-  tags,
-  place,
-}) => {
+const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => {
   const dispatch = useDispatch();
-  const [currentArticlesToFilter, setCurrentArticlesToFilter] = useState<
-    Array<any>
-  >([]);
+  const [currentArticlesToFilter, setCurrentArticlesToFilter] = useState<Array<any>>([]);
 
   const {
     articlesYourPosts,
@@ -27,6 +25,7 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({
     activeTag,
     currentTab,
     tabTags,
+    currentProfile,
   } = useSelector((store) => ({
     articlesYourPosts: store.articleList.articlesProfileYourPosts,
     articlesUserFavorites: store.articleList.articlesProfileFavorites,
@@ -35,11 +34,13 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({
     activeTag: store.articleList.tag,
     currentTab: store.articleList.tab,
     tabTags: store.articleList.currentTags,
+    currentProfile: store.profile.profile,
   }));
+  const { username } = useParams<TUsernameParams>();
 
   const filterGivenArticlesByClick = (tag: any) => {
     const shownFilteredArticles = currentArticlesToFilter.filter((article) =>
-      article.tagList.includes(tag)
+      article.tagList.includes(tag),
     );
     return shownFilteredArticles;
   };
@@ -50,29 +51,50 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({
     dispatch(setTagActive({ tag }));
   };
 
+  const makeTagUnactive = () => {
+    dispatch(setTagDeactive());
+    if (currentTab === 'your-posts') {
+      dispatch(
+        changeTab({
+          tab: 'your-posts',
+          pager: agent.Articles.byAuthor,
+          payload: agent.Articles.byAuthor(username, 0),
+        }),
+      );
+    } else if (currentTab === 'favorites') {
+      dispatch(
+        changeTab({
+          tab: 'favorites',
+          pager: agent.Articles.favoritedBy,
+          payload: agent.Articles.favoritedBy(currentProfile.username),
+        }),
+      );
+    } else if (currentTab === 'feed') {
+      dispatch(
+        changeTab({ tab: 'feed', pager: agent.Articles.feed, payload: agent.Articles.feed() }),
+      );
+    } else {
+      dispatch(changeTab({ tab: 'all', pager: agent.Articles.all, payload: agent.Articles.all() }));
+    }
+  };
+
   const deactivateTag = () => {
-    dispatch(loadAllArticles({ payload: agent.Articles.all() }));
+    makeTagUnactive();
   };
 
   useEffect(() => {
-    if (currentTab === "your-posts") {
+    if (currentTab === 'your-posts') {
       setCurrentArticlesToFilter(articlesYourPosts);
-    } else if (currentTab === "favorites") {
+    } else if (currentTab === 'favorites') {
       setCurrentArticlesToFilter(articlesUserFavorites);
-    } else if (currentTab === "feed") {
+    } else if (currentTab === 'feed') {
       setCurrentArticlesToFilter(articlesYourFeed);
     } else {
       setCurrentArticlesToFilter(articlesAll);
     }
-  }, [
-    currentTab,
-    articlesYourPosts,
-    articlesUserFavorites,
-    articlesYourFeed,
-    articlesAll,
-  ]);
+  }, [currentTab, articlesYourPosts, articlesUserFavorites, articlesYourFeed, articlesAll]);
 
-  const currentTags = (place === "sidebar") ? tabTags : tags;
+  const currentTags = place === 'sidebar' ? tabTags : tags;
 
   if (currentTags) {
     return (

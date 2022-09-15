@@ -68,17 +68,13 @@ const Home: FC = () => {
     }
   }, [isFeed]);
 
-  // const [currentHomeTags, setCurrentHomeTags] = useState<Array<any>>([]);
 
   useEffect(() => {
     if (isFeed) {
       setCurrentArticles(articlesYourFeed);
-      // setCurrentHomeTags(defineThisTabTags(articlesYourFeed));
-      console.log('defining tagsFAV: ', defineThisTabTags(articlesYourFeed));
       dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesYourFeed) }));
     } else {
       setCurrentArticles(articlesAll);
-      // setCurrentHomeTags(defineThisTabTags(articlesAll));
       dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesAll) }));
     }
   }, [articlesYourFeed, articlesAll, isFeed]);

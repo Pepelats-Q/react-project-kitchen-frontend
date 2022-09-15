@@ -153,7 +153,10 @@ const articleListReducer = createSlice({
     setTagActive(state, action: any) {
       state.tag = action.payload.tag ? action.payload.tag : null;
     },
-    setCurrentTabTags(state, action: any){
+    setTagDeactive(state) {
+      state.tag = '';
+    },
+    setCurrentTabTags(state, action: any) {
       state.currentTags = action.payload.payload ? action.payload.payload : null;
     },
     changeTab(state, action: IChangeTab) {
@@ -199,6 +202,7 @@ export const {
   loadAllTags,
   applyTagFilter,
   setTagActive,
+  setTagDeactive,
   setCurrentTabTags,
   changeTab,
   setFilteredArticles,
