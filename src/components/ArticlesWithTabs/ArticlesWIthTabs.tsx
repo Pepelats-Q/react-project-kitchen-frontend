@@ -65,7 +65,11 @@ const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles }) =
         <div className={styles.children}>
           <div className={styles.header}>
             <Tabs tabsNames={tabsNames} />
-            {activeTag && <TextButton onClick={clearTagFilter}>{localization({page: 'articlesLang', key: 'filterreset'})}</TextButton>}
+            {activeTag && (
+              <TextButton onClick={clearTagFilter}>
+                {localization({ page: 'articlesLang', key: 'filterreset' })}
+              </TextButton>
+            )}
           </div>
           <ArticleList articles={articles} />
         </div>

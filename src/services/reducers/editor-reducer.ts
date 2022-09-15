@@ -40,7 +40,6 @@ interface IEditorAsyncStart {
 
 export type TEditorActions = IEditorArticleSubmit | IEditorAsyncStart;
 
-// TODO: думаю, вообще избавиться от целого редьюсера, а articleSubmit перенести в article или common
 const editorReducer = createSlice({
   name: 'editor',
   initialState,

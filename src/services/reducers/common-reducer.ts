@@ -116,7 +116,6 @@ const commonReducer = createSlice({
     redirect(state) {
       state.redirectTo = null;
     },
-    // TODO: Почему редиректы вообще тут?
     articleDelete(state, action: IArticleDelete) {
       state.redirectTo = action.error ? null : '/';
     },

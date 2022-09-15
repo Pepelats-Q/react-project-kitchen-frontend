@@ -25,7 +25,6 @@ import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 
 const Profile: FC = () => {
-  // TODO осталось тут убрать any и в UseEffect От ошибки избавиться
   const {
     currentProfile,
     user,
@@ -77,9 +76,7 @@ const Profile: FC = () => {
     givenArticles.forEach((article) => {
       allTagsOfThisTab = allTagsOfThisTab.concat(article.tagList);
     });
-    return allTagsOfThisTab.filter(
-      (item, pos) => allTagsOfThisTab.indexOf(item) === pos,
-    );
+    return allTagsOfThisTab.filter((item, pos) => allTagsOfThisTab.indexOf(item) === pos);
   };
 
   useEffect(() => {
@@ -189,12 +186,16 @@ const Profile: FC = () => {
           <div className={styles.button}>
             {isCurrentUserProfile ? (
               <div className={styles.actions}>
-                <NavButton icon={<GearIcon />} to='/settings' type='primary'>
-                  {localization({ page: 'profile', key: 'editProfile' })}
-                </NavButton>
-                <Button onClick={onClickLogout} type='outline_alert'>
-                  {localization({ page: 'settings', key: 'logout' })}
-                </Button>
+                <div className={styles.action_container}>
+                  <NavButton icon={<GearIcon />} to='/settings' type='primary'>
+                    {localization({ page: 'profile', key: 'editProfile' })}
+                  </NavButton>
+                </div>
+                <div className={styles.action_container}>
+                  <Button onClick={onClickLogout} type='outline_alert'>
+                    {localization({ page: 'settings', key: 'logout' })}
+                  </Button>
+                </div>
               </div>
             ) : (
               ''

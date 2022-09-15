@@ -19,7 +19,7 @@
   padding: 0;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,16 +50,7 @@
   margin-bottom: 12px;
 }
 
-@media screen and (max-width: 1180px) {
-  .container {
-    padding: 0 24px;
-  }
-}
-
 @media screen and (max-width: 768px) {
-  .container {
-    padding: 0 16px;
-  }
   .box {
     flex-direction: column-reverse;
   }
@@ -69,6 +60,5 @@
 
   .children {
     margin: 0;
-    padding: 0 16px;
   }
 }
