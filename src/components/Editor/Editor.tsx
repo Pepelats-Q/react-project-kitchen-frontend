@@ -56,7 +56,7 @@ const Editor: FC = () => {
   };
 
   const watchForEnter = (ev: any) => {    
-    // TODO статья отправляется в публикацию при нажатии Enter. Исправить это 
+    // TODO статья отправляется в публикацию при нажатии Enter. Исправить это - СДЕЛАНО удаляю?
     if (ev.key === 'Enter') {
       ev.preventDefault();
       if (values.tag) {
@@ -67,6 +67,7 @@ const Editor: FC = () => {
       }
       return false;
     }
+    return {};
   };
 
   const removeTagHandler = (tag: string) => () => {

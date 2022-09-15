@@ -27,24 +27,13 @@ const ScrollTop: FC<TScrollTopProps> = ({ curRef, scrollPosition }) => {
     handleVisibleButton();
   }, [scrollPosition]);
 
-  /*
-      <button
-      type='button'
-      className={`${styles.btn_toTop} ${
-        isToTopShown ? styles.btn_toTop_shown : styles.btn_toTop_hidden
-      }`}
-      onClick={handleScrollUp}
-    >&#129045;</button>
-
-    */
-
   return (
     <Button
-      onClick={handleScrollUp}
-      type='lang'
       className={`${styles.btn_toTop} ${
         isToTopShown ? styles.btn_toTop_shown : styles.btn_toTop_hidden
       }`}
+      onClick={handleScrollUp}
+      type='lang'
     >
       &#129045;
     </Button>
