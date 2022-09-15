@@ -37,6 +37,18 @@ const Home: FC = () => {
     };
   }, []);
 
+  const defineThisTabTags = (givenArticles: Array<any>) => {
+    // собирает теги с одной страницы
+    let allTagsOfThisTab: Array<any> = [];
+    givenArticles.forEach((article) => {
+      allTagsOfThisTab = allTagsOfThisTab.concat(article.tagList);
+    });
+    const uniqueArray = allTagsOfThisTab.filter(
+      (item, pos) => allTagsOfThisTab.indexOf(item) === pos,
+    );
+    return uniqueArray;
+  };
+
   const loadYourFeed = () => {
     dispatch(
       changeTab({ tab: 'feed', pager: agent.Articles.feed, payload: agent.Articles.feed() }),
@@ -55,11 +67,15 @@ const Home: FC = () => {
     }
   }, [isFeed]);
 
+  const [currentHomeTags, setCurrentHomeTags] = useState<Array<any>>([]);
+
   useEffect(() => {
     if (isFeed) {
       setCurrentArticles(articlesYourFeed);
+      setCurrentHomeTags(defineThisTabTags(articlesYourFeed));
     } else {
       setCurrentArticles(articlesAll);
+      setCurrentHomeTags(defineThisTabTags(articlesAll));
     }
   }, [articlesYourFeed, articlesAll, isFeed]);
 
@@ -76,14 +92,12 @@ const Home: FC = () => {
     <div className={styles.home_page}>
       <Banner />
       {token ? (
-        <ArticlesWithTabs
-          articles={currentArticles}
-          tabsNames={tabsNames}
-        />
+        <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNames} tags={currentHomeTags} />
       ) : (
         <ArticlesWithTabs
           articles={articlesAll}
           tabsNames={tabsNamesNoAuth}
+          tags={currentHomeTags}
         />
       )}
     </div>

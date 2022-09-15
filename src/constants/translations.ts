@@ -7,6 +7,7 @@ type TComments = {
     writeComment: string;
     comments: string;
     post: string;
+    emptyAlert: string;
   };
 };
 type TArticles = {
@@ -180,6 +181,7 @@ const translations: Ttranslations | any = {
       writeComment: 'Write a comment...',
       comments: 'Comments',
       post: 'Post Comment',
+      emptyAlert: 'Your comment is empty. Please write something',
     },
   },
   ru: {
@@ -261,6 +263,7 @@ const translations: Ttranslations | any = {
       writeComment: 'Напишите комментарий...',
       comments: 'Комментарии',
       post: 'Опубликовать комментарий',
+      emptyAlert: 'Ваш комментарий пуст. Напишите что-нибудь',
     },
   },
 };

@@ -47,7 +47,10 @@ const profileReducer = createSlice({
       state.profile = { ...action.payload.payload.profile };
     },
     getProfile(state, action: IGetProfile) {
-      state.profile = { ...action.payload.payload.profile };
+      // console.log('user:', action.payload);
+      if (action.payload) {
+        state.profile = { ...action.payload.payload.profile };
+      }
     },
     profilePageUnload() {
       return { ...initialState };

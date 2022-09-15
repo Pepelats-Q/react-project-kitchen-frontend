@@ -8,12 +8,15 @@ import { addComment } from '../../services/reducers/article-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useSelector } from '../../hooks/hooks';
 import { TPropsWithSlug } from '../../utils/types';
+import ListErrors from '../ListErrors/ListErrors';
 
 const CommentInput: FC<TPropsWithSlug> = ({ slug }) => {
-  const { currentUser, currentProfile } = useSelector((state) => ({
-    currentUser: state.common.currentUser,
-    currentProfile: state.profile.profile,
+  const { currentUser, currentProfile, errorsStore } = useSelector((store) => ({
+    currentUser: store.common.currentUser,
+    currentProfile: store.profile.profile,
+    errorsStore: store.auth.errors,
   }));
+
   const [state, setState] = useState({ body: '' });
   const localization = useTranslate();
 
@@ -28,32 +31,55 @@ const CommentInput: FC<TPropsWithSlug> = ({ slug }) => {
     dispatch(addComment({ payload }));
   };
 
+  const [errorText, setErrorText] = useState('');
+
   const createComment = (ev: React.SyntheticEvent) => {
     ev.preventDefault();
-    const payload = agent.Comments.create(slug, { body: state.body });
-    setState({ body: '' });
-    onSubmit(payload);
+    if (state.body !== '') {
+      const payload = agent.Comments.create(slug, { body: state.body });
+      setState({ body: '' });
+      onSubmit(payload);
+    } else {
+      setErrorText(localization({ page: 'comments', key: 'emptyAlert' }));
+      setTimeout(() => {
+        setErrorText('');
+      }, 2500);
+    }
   };
 
   return (
-    <form className={styles.commentForm} onSubmit={createComment}>
-      <textarea
-        className={styles.textarea}
-        onChange={setBody}
-        placeholder={localization({ page: 'comments', key: 'writeComment' })}
-        rows={3}
-        value={state.body}
-      />
-      <div className={styles.commentUser}>
-        <div className={styles.userInfo}>
-          <img alt={currentUser.username} className={styles.userImage} src={currentProfile.image} />
-          <div className={styles.info}>
-            <p className={styles.userLink}>{currentUser.username}</p>
-          </div>
-        </div>
-        <Button onClick={createComment}>{localization({ page: 'comments', key: 'post' })}</Button>
+    <div className={styles.input_container}>
+      <div className={styles.errors_container}>
+        <ListErrors errors={errorsStore} />
+        <p className={styles.comment_error}>{errorText}</p>
       </div>
-    </form>
+      <div className={`${styles.comment} ${styles.comment_input}`}>
+        <form className={styles.commentForm} onSubmit={createComment}>
+          <textarea
+            className={styles.textarea}
+            onChange={setBody}
+            placeholder={localization({ page: 'comments', key: 'writeComment' })}
+            rows={3}
+            value={state.body}
+          />
+          <div className={styles.commentUser}>
+            <div className={styles.userInfo}>
+              <img
+                alt={currentUser.username}
+                className={styles.userImage}
+                src={currentProfile.image}
+              />
+              <div className={styles.info}>
+                <p className={styles.userLink}>{currentUser.username}</p>
+              </div>
+            </div>
+            <Button onClick={createComment}>
+              {localization({ page: 'comments', key: 'post' })}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

@@ -149,6 +149,7 @@ const articleListReducer = createSlice({
       state.tag = action.payload.tag ? action.payload.tag : null;
     },
     changeTab(state, action: IChangeTab) {
+      console.log('action changetab: ', action.payload.tab);
       state.pager = action.payload.pager;
       if (action.payload.tab === 'feed') {
         state.articlesYourFeed = action.payload.payload.articles;
@@ -163,6 +164,17 @@ const articleListReducer = createSlice({
       state.tab = action.payload.tab ? action.payload.tab : null;
       state.currentPage = 0;
       state.tag = null;
+    },
+    setFilteredArticles(state, action: any) {
+      if (action.payload.tab === 'feed') {
+        state.articlesYourFeed = action.payload.articles;
+      } else if (action.payload.tab === 'your-posts') {
+        state.articlesProfileYourPosts = action.payload.articles;
+      } else if (action.payload.tab === 'favorites') {
+        state.articlesProfileFavorites = action.payload.articles;
+      } else {
+        state.articles = action.payload.articles;
+      }
     },
     profileClearArticlesPageUnloaded() {
       return { ...initialState };
@@ -180,6 +192,7 @@ export const {
   loadAllTags,
   applyTagFilter,
   changeTab,
+  setFilteredArticles,
   profileClearArticlesPageUnloaded,
   homePageClearArticlesUnloaded,
 } = articleListReducer.actions;

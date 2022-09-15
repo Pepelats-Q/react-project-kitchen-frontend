@@ -14,12 +14,12 @@ import { loadAllArticles } from '../../services/reducers/articlelist-reducer';
 type TArticlesWithTabsProps = {
   tabsNames: Array<TNames>;
   articles: Array<TArticle>;
+  tags: Array<string>;
 };
 
-const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles }) => {
-  const { activeTag, tags } = useSelector((store) => ({
+const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, tags }) => {
+  const { activeTag } = useSelector((store) => ({
     activeTag: store.articleList.tag,
-    tags: store.articleList.tags,
   }));
   const localization = useTranslate();
   const dispatch = useDispatch();

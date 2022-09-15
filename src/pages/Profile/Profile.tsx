@@ -42,7 +42,6 @@ const Profile: FC = () => {
   const [currentArticles, setCurrentArticles] = useState<Array<TArticle>>([]);
 
   const onLoad = (): void => {
-    dispatch(getProfile({ payload: agent.Profile.get(username) }));
     dispatch(loadAllTags({ payload: agent.Tags.getAll() }));
   };
 
@@ -56,6 +55,23 @@ const Profile: FC = () => {
     return () => {
       onUnload();
     };
+  }, []);
+
+  const defineThisTabTags = (givenArticles: Array<any>) => {
+    let allTagsOfThisTab: Array<any> = [];
+    givenArticles.forEach((article) => {
+      allTagsOfThisTab = allTagsOfThisTab.concat(article.tagList);
+    });
+    const uniqueArray = allTagsOfThisTab.filter(
+      (item, pos) => allTagsOfThisTab.indexOf(item) === pos,
+    );
+    return uniqueArray;
+  };
+
+  useEffect(() => {
+    if (username !== 'user') {
+      dispatch(getProfile({ payload: agent.Profile.get(username) }));
+    }
   }, [username]);
 
   const loadFavorites = () => {
@@ -86,11 +102,15 @@ const Profile: FC = () => {
     }
   }, [user, currentProfile, isFavorite]);
 
+  const [currentProfileTags, setCurrentProfileTags] = useState<Array<any>>([]);
+
   useEffect(() => {
     if (isFavorite) {
       setCurrentArticles(articlesUserFavorites);
+      setCurrentProfileTags(defineThisTabTags(articlesUserFavorites));
     } else {
       setCurrentArticles(articlesUserPosts);
+      setCurrentProfileTags(defineThisTabTags(articlesUserPosts));
     }
   }, [articlesUserFavorites, articlesUserPosts, isFavorite]);
 
@@ -126,7 +146,6 @@ const Profile: FC = () => {
     dispatch(logout());
     history.push('/login');
   };
-
   return (
     <div className={styles.page}>
       <div className={styles.userinfo}>
@@ -175,6 +194,7 @@ const Profile: FC = () => {
       <ArticlesWithTabs
         articles={currentArticles}
         tabsNames={tabsNames}
+        tags={currentProfileTags}
       />
     </div>
   );

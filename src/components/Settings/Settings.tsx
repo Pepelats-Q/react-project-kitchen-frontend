@@ -8,14 +8,16 @@ import { settingsSaved } from '../../services/reducers/settings-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import useFormValidation from '../../hooks/useFormValidation';
-import AuthForm from '../AuthForm/AuthForm';
+import Form from '../Form/Form';
+import { redirect } from '../../services/reducers/common-reducer';
 
 const Settings: FC = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { currentUser, token, errorsStore } = useSelector((store) => ({
+  const { currentUser, token, errorsStore, redirectTo } = useSelector((store) => ({
     currentUser: store.common.currentUser,
     token: store.common.token,
     errorsStore: store.auth.errors,
+    redirectTo: store.common.redirectTo,
   }));
 
   const dispatch = useDispatch();
@@ -69,8 +71,15 @@ const Settings: FC = () => {
     onSubmitForm(user);
   };
 
+  useEffect(() => {
+    if (!errorsStore&& redirectTo) {
+      history.push(redirectTo);
+      dispatch(redirect());
+    }
+  }, [errorsStore, redirectTo]);
+
   return (
-    <AuthForm
+    <Form
       apiErrors={errorsStore?.errors}
       btnText={localization({ page: 'settings', key: 'saveButton' })}
       formName='editor'
@@ -148,7 +157,7 @@ const Settings: FC = () => {
         type={isPasswordVisible ? 'text' : 'password'}
         value={values.password}
       />
-    </AuthForm>
+    </Form>
   );
 };
 

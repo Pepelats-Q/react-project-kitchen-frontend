@@ -10,7 +10,7 @@ import { redirect } from '../../services/reducers/common-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import useFormValidation from '../../hooks/useFormValidation';
-import AuthForm from '../AuthForm/AuthForm';
+import Form from '../Form/Form';
 
 const Editor: FC = () => {
   const { token, errorsStore, redirectTo } = useSelector((store) => ({
@@ -115,11 +115,12 @@ const Editor: FC = () => {
   }, [errorsEditor, redirectTo]);
 
   return (
-    <AuthForm
+    <Form
       apiErrors={errorsEditor}
       btnText={localization({ page: 'editor', key: 'btnText' })}
       formName='editor'
       isFormValid={isValid}
+      isSubmit={false}
       onSubmit={submitForm}
       onSubmitBlur={handleSubmitBlur}
       title={
@@ -201,7 +202,7 @@ const Editor: FC = () => {
           ))}
         </ul>
       </div>
-    </AuthForm>
+    </Form>
   );
 };
 
