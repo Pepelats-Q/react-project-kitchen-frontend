@@ -1,5 +1,7 @@
 @import '../ui-style/ui-style.scss';
 
+$animation_time: 0.5s;
+
 .wrapper {
   @include text-default;
   max-width: 600px;
@@ -7,6 +9,7 @@
 }
 
 .label {
+  display: block;
   color: $color-primary;
   margin-bottom: 4px;
   max-width: 100%;
@@ -26,6 +29,8 @@
   width: 100%;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  transition: border-color $animation_time, color $animation_time;
+  
   &:focus {
     border-color: $color-accent;
     color: $color-primary;
@@ -36,6 +41,7 @@
   }
   &_error {
     border-color: $color-alert;
+    transition: border-color $animation_time, color $animation_time;
   }
   &_success {
     border-color: $color-success;

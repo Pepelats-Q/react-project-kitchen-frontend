@@ -54,7 +54,7 @@ const promiseMiddleware = (store) => (next) => (action) => {
   }
   next(action);
 };
-// store было передано в функцию
+
 const localStorageMiddleware = () => (next) => (action) => {
   if (action.type === register.type || action.type === login.type) {
     if (!action.error) {

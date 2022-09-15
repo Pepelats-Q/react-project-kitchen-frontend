@@ -11,7 +11,6 @@ type TUserWIthDateProps = {
 
 const UserWithDate: FC<TUserWIthDateProps> = ({ author, date }) => {
   const defaultAvatar = 'https://static.productionready.io/images/smiley-cyrus.jpg';
-
   const currentLang = useSelector((state) => state.common.currentLang);
 
   return (

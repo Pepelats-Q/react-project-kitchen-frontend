@@ -1,8 +1,8 @@
-@import '../ui-library/ui-style/ui-style.scss';
+@import '/src/components/ui-library/ui-style/ui-style.scss';
 
 .article_preview {
   border-top: 1px solid $color-input;
-  padding: 1.5rem 0;
+  padding: 32px 0;
 }
 
 .image {
@@ -11,12 +11,8 @@
   background-color: $color-input;
   border-radius: 20px;
   background-size: cover;
+  background-position: center;
 }
-
-.w100 {
-  width: 100%;
-}
-
 
 .title {
   font-family: 'Exo 2';
@@ -24,9 +20,20 @@
   font-weight: 700;
   font-size: 24px;
   line-height: 28px;
-  margin-top: 16px;
-  margin-bottom: 8px;
+  margin: 0;
   color: $color-primary;
+}
+
+.description {
+  color: $color-secondary;
+  height: 96px;
+  margin: 0;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .text {
@@ -42,13 +49,21 @@
   box-sizing: border-box;
 }
 
-.continue {
-  composes: text;
-  color: $color-accent;
+.preview_footer {
+  display: flex;
+  justify-content: space-between;
 }
 
-.continue:hover {
+.readmore {
+  color: $color-accent;
+  display: inline-block;
+  flex-shrink: 0;
+  transition: color 0.5s;
+}
+
+.readmore:hover {
   color: $color-primary;
+  transition: color 0.5s;
 }
 
 .tag_list {
@@ -59,31 +74,12 @@
   width: 400px;
   list-style: none;
   gap: 5px;
-}
-
-.tag_default {
-  color: $color-primary;
-  background-color: $color-input;
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 100px;
-}
-
-.tag_default:hover {
-  color: $color-primary;
-}
-
-.tag_default:focus {
-  background-color: $color-accent;
-  color: $color-primary;
+  margin: 0;
 }
 
 .row {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -97,7 +93,7 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  
+  width: 100%;
 }
 
 .meta {
@@ -156,57 +152,9 @@
   cursor: pointer;
 }
 
-.btn {
-  display: inline-block;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
-  padding: 0.5rem 1rem;
-  border: none;
-  font-family: 'JetBrains Mono', sans-serif;
-  font-style: normal;
-}
-
-.btn_sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-}
-
-.btn_primary {
-  color: $color-alert;
-  background-color: transparent;
-}
-.btn_primary:hover {
-  color: $color-alert;
-  background-color: transparent;
-}
-.btn_primary:focus {
-  color: $color-alert;
-}
-
-.btn_outline_primary {
-  color: $color-primary;
-  background-image: none;
-  background-color: transparent;
-}
-.btn_outline_primary:hover {
-  color: $color-primary;
-  background-color: transparent;
-}
-.btn_outline_primary:focus {
-  background-color: transparent;
-}
-
-.btn:focus,
-.btn_sm:focus,
-.btn_primary:focus,
-.btn_outline_primary:focus {
-  outline: none;
-}
-
 .link {
   text-decoration: none;
+  margin-top: 16px;
 }
 
 .link:hover {

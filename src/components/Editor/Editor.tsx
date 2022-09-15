@@ -146,7 +146,7 @@ const Editor: FC = () => {
       <TextField
         fieldValid={validities.description}
         label={localization({ page: 'editor', key: 'description' })}
-        maxLength={25}
+        maxLength={256}
         message={errors.description}
         minLength={2}
         name='description'

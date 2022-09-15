@@ -12,6 +12,7 @@ $animation_time: 0.5s;
   line-height: 20px;
   padding: 0;
   transition: border $animation_time, color $animation_time;
+  cursor: pointer;
   &:focus {
     outline: 0;
   }

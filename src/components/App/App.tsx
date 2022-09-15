@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import agent from '../../agent';
 import Header from '../Header';
-import Article from '../../pages/Article';
+import Article from '../../pages/Article/Article';
 import Editor from '../Editor/Editor';
 import Home from '../../pages/Home';
 import Login from '../../pages/Login/Login';
@@ -39,8 +39,8 @@ const App: FC = () => {
   if (appLoaded) {
     return (
       <TranslationProvider>
+        <Header />
         <main className={styles.main}>
-          <Header />
           <Switch>
             <Route component={Home} exact path='/' />
             <Route component={Home} exact path='/your-feed' />

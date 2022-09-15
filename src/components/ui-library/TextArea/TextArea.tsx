@@ -27,7 +27,7 @@ const TextArea: FC<TUITextAreaProps> = ({
   value,
   className = '',
   label = 'Название поля',
-  maxLength = 512,
+  maxLength = 10000,
   minLength = 0,
   placeholder = '',
   required = false,

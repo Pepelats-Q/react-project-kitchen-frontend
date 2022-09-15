@@ -1,0 +1,32 @@
+@import '/src/components/ui-library/ui-style/ui-style.scss';
+
+.tag_default {
+  color: $color-primary;
+  background-color: $color-input;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 4px 8px;
+  border-radius: 100px;
+  text-decoration: none !important;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.5s;
+}
+
+.tag_default:hover {
+  background-color: $color-accent;
+  transition: background-color 0.5s;
+}
+
+.tag_default:focus {
+  outline: none;
+  transition: outline 0.5s;
+}
+
+.tag_default:focus-visible {
+  outline: 1px solid $color-secondary;
+  transition: outline 0.5s;
+}

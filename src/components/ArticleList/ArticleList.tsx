@@ -7,12 +7,10 @@ import styles from './articleList.module.scss';
 
 type TArticleListProps = {
   articles: Array<TArticle>;
-  articlesCount: number;
   pager?: () => void;
-  currentPage?: number;
 };
 
-const ArticleList: FC<TArticleListProps> = ({ articles, articlesCount, pager, currentPage }) => {
+const ArticleList: FC<TArticleListProps> = ({ articles, pager }) => {
   const localization = useTranslate();
 
   if (!articles) {
@@ -37,7 +35,7 @@ const ArticleList: FC<TArticleListProps> = ({ articles, articlesCount, pager, cu
         <ArticlePreview key={article.slug} article={article} />
       ))}
 
-      <ListPagination articlesCount={articlesCount} currentPage={currentPage} pager={pager} />
+      <ListPagination pager={pager} />
     </div>
   );
 };

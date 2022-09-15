@@ -19,6 +19,12 @@
   padding: 0;
 }
 
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .children {
   display: flex;
   flex-direction: column;
@@ -40,10 +46,8 @@
 }
 
 .title {
-  font-family: 'JetBrains Mono', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
+  margin: 0;
+  margin-bottom: 12px;
 }
 
 @media screen and (max-width: 1180px) {

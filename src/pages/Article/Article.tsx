@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
+import ReactMarkdown from 'react-markdown';
 import ArticleMeta from './ArticleMeta';
 import agent from '../../agent';
 import styles from './Article.module.scss';
@@ -67,7 +68,6 @@ const Article: FC = () => {
           {article.tagList.length > 0 ? (
             <div className={styles.tagsContainer}>
               <p className={styles.tagsTitle}>
-                {' '}
                 {localization({ page: 'articlesLang', key: 'tags' })}
               </p>
               <ul className={styles.tag_list}>
@@ -82,8 +82,7 @@ const Article: FC = () => {
             ''
           )}
           <div className={styles.text}>
-            <h2 className={styles.description}>{article.description}</h2>
-            <div dangerouslySetInnerHTML={{ __html: article.body }} />
+            <ReactMarkdown className='text-default'>{article.body}</ReactMarkdown>
           </div>
           <div className={styles.comments}>
             <CommentContainer slug={id} />

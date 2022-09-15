@@ -5,17 +5,17 @@
   align-items: center;
 }
 
-.avatar img {
+.avatar {
+  height: 40px;
+
+  & img {
   height: 40px;
   width: 40px;
   border-radius: 50%;
-}
+}}
 
 .info {
   margin-left: 8px;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1rem;
 }
 
 .date {
@@ -29,6 +29,7 @@
 }
 
 .author {
+  display: inline-block;
   color: $color-primary;
   font-family: 'JetBrains Mono';
   font-style: normal;
@@ -36,8 +37,10 @@
   font-size: 16px;
   line-height: 24px;
   text-decoration: none;
+  transition: color 0.5s;
 }
 
 .author:hover {
   color: $color-accent;
+  transition: color 0.5s;
 }

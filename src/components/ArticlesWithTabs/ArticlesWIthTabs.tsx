@@ -1,40 +1,50 @@
-import { FC } from 'react';
+import { FC, SyntheticEvent } from 'react';
+import clsx from 'clsx';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import useTranslate from '../../hooks/useTranslate';
-import Tags from '../../pages/Home/Tags/Tags';
-import { applyTagFilter } from '../../services/reducers/articlelist-reducer';
+import Tags from '../Tags/Tags';
 import { TArticle, TNames } from '../../utils/types';
 import ArticleList from '../ArticleList/ArticleList';
 import Tabs from '../Tabs/Tabs';
 import styles from './ArticlesWithTabs.module.scss';
+import TextButton from '../ui-library/Buttons/TextButton/TextButton';
+import agent from '../../agent';
+import { loadAllArticles } from '../../services/reducers/articlelist-reducer';
 
 type TArticlesWithTabsProps = {
   tabsNames: Array<TNames>;
   articles: Array<TArticle>;
-  articlesCount: number;
 };
 
-const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, articlesCount }) => {
+const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles }) => {
+  const { activeTag, tags } = useSelector((store) => ({
+    activeTag: store.articleList.tag,
+    tags: store.articleList.tags,
+  }));
+  const localization = useTranslate();
   const dispatch = useDispatch();
 
-  const tags = useSelector((store) => store.articleList.tags);
-
-  const onClickTag = (tag: string, pager: any, payload: any) => {
-    dispatch(applyTagFilter({ tag, pager, payload }));
+  const clearTagFilter = (e: SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(loadAllArticles({ payload: agent.Articles.all() }));
   };
-  const localization = useTranslate();
 
   return (
     <div className={styles.container}>
       <div className={styles.box}>
         <div className={styles.children}>
-          <Tabs tabsNames={tabsNames} />
-          <ArticleList articles={articles} articlesCount={articlesCount} />
+          <div className={styles.header}>
+            <Tabs tabsNames={tabsNames} />
+            {activeTag && <TextButton onClick={clearTagFilter}>Сбросить фильтр</TextButton>}
+          </div>
+          <ArticleList articles={articles} />
         </div>
         <div className={styles.tags}>
           <div className={styles.sidebar}>
-            <p className={styles.title}>{localization({ page: 'common', key: 'tagsTitle' })}</p>
-            <Tags onClickTag={onClickTag} tags={tags} />
+            <p className={clsx(styles.title, 'text-default')}>
+              {localization({ page: 'common', key: 'tagsTitle' })}
+            </p>
+            <Tags tags={tags} />
           </div>
         </div>
       </div>

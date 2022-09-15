@@ -25,17 +25,16 @@ const LoggedNav: FC<TNavHeader> = ({ unFoldMobileMenu }) => {
 
   return (
     <>
-      {' '}
       <li className={styles.navItem}>
         <NavButton icon={<HomeIcon size='small' />} onClick={unFoldMobileMenu} to='/'>
           {localization({ page: 'header', key: 'mainPageText' })}
         </NavButton>
-      </li>{' '}
+      </li>
       <li className={styles.navItem}>
         <NavButton icon={<EditIcon size='small' />} onClick={unFoldMobileMenu} to='/editor'>
           {localization({ page: 'header', key: 'newNoteText' })}
         </NavButton>
-      </li>{' '}
+      </li>
       <li className={styles.navItem}>
         <NavButton
           icon={<img alt='alt' className={styles.image} src={imgSrc} />}
