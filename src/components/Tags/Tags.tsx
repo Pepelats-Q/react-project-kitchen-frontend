@@ -1,14 +1,23 @@
-import { FC, useEffect, useState } from 'react';
-import agent from '../../agent';
-import { useDispatch, useSelector } from '../../hooks/hooks';
+import { FC, useEffect, useState } from "react";
+import agent from "../../agent";
+import { useDispatch, useSelector } from "../../hooks/hooks";
 // import useTranslate from '../../hooks/useTranslate';
-import { loadAllArticles, setFilteredArticles } from '../../services/reducers/articlelist-reducer';
-import Tag from './Tag/Tag';
-import styles from './Tags.module.scss';
+import {
+  loadAllArticles,
+  setFilteredArticles,
+  setTagActive,
+} from "../../services/reducers/articlelist-reducer";
+import Tag from "./Tag/Tag";
+import styles from "./Tags.module.scss";
 
-const Tags: FC<{ tags: Array<string> }> = ({ tags }) => {
+const Tags: FC<{ tags?: Array<string>; place?: string }> = ({
+  tags,
+  place,
+}) => {
   const dispatch = useDispatch();
-  const [currentArticlesToFilter, setCurrentArticlesToFilter] = useState<Array<any>>([]);
+  const [currentArticlesToFilter, setCurrentArticlesToFilter] = useState<
+    Array<any>
+  >([]);
 
   const {
     articlesYourPosts,
@@ -17,6 +26,7 @@ const Tags: FC<{ tags: Array<string> }> = ({ tags }) => {
     articlesYourFeed,
     activeTag,
     currentTab,
+    tabTags,
   } = useSelector((store) => ({
     articlesYourPosts: store.articleList.articlesProfileYourPosts,
     articlesUserFavorites: store.articleList.articlesProfileFavorites,
@@ -24,11 +34,12 @@ const Tags: FC<{ tags: Array<string> }> = ({ tags }) => {
     articlesYourFeed: store.articleList.articlesYourFeed,
     activeTag: store.articleList.tag,
     currentTab: store.articleList.tab,
+    tabTags: store.articleList.currentTags,
   }));
 
   const filterGivenArticlesByClick = (tag: any) => {
     const shownFilteredArticles = currentArticlesToFilter.filter((article) =>
-      article.tagList.includes(tag),
+      article.tagList.includes(tag)
     );
     return shownFilteredArticles;
   };
@@ -36,6 +47,7 @@ const Tags: FC<{ tags: Array<string> }> = ({ tags }) => {
   const activateTag = (tag: any) => {
     const yourfiltered = filterGivenArticlesByClick(tag);
     dispatch(setFilteredArticles({ tab: currentTab, articles: yourfiltered }));
+    dispatch(setTagActive({ tag }));
   };
 
   const deactivateTag = () => {
@@ -43,21 +55,29 @@ const Tags: FC<{ tags: Array<string> }> = ({ tags }) => {
   };
 
   useEffect(() => {
-    if (currentTab === 'your-posts') {
+    if (currentTab === "your-posts") {
       setCurrentArticlesToFilter(articlesYourPosts);
-    } else if (currentTab === 'favorites') {
+    } else if (currentTab === "favorites") {
       setCurrentArticlesToFilter(articlesUserFavorites);
-    } else if (currentTab === 'feed') {
+    } else if (currentTab === "feed") {
       setCurrentArticlesToFilter(articlesYourFeed);
     } else {
       setCurrentArticlesToFilter(articlesAll);
     }
-  }, [currentTab, articlesYourPosts, articlesUserFavorites, articlesYourFeed, articlesAll]);
+  }, [
+    currentTab,
+    articlesYourPosts,
+    articlesUserFavorites,
+    articlesYourFeed,
+    articlesAll,
+  ]);
 
-  if (tags.length > 0) {
+  const currentTags = (place === "sidebar") ? tabTags : tags;
+
+  if (currentTags) {
     return (
       <div className={styles.tag_list}>
-        {tags.map((tag) => {
+        {currentTags.map((tag) => {
           const handleClick = () => {
             if (tag === activeTag) {
               deactivateTag();

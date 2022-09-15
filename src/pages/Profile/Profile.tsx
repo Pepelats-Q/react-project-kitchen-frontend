@@ -18,6 +18,7 @@ import {
   changeTab,
   loadAllTags,
   profileClearArticlesPageUnloaded,
+  setCurrentTabTags,
 } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
@@ -102,15 +103,15 @@ const Profile: FC = () => {
     }
   }, [user, currentProfile, isFavorite]);
 
-  const [currentProfileTags, setCurrentProfileTags] = useState<Array<any>>([]);
 
   useEffect(() => {
     if (isFavorite) {
       setCurrentArticles(articlesUserFavorites);
-      setCurrentProfileTags(defineThisTabTags(articlesUserFavorites));
+      // console.log('defining tagsFAV: ', defineThisTabTags(articlesUserFavorites));
+      dispatch(setCurrentTabTags({payload: defineThisTabTags(articlesUserFavorites)}));
     } else {
       setCurrentArticles(articlesUserPosts);
-      setCurrentProfileTags(defineThisTabTags(articlesUserPosts));
+      dispatch(setCurrentTabTags({payload: defineThisTabTags(articlesUserPosts)}));
     }
   }, [articlesUserFavorites, articlesUserPosts, isFavorite]);
 
@@ -194,7 +195,6 @@ const Profile: FC = () => {
       <ArticlesWithTabs
         articles={currentArticles}
         tabsNames={tabsNames}
-        tags={currentProfileTags}
       />
     </div>
   );

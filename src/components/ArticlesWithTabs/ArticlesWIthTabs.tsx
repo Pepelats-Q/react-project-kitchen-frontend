@@ -14,10 +14,9 @@ import { loadAllArticles } from '../../services/reducers/articlelist-reducer';
 type TArticlesWithTabsProps = {
   tabsNames: Array<TNames>;
   articles: Array<TArticle>;
-  tags: Array<string>;
 };
 
-const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, tags }) => {
+const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles }) => {
   const { activeTag } = useSelector((store) => ({
     activeTag: store.articleList.tag,
   }));
@@ -44,7 +43,7 @@ const ArticlesWithTabs: FC<TArticlesWithTabsProps> = ({ tabsNames, articles, tag
             <p className={clsx(styles.title, 'text-default')}>
               {localization({ page: 'common', key: 'tagsTitle' })}
             </p>
-            <Tags tags={tags} />
+            <Tags place='sidebar' />
           </div>
         </div>
       </div>

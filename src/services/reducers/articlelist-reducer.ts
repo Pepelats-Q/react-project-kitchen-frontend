@@ -12,6 +12,7 @@ type TArticleListState = {
   tab: string | null;
   tag: string | null;
   tags: Array<string>;
+  currentTags: Array<string>;
 };
 
 interface IArticleFavorite {
@@ -101,6 +102,7 @@ const initialState: TArticleListState = {
   tab: null,
   tag: null,
   tags: [],
+  currentTags: [],
 };
 
 const articleListReducer = createSlice({
@@ -148,8 +150,13 @@ const articleListReducer = createSlice({
       state.tab = null;
       state.tag = action.payload.tag ? action.payload.tag : null;
     },
+    setTagActive(state, action: any) {
+      state.tag = action.payload.tag ? action.payload.tag : null;
+    },
+    setCurrentTabTags(state, action: any){
+      state.currentTags = action.payload.payload ? action.payload.payload : null;
+    },
     changeTab(state, action: IChangeTab) {
-      console.log('action changetab: ', action.payload.tab);
       state.pager = action.payload.pager;
       if (action.payload.tab === 'feed') {
         state.articlesYourFeed = action.payload.payload.articles;
@@ -191,6 +198,8 @@ export const {
   setPageAction,
   loadAllTags,
   applyTagFilter,
+  setTagActive,
+  setCurrentTabTags,
   changeTab,
   setFilteredArticles,
   profileClearArticlesPageUnloaded,

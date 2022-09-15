@@ -8,6 +8,7 @@ import {
   changeTab,
   homePageClearArticlesUnloaded,
   loadAllTags,
+  setCurrentTabTags,
 } from '../../services/reducers/articlelist-reducer';
 import useTranslate from '../../hooks/useTranslate';
 import { useDispatch, useSelector } from '../../hooks/hooks';
@@ -67,15 +68,18 @@ const Home: FC = () => {
     }
   }, [isFeed]);
 
-  const [currentHomeTags, setCurrentHomeTags] = useState<Array<any>>([]);
+  // const [currentHomeTags, setCurrentHomeTags] = useState<Array<any>>([]);
 
   useEffect(() => {
     if (isFeed) {
       setCurrentArticles(articlesYourFeed);
-      setCurrentHomeTags(defineThisTabTags(articlesYourFeed));
+      // setCurrentHomeTags(defineThisTabTags(articlesYourFeed));
+      console.log('defining tagsFAV: ', defineThisTabTags(articlesYourFeed));
+      dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesYourFeed) }));
     } else {
       setCurrentArticles(articlesAll);
-      setCurrentHomeTags(defineThisTabTags(articlesAll));
+      // setCurrentHomeTags(defineThisTabTags(articlesAll));
+      dispatch(setCurrentTabTags({ payload: defineThisTabTags(articlesAll) }));
     }
   }, [articlesYourFeed, articlesAll, isFeed]);
 
@@ -92,13 +96,9 @@ const Home: FC = () => {
     <div className={styles.home_page}>
       <Banner />
       {token ? (
-        <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNames} tags={currentHomeTags} />
+        <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNames} />
       ) : (
-        <ArticlesWithTabs
-          articles={articlesAll}
-          tabsNames={tabsNamesNoAuth}
-          tags={currentHomeTags}
-        />
+        <ArticlesWithTabs articles={articlesAll} tabsNames={tabsNamesNoAuth} />
       )}
     </div>
   );
