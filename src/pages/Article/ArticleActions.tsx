@@ -21,22 +21,26 @@ const ArticleActions: FC<TArticleProps> = ({ article, canModify }) => {
   if (canModify) {
     return (
       <div className={styles.actions}>
-        <NavButton
-          className={styles.action}
-          icon={<EditIcon size='small' />}
-          to={`/editor/${article.slug}`}
-          type='primary'
-        >
-          {localization({ page: 'articlesLang', key: 'edit' })}
-        </NavButton>
-        <Button
-          className={`${styles.action} ${styles.action_delete}`}
-          icon={<TrashIcon />}
-          onClick={onDeleteHandler}
-          type='outline_alert'
-        >
-          {localization({ page: 'articlesLang', key: 'delete' })}
-        </Button>
+        <div className={styles.action_container}>
+          <NavButton
+            className={styles.action}
+            icon={<EditIcon size='small' />}
+            to={`/editor/${article.slug}`}
+            type='primary'
+          >
+            {localization({ page: 'articlesLang', key: 'edit' })}
+          </NavButton>
+        </div>
+        <div className={styles.action_container}>
+          <Button
+            className={`${styles.action} ${styles.action_delete}`}
+            icon={<TrashIcon />}
+            onClick={onDeleteHandler}
+            type='outline_alert'
+          >
+            {localization({ page: 'articlesLang', key: 'delete' })}
+          </Button>
+        </div>
       </div>
     );
   }

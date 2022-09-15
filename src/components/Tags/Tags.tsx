@@ -64,7 +64,7 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
   const currentTags = isSidebar ? tabTags : tags;
 
   const noTags = isSidebar ? (
-    <div className={styles.message}>{localization({ page: 'articleLang', key: 'noTags' })}</div>
+    <div className={styles.message}>{localization({ page: 'articlesLang', key: 'noTags' })}</div>
   ) : (
     <div />
   );
@@ -80,7 +80,7 @@ const Tags: FC<{ tags?: Array<string>; place?: string }> = ({ tags, place }) => 
               activateTag(tag);
             }
           };
-          return (place !== 'article') ? (
+          return place !== 'article' ? (
             <Tag key={tag} handleClick={handleClick} tag={tag} />
           ) : (
             <Tag key={tag} tag={tag} />

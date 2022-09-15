@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { TtodoAny } from '../../utils/types';
 
 type TAuthState = {
-  /* TODO: пока оставлю типизацию ошибок, позже сделаем */
   errors: TtodoAny | null;
   inProgress: boolean;
 };
@@ -58,7 +57,6 @@ const authReducer = createSlice({
     registerPageUnload() {
       return { ...initialState };
     },
-    // Избавиться от UPDATE_FIELD_AUTH
     asyncStart(state, action: IAsyncStart) {
       if (
         action.payload === authReducer.actions.login.type ||

@@ -16,13 +16,13 @@
   flex-wrap: nowrap;
 }
 
-.group_layout_icons{
+.group_layout_icons {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   row-gap: 16px;
   margin-bottom: 16px;
-  & > div{
+  & > div {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -37,7 +37,7 @@
   color: $color-primary;
 }
 
-.props{
+.props {
   color: $color-disabled;
 }
 

@@ -31,11 +31,11 @@
     border-left: 1px solid $color-input;
     border-radius: 20px 0 0 20px;
   }
-  
+
   &:last-child {
     border-radius: 0 20px 20px 0;
   }
-  
+
   &:hover {
     background-color: $color-input;
     transition: background-color 0.5s;
@@ -46,7 +46,7 @@
   box-sizing: border-box;
   background-color: $color-accent;
   border-color: transparent !important;
-  
+
   &:hover {
     background-color: $color-accent-light;
     transition: background-color 0.5s;

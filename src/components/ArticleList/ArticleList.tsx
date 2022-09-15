@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useSelector } from '../../hooks/hooks';
 import useTranslate from '../../hooks/useTranslate';
 import { TArticle } from '../../utils/types';
 import ArticlePreview from '../ArticlePreview/ArticlePreview';
@@ -12,6 +13,7 @@ type TArticleListProps = {
 
 const ArticleList: FC<TArticleListProps> = ({ articles, pager }) => {
   const localization = useTranslate();
+  const filterActivated = useSelector((store) => store.articleList.filterActivated);
 
   if (!articles) {
     return (
@@ -35,7 +37,7 @@ const ArticleList: FC<TArticleListProps> = ({ articles, pager }) => {
         <ArticlePreview key={article.slug} article={article} />
       ))}
 
-      {articles.length > 9 ? <ListPagination pager={pager} /> : ''}
+      {!filterActivated ? <ListPagination pager={pager} /> : ''}
     </div>
   );
 };

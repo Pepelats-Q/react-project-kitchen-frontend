@@ -34,6 +34,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .title {
@@ -49,6 +50,7 @@
 .meta {
   width: 100%;
   display: flex;
+  box-sizing: border-box;
 }
 
 .usermeta {
@@ -139,31 +141,21 @@
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 1120px) {
-  .mainArticle {
-    padding: 0 16px;
+@media screen and (max-width: 1140px) {
+  .page {
+    padding: 0 24px;
     box-sizing: border-box;
   }
   .actions {
     flex-direction: column;
     margin: 12px 0;
   }
-  .meta {
-    padding: 0 16px;
-    box-sizing: border-box;
-  }
-}
 
-@media screen and (max-width: 960px) {
-  .meta {
-    padding: 0 20px;
+  .action_container {
+    margin: 0 0 12px 0;
   }
-}
-
-@media screen and (max-width: 768px) {
-  .mainArticle {
-    padding: 0 12px;
-    box-sizing: border-box;
+  .action_container:last-of-type {
+    margin: 0;
   }
 }
 
@@ -174,6 +166,13 @@
 
   .actions {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin: 12px 0;
+  }
+
+  .action_container {
+    padding: 0;
+    box-sizing: border-box;
   }
 }

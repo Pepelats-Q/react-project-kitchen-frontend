@@ -50,7 +50,6 @@ const Home: FC = () => {
   }, []);
 
   const defineThisTabTags = (givenArticles: Array<any>) => {
-    // собирает теги с одной страницы
     let allTagsOfThisTab: Array<any> = [];
     givenArticles.forEach((article) => {
       allTagsOfThisTab = allTagsOfThisTab.concat(article.tagList);
@@ -121,7 +120,7 @@ const Home: FC = () => {
       {token ? (
         <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNames} />
       ) : (
-        <ArticlesWithTabs articles={articlesAll} tabsNames={tabsNamesNoAuth} />
+        <ArticlesWithTabs articles={currentArticles} tabsNames={tabsNamesNoAuth} />
       )}
     </div>
   );
