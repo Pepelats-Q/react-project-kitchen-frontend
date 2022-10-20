@@ -1,0 +1,64 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin: 32px 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 24px 0 0;
+  box-sizing: border-box;
+}
+
+.tags {
+  width: 100%;
+  max-width: 268px;
+}
+
+.sidebar {
+  padding: 16px;
+  background-color: $color-bg-secondary;
+  border-radius: 20px;
+  color: $color-primary;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 12px;
+}
+
+@media screen and (max-width: 768px) {
+  .box {
+    flex-direction: column-reverse;
+  }
+  .tags {
+    max-width: 750px;
+  }
+
+  .children {
+    margin: 0;
+  }
+}

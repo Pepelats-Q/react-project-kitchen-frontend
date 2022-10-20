@@ -1,0 +1,17 @@
+@import '/src/components/ui-library/ui-style/ui-style.scss';
+
+.btn_toTop {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  font-size: 18px;
+  background-color: $color-bg-secondary;
+}
+
+.btn_toTop_hidden {
+  display: none;
+}
+
+.btn_toTop_shown {
+  display: flex;
+}

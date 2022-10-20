@@ -1,0 +1,209 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+$animation_time: 0.5s;
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-bg-secondary;
+  border-radius: 0;
+  min-height: 60px;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.nav {
+  color: $color-primary;
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.navLink {
+  color: $color-secondary;
+  padding-top: 0.425rem;
+  padding-bottom: 0.425rem;
+  display: block;
+  font-family: 'JetBrains Mono', sans-serif;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.4s ease-in;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  max-width: $container-width;
+  width: 100%;
+  align-items: center;
+}
+
+.navItem {
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navItem:last-of-type {
+  padding: 0;
+  display: flex;
+}
+
+.navLink:active {
+  color: $color-primary;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: $color-primary;
+  text-decoration: none;
+  transition: color 0.4s ease-in;
+}
+
+.navLink:hover > .menuIcon {
+  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(181deg) brightness(100%) contrast(100%);
+  transition: filter 0.4s ease-in;
+}
+
+.navLink:hover > .profileIcon {
+  filter: invert(97%) sepia(16%) saturate(8%) hue-rotate(181deg) brightness(99%) contrast(93%);
+}
+
+.navLinkSelected {
+  color: $color-primary !important;
+  text-decoration: none !important;
+}
+.image {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.navLogo {
+  color: $color-primary !important;
+  text-decoration: none !important;
+  font-size: 24px;
+  font-family: 'Exo 2';
+  font-weight: 700;
+  padding-top: 0;
+  margin-right: 2rem;
+  text-shadow: 0 4px 32px $color-accent, 0 0 8px $color-accent;
+}
+
+.navLogo:hover {
+  cursor: pointer;
+  color: $color-primary !important;
+  opacity: 0.7;
+  text-decoration: none !important;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.navLogo:active {
+  color: $color-primary !important;
+  text-decoration: none !important;
+}
+
+.menuIconActive,
+.profileIconActive {
+  filter: invert(10%) sepia(0%) saturate(0%) hue-rotate(181deg) brightness(100%) contrast(100%) !important;
+}
+
+.menuIcon {
+  filter: invert(54%) sepia(12%) saturate(778%) hue-rotate(201deg) brightness(97%) contrast(96%);
+  padding: 0;
+  margin: 0 8px 0 0;
+  transition: filter 0.4s ease-in;
+}
+
+.profileIcon {
+  padding: 0;
+  margin: 0 8px 0 0;
+}
+
+.mobileNav {
+  display: flex;
+  list-style-type: none;
+  flex-direction: column;
+  margin: 0;
+  padding: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.button_type_mobile {
+  background-color: transparent;
+  border: 0;
+  display: none;
+}
+
+.button_type_mobile:focus {
+  border: none;
+  outline: none;
+}
+
+.button_type_close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: $color-primary;
+  background-color: transparent;
+  font-size: 30px;
+}
+
+.header__mobile {
+  position: relative;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+}
+
+.mobileNav_opened {
+  display: flex;
+}
+
+.navBtn_active {
+  color: $color-primary;
+  & svg > path {
+    stroke: $color-primary;
+    transition: stroke $animation_time;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .header {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .header {
+    padding: 0 12px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    max-width: 720px;
+  }
+  .button_type_mobile {
+    display: flex;
+    cursor: pointer;
+  }
+  .nav {
+    display: none;
+  }
+  .navItem {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0;
+  }
+}

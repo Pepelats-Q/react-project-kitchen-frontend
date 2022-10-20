@@ -1,0 +1,115 @@
+@import '../../components/ui-library/ui-style/ui-style.scss';
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $color-bg;
+  min-height: 100%;
+  align-items: center;
+}
+
+.userinfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.container {
+  width: 100%;
+  max-width: $container-width;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  width: 100%;
+  max-width: 120px;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 0 8px 0;
+}
+
+.name {
+  font-size: 24px;
+  line-height: 28px;
+  font-family: 'JetBrains Mono', sans-serif;
+  font-weight: 700;
+  color: $color-primary;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bio {
+  font-size: 14px;
+  line-height: 19px;
+  font-family: 'JetBrains Mono', sans-serif;
+  color: $color-primary;
+  margin: 0;
+  padding: 8px 0;
+}
+
+@media screen and (max-width: 1140px) {
+  .page {
+    padding: 0 24px;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .button {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .actions {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .action_container {
+    margin: 0 0 20px 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}

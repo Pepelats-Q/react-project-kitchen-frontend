@@ -1,0 +1,14 @@
+@import '/src/components/ui-library/ui-style/ui-style.scss';
+
+.tag_list {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.message {
+  font-size: 12px;
+  line-height: 18px;
+  color: $color-secondary;
+}

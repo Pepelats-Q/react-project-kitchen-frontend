@@ -1,0 +1,85 @@
+@import '../../../components/ui-library/ui-style/ui-style.scss';
+
+.banner {
+  width: 100%;
+  display: flex;
+  min-height: 150px;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Exo 2', sans-serif;
+  text-align: center;
+  box-shadow: inset 0px -1px 0px $color-input;
+  box-sizing: border-box;
+  padding: 32px 0;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.title {
+  color: $color-primary;
+  font-size: 64px;
+  line-height: 64px;
+  font-weight: bold;
+  text-shadow: 0 4px 32px $color-accent, 0 0 8px $color-accent;
+  margin: 0 0 20px 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.text {
+  color: $color-primary;
+  font-size: 24px;
+  line-height: 28px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 940px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+
+  .title {
+    font-size: 56px;
+    line-height: 56px;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .container {
+    max-width: 576px;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 32px;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 18px;
+  }
+}

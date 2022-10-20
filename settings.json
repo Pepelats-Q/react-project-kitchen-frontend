@@ -1,0 +1,12 @@
+{
+  // Форматирование кода с помощью prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Форматирование при сохранении файла
+  "editor.formatOnSave": true,
+
+  // Использовать коментарии в json файлах
+  "files.associations": {
+    "*.json": "jsonc"
+  }
+}

@@ -1,0 +1,17 @@
+@import '../../components/ui-library/ui-style/ui-style.scss';
+
+.home_page {
+  min-height: calc(100vh - 60px);
+  background-color: $color-bg;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+@media screen and (max-width: 1140px) {
+  .home_page {
+    padding: 0 24px;
+  }
+}

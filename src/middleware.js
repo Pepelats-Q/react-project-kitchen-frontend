@@ -1,58 +1,67 @@
 import agent from './agent';
 import {
-  ASYNC_START,
-  ASYNC_END,
-  LOGIN,
-  LOGOUT,
-  REGISTER
-} from './constants/actionTypes';
+  asyncEnd,
+  asyncStart,
+  login,
+  register,
+  setApiMessage,
+} from './services/reducers/auth-reducer';
+import { appLoad, logout } from './services/reducers/common-reducer';
 
-const promiseMiddleware = store => next => action => {
-  if (isPromise(action.payload)) {
-    store.dispatch({ type: ASYNC_START, subtype: action.type });
+function isPromise(v) {
+  return v && typeof v.then === 'function';
+}
 
+const promiseMiddleware = (store) => (next) => (action) => {
+  if (isPromise(action.payload?.payload)) {
+    store.dispatch(asyncStart(action.type));
+
+    // TODO: переменные currentView и currentState.viewChangeCounter вообще тут бесполезны. Они undefined
     const currentView = store.getState().viewChangeCounter;
-    const skipTracking = action.skipTracking;
 
-    action.payload.then(
-      res => {
-        const currentState = store.getState()
+    let skipTracking = false;
+    if (action.type === appLoad.type) {
+      skipTracking = true;
+    }
+
+    action.payload.payload.then(
+      (res) => {
+        const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
-          return
+          return;
         }
-        console.log('RESULT', res);
-        action.payload = res;
-        store.dispatch({ type: ASYNC_END, promise: action.payload });
+        action.payload.payload = res;
+        store.dispatch(asyncEnd(action.payload));
         store.dispatch(action);
       },
-      error => {
-        const currentState = store.getState()
+      (error) => {
+        const currentState = store.getState();
         if (!skipTracking && currentState.viewChangeCounter !== currentView) {
-          return
+          return;
         }
-        console.log('ERROR', error);
+
         action.error = true;
         action.payload = error.response.body;
-        if (!action.skipTracking) {
-          store.dispatch({ type: ASYNC_END, promise: action.payload });
+        if (!skipTracking) {
+          // TODO: передается payload, а в редьюсере не используется
+          store.dispatch(asyncEnd(action.payload));
+          store.dispatch(setApiMessage(action.payload));
         }
         store.dispatch(action);
-      }
+      },
     );
-
     return;
   }
-
   next(action);
 };
 
-const localStorageMiddleware = store => next => action => {
-  if (action.type === REGISTER || action.type === LOGIN) {
+const localStorageMiddleware = () => (next) => (action) => {
+  if (action.type === register.type || action.type === login.type) {
     if (!action.error) {
-      window.localStorage.setItem('jwt', action.payload.user.token);
-      agent.setToken(action.payload.user.token);
+      window.localStorage.setItem('jwt', action.payload.payload.user.token);
+      agent.setToken(action.payload.payload.user.token);
     }
-  } else if (action.type === LOGOUT) {
+  } else if (action.type === logout.type) {
     window.localStorage.setItem('jwt', '');
     agent.setToken(null);
   }
@@ -60,9 +69,4 @@ const localStorageMiddleware = store => next => action => {
   next(action);
 };
 
-function isPromise(v) {
-  return v && typeof v.then === 'function';
-}
-
-
-export { promiseMiddleware, localStorageMiddleware }
+export { promiseMiddleware, localStorageMiddleware };

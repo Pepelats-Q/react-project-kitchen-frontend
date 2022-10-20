@@ -1,0 +1,89 @@
+@import '../ui-style/ui-style.scss';
+
+$animation_time: 0.5s;
+
+.wrapper {
+  @include text-default;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+.label {
+  display: block;
+  color: $color-primary;
+  margin-bottom: 4px;
+  max-width: 100%;
+  padding: 0 16px;
+}
+
+.textfield {
+  align-items: center;
+  background-color: $color-input;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  box-sizing: border-box;
+  display: flex;
+  column-gap: 8px;
+  height: 40px;
+  padding: 2px 16px;
+  width: 100%;
+  transition: border-color $animation_time, color $animation_time;
+
+  &_focus {
+    border-color: $color-accent;
+    outline: 0;
+    color: $color-primary;
+    transition: border-color $animation_time, color $animation_time;
+  }
+  &_error {
+    border-color: $color-alert;
+    transition: border-color $animation_time, color $animation_time;
+  }
+  &_success {
+    border-color: $color-success;
+    transition: border-color $animation_time, color $animation_time;
+  }
+}
+
+.input {
+  color: $color-secondary;
+  background-color: $color-input;
+  box-shadow: 0;
+  -webkit-box-shadow: 0 0 0 20px $color-input inset;
+  -webkit-text-fill-color: $color-secondary;
+  border: 0px;
+  height: 100%;
+  text-overflow: ellipsis;
+  width: 100%;
+  transition: -webkit-text-fill-color $animation_time, color $animation_time;
+  
+  &:focus {
+    color: $color-primary;
+    outline: 0;
+    -webkit-text-fill-color: $color-primary;
+    transition: -webkit-text-fill-color $animation_time, color $animation_time;
+  }
+  &::placeholder {
+    color: $color-white20;
+    -webkit-text-fill-color: $color-white20;
+    transition: -webkit-text-fill-color $animation_time, color $animation_time;
+  }
+}
+
+.text {
+  color: $color-primary;
+  max-width: 100%;
+  margin-top: 8px;
+  margin-bottom: 0;
+  font-size: 12px;
+  max-width: 100%;
+  padding: 0 16px;
+  line-height: 18px;
+
+  &_error {
+    color: $color-alert;
+  }
+  &_success {
+    color: $color-success;
+  }
+}

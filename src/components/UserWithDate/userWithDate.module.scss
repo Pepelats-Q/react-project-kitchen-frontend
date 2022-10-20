@@ -1,0 +1,47 @@
+@import '../ui-library/ui-style/ui-style.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  height: 40px;
+
+  & img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+}
+
+.info {
+  margin-left: 8px;
+}
+
+.date {
+  color: $color-secondary;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  display: block;
+}
+
+.author {
+  display: inline-block;
+  color: $color-primary;
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  transition: color 0.5s;
+}
+
+.author:hover {
+  color: $color-accent;
+  transition: color 0.5s;
+}

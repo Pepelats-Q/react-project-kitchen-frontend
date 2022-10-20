@@ -1,0 +1,18 @@
+@import url('./vendor/normalize.css');
+@import url('./vendor/fonts/fonts.css');
+
+html {
+  height: 100vh;
+  padding-bottom: 0;
+}
+
+* {
+  font-family: 'JetBrains Mono', sans-serif;
+}
+
+#root,
+body {
+  background-color: #131316;
+  height: 100vh;
+  /* overflow: hidden; */
+}
